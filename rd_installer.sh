@@ -74,10 +74,10 @@ fi
 
 # Install required packages
 echo -e "Installing ${LIGHT_BLUE}${BOLD}required packages${F_END}\n"
-yum -q install -y $webserver php php-fpm php-pear php-gd php-common php-cli php-mysql php-xcache mysql-server mysql subversion git vixie-cron mailx python perl unixODBC postgresql krb5 openldap libtool-ltdl gcc-c++ gcc make pptpd > /dev/null 2>&1
+yum -q install -y ${webserver} php php-fpm php-pear php-gd php-common php-cli php-mysql php-xcache mysql-server mysql subversion git vixie-cron mailx python perl unixODBC postgresql krb5 openldap libtool-ltdl gcc-c++ gcc make pptpd > /dev/null 2>&1
 
 # Download & Install RHEL/CentOS 6 FreeRADIUS RPMs -> TODO: Compile RPMs for more OS_VERSIONs
-if [[ "$ARCH_TYPE" = "x86_64" ]]; then
+if [[ "${ARCH_TYPE}" = "x86_64" ]]; then
 	wget -q -O /etc/yum.repos.d/maorepo-el6-x86_64.repo http://www.maomuffy.com/freeradius/repo/maorepo-el6-x86_64.repo
 	yum --disablerepo=\* --enablerepo=maorepo install -y freeradius freeradius-mysql freeradius-perl freeradius-python freeradius-ldap > /dev/null 2>&1
 else
@@ -111,7 +111,7 @@ wget -q http://nodejs.org/dist/v0.10.26/node-v0.10.26.tar.gz -O ${TEMP_PATH}node
 ########### RADIUSDESK COMPONENT INSTALLATION ###########
 
 # Use web server to install to default location -> TODO: Might be useful to allow user input
-if [[ "$webserver" = "nginx" ]]; then
+if [[ "${webserver}" = "nginx" ]]; then
 	HTTP_DOCUMENT_ROOT='/usr/share/nginx/html/'
 	
 	# 1a) Nginx: php.ini
@@ -129,9 +129,9 @@ if [[ "$webserver" = "nginx" ]]; then
 	echo -e "Starting ${LIGHT_BLUE}${BOLD}services${F_END} needed by RadiusDESK\n"
 	chkconfig php-fpm on
 	service php-fpm start > /dev/null 2>&1
-	service $webserver start > /dev/null 2>&1
+	service ${webserver} start > /dev/null 2>&1
 	
-elif [[ "$webserver" = "httpd" ]]; then
+elif [[ "${webserver}" = "httpd" ]]; then
 	HTTP_DOCUMENT_ROOT='/var/www/html/'
 	
 	# 1) Apache: httpd.conf
@@ -139,7 +139,7 @@ elif [[ "$webserver" = "httpd" ]]; then
 	
 	# Start services needed by RadiusDESK
 	echo -e "Starting ${LIGHT_BLUE}${BOLD}services${F_END} needed by RadiusDESK\n"
-	service $webserver start > /dev/null 2>&1
+	service ${webserver} start > /dev/null 2>&1
 else
 	echo -e "${LIGHT_RED}${BOLD}Something happened and we can not configure your system${F_END}\n"
 	exit 1
@@ -176,10 +176,10 @@ sed -i 's|www-data|apache|g' /etc/cron.d/rd
 
 # Make paths RHEL/CentOS compartible
 echo -e "Correcting ${LIGHT_BLUE}${BOLD}files/directory paths${F_END} for compartibility\n"
-if [[ "$webserver" = "nginx" ]]; then
+if [[ "${webserver}" = "nginx" ]]; then
 	bash -c "grep -R --files-with-matches '/var/www' ${HTTP_DOCUMENT_ROOT}cake2 | sort | uniq | xargs perl -p -i.bak -e 's/\/var\/www/\/usr\/share\/nginx\/html/g'"
 	sed -i 's|/var/www/cake2|/usr/share/nginx/html/cake2|g' /etc/cron.d/rd
-elif [[ "$webserver" = "httpd" ]]; then
+elif [[ "${webserver}" = "httpd" ]]; then
 	bash -c "grep -R --files-with-matches '/var/www' ${HTTP_DOCUMENT_ROOT}cake2 | sort | uniq | xargs perl -p -i.bak -e 's/\/var\/www/\/var\/www\/html/g'"
 	sed -i 's|/var/www/cake2|/var/www/html/cake2|g' /etc/cron.d/rd
 fi
