@@ -6,7 +6,7 @@ OS_VERSION=`awk -F' ' '{ print $3 }' /etc/redhat-release`
 CONF_DIR='conf/'
 SOURCE_DIR='source/'
 IP_ADDRESS=`ifconfig eth0 | grep "inet addr" | awk -F: '{print $2}' | awk '{print $1}'`
-
+ 
 # Color Guide
 LIGHT_RED='\e[91m'
 LIGHT_GREEN='\e[92m'
