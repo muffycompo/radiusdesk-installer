@@ -36,10 +36,10 @@ esac
 # Check if user is Root
 echo -n "Checking if you are root: "
 if [[ $EUID -ne 0 ]]; then
-   echo "${LIGHT_RED}${BOLD}FAILED${F_END}" 1>&2
+   echo -e "${LIGHT_RED}${BOLD}FAILED${F_END}" 1>&2
    exit 1
 else
-   echo "${LIGHT_GREEN}${BOLD}OK${F_END}"
+   echo -e "${LIGHT_GREEN}${BOLD}OK${F_END}"
 fi
 
 # Check if SELinux is disabled
@@ -47,9 +47,9 @@ echo -n "Checking if SELinux is enabled: "
 if [[ "$(getenforce)" = "Enforcing" ]]; then
 	setenforce 0
 	sed -i.bak 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/sysconfig/selinux
-	echo "${LIGHT_YELLOW}${BOLD}Corrected${F_END}"
+	echo -e "${LIGHT_YELLOW}${BOLD}Corrected${F_END}"
 else
-	echo "${LIGHT_GREEN}${BOLD}Disabled${F_END}"
+	echo -e "${LIGHT_GREEN}${BOLD}Disabled${F_END}"
 fi
 
 # Flush iptable rules -> TODO: Revert to a more secure system
