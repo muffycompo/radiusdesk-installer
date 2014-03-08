@@ -79,10 +79,10 @@ yum -q install -y ${webserver} php php-fpm php-pear php-gd php-common php-cli ph
 # Download & Install RHEL/CentOS 6 FreeRADIUS RPMs -> TODO: Compile RPMs for more OS_VERSIONs
 if [[ "${ARCH_TYPE}" = "x86_64" ]]; then
 	wget -q -O /etc/yum.repos.d/maorepo-el6-x86_64.repo http://www.maomuffy.com/freeradius/repo/maorepo-el6-x86_64.repo
-	yum --disablerepo=\* --enablerepo=maorepo install -y freeradius freeradius-mysql freeradius-perl freeradius-python freeradius-ldap > /dev/null 2>&1
+	yum -q --disablerepo=\* --enablerepo=maorepo install -y freeradius freeradius-mysql freeradius-perl freeradius-python freeradius-ldap > /dev/null 2>&1
 else
 	wget -q -O /etc/yum.repos.d/maorepo-el6-i386.repo http://www.maomuffy.com/freeradius/repo/maorepo-el6-i386.repo
-	yum --disablerepo=\* --enablerepo=maorepo install -y freeradius freeradius-mysql freeradius-perl freeradius-python freeradius-ldap > /dev/null 2>&1
+	yum -q --disablerepo=\* --enablerepo=maorepo install -y freeradius freeradius-mysql freeradius-perl freeradius-python freeradius-ldap > /dev/null 2>&1
 fi
 
 ########### RADIUSDESK REQUIREMENTS ###########
