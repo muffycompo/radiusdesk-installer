@@ -268,6 +268,7 @@ cd ../
 sed -i 's|NODE_BIN_DIR="/usr/bin"|NODE_BIN_DIR="/usr/local/bin"|g' /etc/init.d/nodejs-socket-io
 sed -i 's|/usr/lib/node_modules|/usr/local/lib/node_modules|g' /etc/init.d/nodejs-socket-io
 sed -i "s|/usr/share/nginx/www/html/|${HTTP_DOCUMENT_ROOT}|g" /etc/init.d/nodejs-socket-io
+sed -i 's|APPLICATION_DIRECTORY="/usr/share/nginx/www/cake2/rd_cake/Setup/Node.js"|APPLICATION_DIRECTORY="${HTTP_DOCUMENT_ROOT}cake2/rd_cake/Setup/Node.js"|g' /etc/init.d/nodejs-socket-io
 
 sed -i "s|/usr/local/var/|/var/|g" ${HTTP_DOCUMENT_ROOT}cake2/rd_cake/Setup/Node.js/Logfile.node.js 
 
