@@ -70,6 +70,8 @@ if [[ ${OS_VERSION} -eq 6 ]]; then
 elif [[ ${OS_VERSION} -eq 5 ]]; then
 	rpm -Uh --quiet http://dl.fedoraproject.org/pub/epel/${OS_VERSION}/${ARCH_TYPE}/epel-release-5-4.noarch.rpm > /dev/null 2>&1
 	rpm -Uh --quiet http://poptop.sourceforge.net/yum/stable/rhel5/pptp-release-current.noarch.rpm > /dev/null 2>&1
+else
+	continue
 fi
 
 # Install required packages
