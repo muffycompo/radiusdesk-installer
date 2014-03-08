@@ -298,7 +298,7 @@ echo -e "We recommend ${LIGHT_RED}${BOLD}rebooting${F_END} you computer to ensur
 read -p "Do you want to reboot your computer now? [Y]es or [N]o: " answer
 case "$answer" in 
   y|Y|yes|Yes ) 
-	echo -e "${LIGHT_YELLOW}${BOLD}Rebooting...${F_END}"
+	echo -e "${LIGHT_YELLOW}${BOLD}Rebooting...${F_END}will be back in second :)"
 	init 6;;
   n|N|no|No ) 
 	echo -e "No biggy...we will do it another time :)";;
