@@ -296,10 +296,10 @@ echo -e "We recommend ${LIGHT_RED}${BOLD}rebooting${F_END} you computer to ensur
 read -p "Do you want to reboot your computer now? [Y]es or [N]o: " answer
 case "$answer" in 
   y|Y|yes|Yes ) 
-	echo "${LIGHT_YELLOW}${BOLD}Rebooting...${F_END}"
+	echo -e "${LIGHT_YELLOW}${BOLD}Rebooting...${F_END}"
 	init 6;;
   n|N|no|No ) 
-	echo "No biggy...we will do it another time :)";;
+	echo -e "No biggy...we will do it another time :)";;
   * ) 
 	exit 1;;
 esac
