@@ -189,14 +189,14 @@ sed -i 's|/usr/local/etc/raddb|/etc/raddb|g' ${HTTP_DOCUMENT_ROOT}cake2/rd_cake/
 sed -i 's|/usr/local/bin|/usr/bin|g' ${HTTP_DOCUMENT_ROOT}cake2/rd_cake/Config/RadiusDesk.php
 sed -i "s|'id' => 'pptp',     'active' => false|'id' => 'pptp',     'active' => true|g" ${HTTP_DOCUMENT_ROOT}cake2/rd_cake/Config/RadiusDesk.php
 sed -i 's|<script src="ext/ext-dev.js"></script>|<script src="ext/ext-all.js"></script>|g' ${HTTP_DOCUMENT_ROOT}rd/index.html
-sed -i 's|Ext.Loader.setConfig({enabled:true});|Ext.Loader.setConfig({enabled:true,disableCaching: false});|g' ${HTTP_DOCUMENT_ROOT}rd/app/app.js 
+sed -i 's|Ext.Loader.setConfig({enabled:true});|Ext.Loader.setConfig({enabled:true,disableCaching: false});|g' ${HTTP_DOCUMENT_ROOT}rd/app.js 
 
 # Import sql file to database
 echo -e "Configuring ${LIGHT_BLUE}${BOLD}MySQL Database${F_END} for RadiusDESK\n"
-mysql -u root -e "CREATE DATABASE rd;"
-mysql -u root -e "GRANT ALL PRIVILEGES ON rd.* to 'rd'@'127.0.0.1' IDENTIFIED BY 'rd';"
-mysql -u root -e "GRANT ALL PRIVILEGES ON rd.* to 'rd'@'localhost' IDENTIFIED BY 'rd';"
-mysql -u root rd < ${HTTP_DOCUMENT_ROOT}cake2/rd_cake/Setup/Db/rd.sql 
+mysql -u root -e "CREATE DATABASE rd;" > /dev/null 2>&1
+mysql -u root -e "GRANT ALL PRIVILEGES ON rd.* to 'rd'@'127.0.0.1' IDENTIFIED BY 'rd';" > /dev/null 2>&1
+mysql -u root -e "GRANT ALL PRIVILEGES ON rd.* to 'rd'@'localhost' IDENTIFIED BY 'rd';" > /dev/null 2>&1
+mysql -u root rd < ${HTTP_DOCUMENT_ROOT}cake2/rd_cake/Setup/Db/rd.sql > /dev/null 2>&1
 
 # FreeRADIUS configuration
 cp -aR ${HTTP_DOCUMENT_ROOT}cake2/rd_cake/Setup/Radius/checkrad /usr/sbin
