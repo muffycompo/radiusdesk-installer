@@ -64,19 +64,17 @@ yum -q install -y nano curl wget unzip > /dev/null 2>&1
  
 # Install EPEL/POPTOP repo
 echo -e "Installing ${LIGHT_BLUE}${BOLD}EPEL Repository${F_END}\n"
-if [[ "$OS_VERSION" = "6" ]]; then
-	yum -q install -y http://dl.fedoraproject.org/pub/epel/6/${ARCH_TYPE}/epel-release-6-8.noarch.rpm > /dev/null 2>&1
-	yum -q install -y http://poptop.sourceforge.net/yum/stable/rhel6/pptp-release-current.noarch.rpm > /dev/null 2>&1
-elif [[ "$OS_VERSION" = "5" ]]; then
-	yum -q install -y http://dl.fedoraproject.org/pub/epel/5/${ARCH_TYPE}/epel-release-5-4.noarch.rpm > /dev/null 2>&1
-	yum -q install -y http://poptop.sourceforge.net/yum/stable/rhel5/pptp-release-current.noarch.rpm > /dev/null 2>&1
+if [[ ${OS_VERSION} -eq 6 ]]; then
+	rpm -Uh --quiet http://dl.fedoraproject.org/pub/epel/${OS_VERSION}/${ARCH_TYPE}/epel-release-6-8.noarch.rpm > /dev/null 2>&1
+	rpm -Uh --quiet http://poptop.sourceforge.net/yum/stable/rhel6/pptp-release-current.noarch.rpm > /dev/null 2>&1
+elif [[ ${OS_VERSION} -eq 5 ]]; then
+	rpm -Uh --quiet http://dl.fedoraproject.org/pub/epel/${OS_VERSION}/${ARCH_TYPE}/epel-release-5-4.noarch.rpm > /dev/null 2>&1
+	rpm -Uh --quiet http://poptop.sourceforge.net/yum/stable/rhel5/pptp-release-current.noarch.rpm > /dev/null 2>&1
 fi
 
 # Install required packages
 echo -e "Installing ${LIGHT_BLUE}${BOLD}required packages${F_END}\n"
-yum -q install -y $webserver php php-fpm php-pear php-gd php-common php-cli php-mysql php-xcache \ 
-mysql-server mysql subversion git vixie-cron mailx python perl perl-* unixODBC postgresql krb5 openldap libtool-ltdl \
-gcc-c++ gcc make pptpd > /dev/null 2>&1
+yum -q install -y $webserver php php-fpm php-pear php-gd php-common php-cli php-mysql php-xcache mysql-server mysql subversion git vixie-cron mailx python perl perl-* unixODBC postgresql krb5 openldap libtool-ltdl gcc-c++ gcc make pptpd > /dev/null 2>&1
 
 # Download & Install RHEL/CentOS 6 FreeRADIUS RPMs -> TODO: Compile RPMs for more OS_VERSIONs
 if [[ "$ARCH_TYPE" = "x86_64" ]]; then
