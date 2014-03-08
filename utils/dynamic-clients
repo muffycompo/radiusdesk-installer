@@ -1,0 +1,33 @@
+#Define a client that has a 'catch all'
+client dymamic {
+        ipaddr = 0.0.0.0
+        netmask = 0
+        #We spacify the virtual server that will be used for client verification
+        dynamic_clients = dynamic_client_server
+        lifetime = 86400
+}
+ 
+server dynamic_client_server {
+        authorize {
+        #With RADIUSdesk we mis-use the optional Community field in the NAS table to specify the value of an attribute that the raw module should read
+        #In this sample we use the MAC address of the Device running Coova Chilli, but you can use any of the attributes inside the request.
+        #The mac is then added as the value of the Community optional field in YFi to create a match
+        #rlm_raw: Called-Station-Id = 08-00-27-56-22-0B
+                #Test to see if our required raw attribute exists
+                if("%{raw:NAS-Identifier}"){
+                        #Test to see if it is in the DB
+                        if ("%{sql: select count(*) from nas where nas.nasidentifier='%{raw:NAS-Identifier}'}" == 1) {
+                                update control {
+                                        FreeRADIUS-Client-IP-Address = "%{Packet-Src-IP-Address}"
+                                        FreeRADIUS-Client-Require-MA = no
+                                        FreeRADIUS-Client-Secret = "%{sql: select nas.secret from nas where nas.nasidentifier='%{raw:NAS-Identifier}'}"
+                                        FreeRADIUS-Client-Shortname = "%{sql: select nas.shortname from nas where nas.nasidentifier='%{raw:NAS-Identifier}'}"
+                                        FreeRADIUS-Client-NAS-Type = "other"
+                                        #Optional Virtual server
+                                        #FreeRADIUS-Client-Virtual-Server = "dynamic_server"
+                                }
+                                ok
+                        }
+                }
+        }
+}
