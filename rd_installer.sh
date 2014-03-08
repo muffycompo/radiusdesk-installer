@@ -18,7 +18,7 @@ BOLD='\e[1m'
 F_END='\e[0m'
 
 # Prompt for web server technology
-read -p "What web server should we use? [N]ginx or [A]pache " c
+read -p "What web server should we use? [N]ginx or [A]pache: " c
 case "$c" in 
   n|N|nginx|Nginx ) 
 	echo -e "Using ${LIGHT_BLUE}${BOLD}Nginx${F_END} Web server"
@@ -64,17 +64,17 @@ yum install -y nano curl wget unzip > /dev/null 2>&1
 
 # Install EPEL/POPTOP repo
 echo -e "Installing ${LIGHT_BLUE}${BOLD}EPEL Repository${F_END}\n"
-if [[ "$OS_VERSION" = "6.0" || "$OS_VERSION" = "6.1" || "$OS_VERSION" = "6.2" || "$OS_VERSION" = "6.3" || "$OS_VERSION" = "6.4" || "$OS_VERSION" = "6.5" ]]; then
-	yum install -y http://dl.fedoraproject.org/pub/epel/6/${ARCH_TYPE}/epel-release-6-8.noarch.rpm > /dev/null 2>&1
-	yum install -y http://poptop.sourceforge.net/yum/stable/rhel6/pptp-release-current.noarch.rpm > /dev/null 2>&1
-elif [[ "$OS_VERSION" = "5.2" || "$OS_VERSION" = "5.3" || "$OS_VERSION" = "5.4" || "$OS_VERSION" = "5.5" ]]; then
-	yum install -y http://dl.fedoraproject.org/pub/epel/5/${ARCH_TYPE}/epel-release-5-4.noarch.rpm > /dev/null 2>&1
-	yum install -y http://poptop.sourceforge.net/yum/stable/rhel5/pptp-release-current.noarch.rpm > /dev/null 2>&1
+if [[ "$OS_VERSION" = "6.0" ]] || [[ "$OS_VERSION" = "6.1" ]] || [[ "$OS_VERSION" = "6.2" ]] || [[ "$OS_VERSION" = "6.3" ]] || [[ "$OS_VERSION" = "6.4" ]] || [[ "$OS_VERSION" = "6.5" ]]; then
+	yum -q install -y http://dl.fedoraproject.org/pub/epel/6/${ARCH_TYPE}/epel-release-6-8.noarch.rpm > /dev/null 2>&1
+	yum -q install -y http://poptop.sourceforge.net/yum/stable/rhel6/pptp-release-current.noarch.rpm > /dev/null 2>&1
+elif [[ "$OS_VERSION" = "5.2" ]] || [[ "$OS_VERSION" = "5.3" ]] || [[ "$OS_VERSION" = "5.4" ]] || [[ "$OS_VERSION" = "5.5" ]]; then
+	yum -q install -y http://dl.fedoraproject.org/pub/epel/5/${ARCH_TYPE}/epel-release-5-4.noarch.rpm > /dev/null 2>&1
+	yum -q install -y http://poptop.sourceforge.net/yum/stable/rhel5/pptp-release-current.noarch.rpm > /dev/null 2>&1
 fi
 
 # Install required packages
 echo -e "Installing ${LIGHT_BLUE}${BOLD}required packages${F_END}\n"
-yum install -y $webserver php php-fpm php-pear php-gd php-common php-cli php-mysql php-xcache \ 
+yum -q install -y $webserver php php-fpm php-pear php-gd php-common php-cli php-mysql php-xcache \ 
 mysql-server mysql subversion git vixie-cron mailx python perl perl-* unixODBC postgresql krb5 openldap libtool-ltdl \
 gcc-c++ gcc make pptpd > /dev/null 2>&1
 
@@ -274,7 +274,7 @@ sed -i "s|/usr/share/nginx/www/html/|${HTTP_DOCUMENT_ROOT}|g" /etc/init.d/nodejs
 sed -i "s|/usr/local/var/|/var/|g" ${HTTP_DOCUMENT_ROOT}cake2/rd_cake/Setup/Node.js/Logfile.node.js 
 
 # Make things start on boot
-chkconfig add nodejs-socket-io
+chkconfig --add nodejs-socket-io
 chkconfig nodejs-socket-io on
 chkconfig $webserver on
 chkconfig radiusd on
@@ -287,13 +287,15 @@ service $webserver restart > /dev/null 2>&1
 service radiusd start > /dev/null 2>&1
 service pptpd restart > /dev/null 2>&1
 
+cd; rm -rf ${TEMP_PATH}
+
 echo -e "\n\n"
 echo -e "${LIGHT_GREEN}${BOLD}INSTALLATION COMPLETED SUCCESSFULLY!!!${F_END}\n"
 echo -e "To access your RadiusDESK server, visit ${LIGHT_GREEN}${BOLD}http://${IP_ADDRESS}/rd${F_END}\n"
 echo -e "USERNAME: ${LIGHT_YELLOW}${BOLD}root${F_END}  PASSWORD: ${LIGHT_YELLOW}${BOLD}admin${F_END}\n\n"
 echo -e "We recommend ${LIGHT_RED}${BOLD}rebooting${F_END} you computer to ensure everything went as planned :)\n"
 
-read -p "Do you want to reboot your computer now? [Y]es or [N]o " answer
+read -p "Do you want to reboot your computer now? [Y]es or [N]o: " answer
 case "$answer" in 
   y|Y|yes|Yes ) 
 	echo "${LIGHT_YELLOW}${BOLD}Rebooting...${F_END}"
