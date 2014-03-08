@@ -4,18 +4,30 @@
 ARCH_TYPE=`arch`
 OS_VERSION=`awk -F' ' '{ print $3 }' /etc/redhat-release`
 CONF_DIR='conf/'
+SOURCE_DIR='source/'
+IP_ADDRESS=`ifconfig eth0 | grep "inet addr" | awk -F: '{print $2}' | awk '{print $1}'`
+
+# Colour Guide
+LIGHT_RED='\e[91m'
+LIGHT_GREEN='\e[92m'
+LIGHT_BLUE='\e[94m'
+LIGHT_YELLOW='\e[93m'
+
+# Formatting Options
+BOLD='\e[1m'
+F_END='\e[0m'
 
 # Prompt for web server technology
 read -p "What web server should we use? [N]ginx or [A]pache " c
 case "$c" in 
   n|N|nginx|Nginx ) 
-	echo "Using Nginx Web server"
-	$webserver="nginx";;
+	echo -e "Using ${LIGHT_BLUE}${BOLD}Nginx${F_END} Web server"
+	webserver="nginx";;
   a|A|apache|Apache ) 
-	echo "Using Apache Web server"
-	$webserver="httpd";;
+	echo -e "Using ${LIGHT_BLUE}${BOLD}Apache${F_END} Web server"
+	webserver="httpd";;
   * ) 
-	  echo "Oops...something went wrong, perharps you made a mistake in you selection?"
+	  echo "${LIGHT_RED}Oops...something went wrong, perharps you made a mistake in you selection?${F_END}"
 	  exit 1;;
 esac
 
@@ -24,10 +36,10 @@ esac
 # Check if user is Root
 echo -n "Checking if you are root: "
 if [[ $EUID -ne 0 ]]; then
-   echo "FAILED" 1>&2
+   echo "${LIGHT_RED}${BOLD}FAILED${F_END}" 1>&2
    exit 1
 else
-   echo "OK"
+   echo "${LIGHT_GREEN}${BOLD}OK${F_END}"
 fi
 
 # Check if SELinux is disabled
@@ -35,9 +47,9 @@ echo -n "Checking if SELinux is enabled: "
 if [[ "$(getenforce)" = "Enforcing" ]]; then
 	setenforce 0
 	sed -i.bak 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/sysconfig/selinux
-	echo "Corrected"
+	echo "${LIGHT_YELLOW}${BOLD}Corrected${F_END}"
 else
-	echo "Disabled"
+	echo "${LIGHT_GREEN}${BOLD}Disabled${F_END}"
 fi
 
 # Flush iptable rules -> TODO: Revert to a more secure system
@@ -47,11 +59,11 @@ iptables -X
 service iptables save > /dev/null 2>&1
 
 # Install some packages from base repo
-echo -e "Installing pre-requisite packages"
+echo -e "Installing ${LIGHT_BLUE}${BOLD}pre-requisite packages${F_END}\n"
 yum install -y nano curl wget unzip > /dev/null 2>&1
 
 # Install EPEL/POPTOP repo
-echo -e "Installing EPEL Repository\n"
+echo -e "Installing ${LIGHT_BLUE}${BOLD}EPEL Repository${F_END}\n"
 if [[ "$OS_VERSION" = "6.0" || "$OS_VERSION" = "6.1" || "$OS_VERSION" = "6.2" || "$OS_VERSION" = "6.3" || "$OS_VERSION" = "6.4" || "$OS_VERSION" = "6.5" ]]; then
 	yum install -y http://dl.fedoraproject.org/pub/epel/6/${ARCH_TYPE}/epel-release-6-8.noarch.rpm > /dev/null 2>&1
 	yum install -y http://poptop.sourceforge.net/yum/stable/rhel6/pptp-release-current.noarch.rpm > /dev/null 2>&1
@@ -61,7 +73,7 @@ elif [[ "$OS_VERSION" = "5.2" || "$OS_VERSION" = "5.3" || "$OS_VERSION" = "5.4" 
 fi
 
 # Install required packages
-echo -e "Installing required packages\n"
+echo -e "Installing ${LIGHT_BLUE}${BOLD}required packages${F_END}\n"
 yum install -y $webserver php php-fpm php-pear php-gd php-common php-cli php-mysql php-xcache \ 
 mysql-server mysql subversion git vixie-cron mailx python perl perl-* unixODBC postgresql krb5 openldap libtool-ltdl \
 gcc-c++ gcc make pptpd > /dev/null 2>&1
@@ -82,19 +94,19 @@ mkdir -p /tmp/radiusdesk/
 TEMP_PATH='/tmp/radiusdesk/'
 
 # Download CakePHP 2.2.9 -> TODO: Find a way to make this version agnostic
-echo -e "Downloading CakePHP 2.2.9\n"
+echo -e "Downloading ${LIGHT_BLUE}${BOLD}CakePHP 2.2.9${F_END}\n"
 wget -qL https://github.com/cakephp/cakephp/archive/2.2.9.zip -O ${TEMP_PATH}cakephp-2.2.9.zip
 
 # Download Ext.Js 4.2.1
-echo -e "Downloading Ext.JS 4.2.1\n"
+echo -e "Downloading ${LIGHT_BLUE}${BOLD}Ext.JS 4.2.1${F_END}\n"
 wget -q http://sourceforge.net/p/radiusdesk/code/HEAD/tree/extjs/ext-4.2.1-gpl.zip?format=raw -O ${TEMP_PATH}ext-4.2.1-gpl.zip
 
 # Download RadiusDESK Source
-echo -e "Checking out RadiusDESK source\n"
+echo -e "Checking out ${LIGHT_BLUE}${BOLD}RadiusDESK source${F_END}\n"
 svn --quiet checkout http://svn.code.sf.net/p/radiusdesk/code/trunk ${TEMP_PATH}source > /dev/null 2>&1
 
 # Download NodeJS Source
-echo -e "Downloading NodeJS 0.10.26 source\n"
+echo -e "Downloading ${LIGHT_BLUE}${BOLD}NodeJS 0.10.26 source${F_END}\n"
 wget -q http://nodejs.org/dist/v0.10.26/node-v0.10.26.tar.gz -O ${TEMP_PATH}node-v0.10.26.tar.gz
 #npm -g install tail socket.io connect mysql forever > /dev/null 2>&1
 
@@ -116,7 +128,7 @@ if [[ "$webserver" = "nginx" ]]; then
 	cp -aR ${CONF_DIR}php-fpm/www.conf /etc/php-fpm.d/
 	
 	# Start services needed by RadiusDESK
-	echo -e "Starting services needed by RadiusDESK\n"
+	echo -e "Starting ${LIGHT_BLUE}${BOLD}services${F_END} needed by RadiusDESK\n"
 	chkconfig php-fpm on
 	service php-fpm start > /dev/null 2>&1
 	service $webserver start > /dev/null 2>&1
@@ -128,10 +140,10 @@ elif [[ "$webserver" = "httpd" ]]; then
 	cp -aR ${CONF_DIR}apache/httpd.conf /etc/httpd/conf/
 	
 	# Start services needed by RadiusDESK
-	echo -e "Starting services needed by RadiusDESK\n"
+	echo -e "Starting ${LIGHT_BLUE}${BOLD}services${F_END} needed by RadiusDESK\n"
 	service $webserver start > /dev/null 2>&1
 else
-	echo -e "Something happened and we can not configure your system\n"
+	echo -e "${LIGHT_RED}${BOLD}Something happened and we can not configure your system${F_END}\n"
 	exit 1
 fi
 
@@ -142,20 +154,20 @@ service mysqld start > /dev/null 2>&1
 cd ${TEMP_PATH}
 
 # Install CakePHP
-echo -e "Installing CakePHP\n"
+echo -e "Installing ${LIGHT_BLUE}${BOLD}CakePHP${F_END}\n"
 unzip -q cakephp-2.2.9.zip
 mv ${TEMP_PATH}cakephp-2.2.9 ${HTTP_DOCUMENT_ROOT}
 ln -s ${HTTP_DOCUMENT_ROOT}cakephp-2.2.9 ${HTTP_DOCUMENT_ROOT}cake2
 
 # Install rd_cake, rd2, meshdesk, rd_clients, rd_login_pages
-echo -e "Installing RadiusDESK\n"
-cp -aR source/rd_cake ${HTTP_DOCUMENT_ROOT}cake2/
-cp -aR source/rd2 ${HTTP_DOCUMENT_ROOT}rd
-cp -aR source/rd_login_pages ${HTTP_DOCUMENT_ROOT}rd_login_pages
-cp -aR source/rd_clients ${HTTP_DOCUMENT_ROOT}rd_clients
-cp -aR source/meshdesk ${HTTP_DOCUMENT_ROOT}meshdesk
+echo -e "Installing ${LIGHT_BLUE}${BOLD}RadiusDESK${F_END}\n"
+cp -aR ${SOURCE_DIR}rd_cake ${HTTP_DOCUMENT_ROOT}cake2/
+cp -aR ${SOURCE_DIR}rd2 ${HTTP_DOCUMENT_ROOT}rd
+cp -aR ${SOURCE_DIR}rd_login_pages ${HTTP_DOCUMENT_ROOT}rd_login_pages
+cp -aR ${SOURCE_DIR}rd_clients ${HTTP_DOCUMENT_ROOT}rd_clients
+cp -aR ${SOURCE_DIR}meshdesk ${HTTP_DOCUMENT_ROOT}meshdesk
 
-echo -e "Installing Ext.JS\n"
+echo -e "Installing ${LIGHT_BLUE}${BOLD}Ext.JS${F_END}\n"
 unzip -q ext-4.2.1-gpl.zip
 mv ext*/ ${HTTP_DOCUMENT_ROOT}rd/ext
 cp -aR ${HTTP_DOCUMENT_ROOT}rd/ext/examples/ux ${HTTP_DOCUMENT_ROOT}rd/ext/src
@@ -165,7 +177,7 @@ cp -a ${HTTP_DOCUMENT_ROOT}cake2/rd_cake/Setup/Cron/rd /etc/cron.d/
 sed -i 's|www-data|apache|g' /etc/cron.d/rd
 
 # Make paths RHEL/CentOS compartible
-echo -e "Correcting files/directory paths for compartibility\n"
+echo -e "Correcting ${LIGHT_BLUE}${BOLD}files/directory paths${F_END} for compartibility\n"
 if [[ "$webserver" = "nginx" ]]; then
 	bash -c "grep -R --files-with-matches '/var/www' ${HTTP_DOCUMENT_ROOT}cake2 | sort | uniq | xargs perl -p -i.bak -e 's/\/var\/www/\/usr\/share\/nginx\/html/g'"
 	sed -i 's|/var/www/cake2|/usr/share/nginx/html/cake2|g' /etc/cron.d/rd
@@ -182,7 +194,7 @@ sed -i 's|<script src="ext/ext-dev.js"></script>|<script src="ext/ext-all.js"></
 sed -i 's|Ext.Loader.setConfig({enabled:true});|Ext.Loader.setConfig({enabled:true,disableCaching: false});|g' ${HTTP_DOCUMENT_ROOT}rd/app/app.js 
 
 # Import sql file to database
-echo -e "Configuring Database for RadiusDESK\n"
+echo -e "Configuring ${LIGHT_BLUE}${BOLD}MySQL Database${F_END} for RadiusDESK\n"
 mysql -u root -e "CREATE DATABASE rd;"
 mysql -u root -e "GRANT ALL PRIVILEGES ON rd.* to 'rd'@'127.0.0.1' IDENTIFIED BY 'rd';"
 mysql -u root -e "GRANT ALL PRIVILEGES ON rd.* to 'rd'@'localhost' IDENTIFIED BY 'rd';"
@@ -249,7 +261,7 @@ chmod 755 /etc/init.d/nodejs-socket-io
 
 # NodeJS Installation
 tar xzf node-v0.10.26.tar.gz
-echo -e "Installing NodeJS\n"
+echo -e "Installing ${LIGHT_BLUE}${BOLD}NodeJS${F_END}\n"
 cd node-v0*/
 ./configure > /dev/null 2>&1; make > /dev/null 2>&1 && make install > /dev/null 2>&1
 npm -g install tail socket.io connect mysql forever > /dev/null 2>&1
@@ -269,8 +281,27 @@ chkconfig radiusd on
 chkconfig pptpd on
 
 # Start/Restart services
-service nodejs-socket-io start
-service $webserver restart
-service radiusd start
-service pptpd restart
+echo -e "Checking if services are ${LIGHT_BLUE}${BOLD}fully Operational${F_END}\n"
+service nodejs-socket-io start > /dev/null 2>&1
+service $webserver restart > /dev/null 2>&1
+service radiusd start > /dev/null 2>&1
+service pptpd restart > /dev/null 2>&1
 
+echo -e "\n\n"
+echo -e "${LIGHT_GREEN}${BOLD}INSTALLATION COMPLETED SUCCESSFULLY!!!${F_END}\n"
+echo -e "To access your RadiusDESK server, visit ${LIGHT_GREEN}${BOLD}http://${IP_ADDRESS}/rd${F_END}\n"
+echo -e "USERNAME: ${LIGHT_YELLOW}${BOLD}root${F_END}  PASSWORD: ${LIGHT_YELLOW}${BOLD}admin${F_END}\n\n"
+echo -e "We recommend ${LIGHT_RED}${BOLD}rebooting${F_END} you computer to ensure everything went as planned :)\n"
+
+read -p "Do you want to reboot your computer now? [Y]es or [N]o " answer
+case "$answer" in 
+  y|Y|yes|Yes ) 
+	echo "${LIGHT_YELLOW}${BOLD}Rebooting...${F_END}"
+	init 6;;
+  n|N|no|No ) 
+	echo "No biggy...we will do it another time :)";;
+  * ) 
+	exit 1;;
+esac
+
+# END
