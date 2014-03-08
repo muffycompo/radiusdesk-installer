@@ -2,11 +2,11 @@
 
 # Define Utility variables
 ARCH_TYPE=`arch`
-OS_VERSION=`awk -F' ' '{ print $3 }' /etc/redhat-release`
+OS_VERSION=`awk -F' ' '{ print $3 }' /etc/redhat-release | grep -o "[0-9]" | head -1`
 CONF_DIR='conf/'
 SOURCE_DIR='source/'
 IP_ADDRESS=`ifconfig eth0 | grep "inet addr" | awk -F: '{print $2}' | awk '{print $1}'`
- 
+  
 # Color Guide
 LIGHT_RED='\e[91m'
 LIGHT_GREEN='\e[92m'
@@ -60,14 +60,14 @@ service iptables save > /dev/null 2>&1
 
 # Install some packages from base repo
 echo -e "Installing ${LIGHT_BLUE}${BOLD}pre-requisite packages${F_END}\n"
-yum install -y nano curl wget unzip > /dev/null 2>&1
+yum -q install -y nano curl wget unzip > /dev/null 2>&1
 
 # Install EPEL/POPTOP repo
 echo -e "Installing ${LIGHT_BLUE}${BOLD}EPEL Repository${F_END}\n"
-if [[ "$OS_VERSION" = "6.0" ]] || [[ "$OS_VERSION" = "6.1" ]] || [[ "$OS_VERSION" = "6.2" ]] || [[ "$OS_VERSION" = "6.3" ]] || [[ "$OS_VERSION" = "6.4" ]] || [[ "$OS_VERSION" = "6.5" ]]; then
+if [[ "$OS_VERSION" = "6" ]]; then
 	yum -q install -y http://dl.fedoraproject.org/pub/epel/6/${ARCH_TYPE}/epel-release-6-8.noarch.rpm > /dev/null 2>&1
 	yum -q install -y http://poptop.sourceforge.net/yum/stable/rhel6/pptp-release-current.noarch.rpm > /dev/null 2>&1
-elif [[ "$OS_VERSION" = "5.2" ]] || [[ "$OS_VERSION" = "5.3" ]] || [[ "$OS_VERSION" = "5.4" ]] || [[ "$OS_VERSION" = "5.5" ]]; then
+elif [[ "$OS_VERSION" = "5" ]]; then
 	yum -q install -y http://dl.fedoraproject.org/pub/epel/5/${ARCH_TYPE}/epel-release-5-4.noarch.rpm > /dev/null 2>&1
 	yum -q install -y http://poptop.sourceforge.net/yum/stable/rhel5/pptp-release-current.noarch.rpm > /dev/null 2>&1
 fi
