@@ -74,7 +74,7 @@ fi
 
 # Install required packages
 echo -e "Installing ${LIGHT_BLUE}${BOLD}required packages${F_END}\n"
-yum -q install -y $webserver php php-fpm php-pear php-gd php-common php-cli php-mysql php-xcache mysql-server mysql subversion git vixie-cron mailx python perl perl-* unixODBC postgresql krb5 openldap libtool-ltdl gcc-c++ gcc make pptpd > /dev/null 2>&1
+yum -q install -y $webserver php php-fpm php-pear php-gd php-common php-cli php-mysql php-xcache mysql-server mysql subversion git vixie-cron mailx python perl unixODBC postgresql krb5 openldap libtool-ltdl gcc-c++ gcc make pptpd > /dev/null 2>&1
 
 # Download & Install RHEL/CentOS 6 FreeRADIUS RPMs -> TODO: Compile RPMs for more OS_VERSIONs
 if [[ "$ARCH_TYPE" = "x86_64" ]]; then
