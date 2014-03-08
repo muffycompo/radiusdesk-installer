@@ -2,7 +2,7 @@
 
 # Define Utility variables
 ARCH_TYPE=`arch`
-OS_VERSION=`awk -F' ' '{ print $3 }' /etc/redhat-release | grep -o "[0-9]" | head -1`
+OS_VERSION=`awk -F' ' '{ print $0 }' /etc/redhat-release | grep -o "[0-9]" | head -1`
 CONF_DIR='conf/'
 SOURCE_DIR='source/'
 IP_ADDRESS=`ifconfig eth0 | grep "inet addr" | awk -F: '{print $2}' | awk '{print $1}'`
