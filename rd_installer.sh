@@ -61,7 +61,7 @@ service iptables save > /dev/null 2>&1
 # Install some packages from base repo
 echo -e "Installing ${LIGHT_BLUE}${BOLD}pre-requisite packages${F_END}\n"
 yum -q install -y nano curl wget unzip > /dev/null 2>&1
-
+ 
 # Install EPEL/POPTOP repo
 echo -e "Installing ${LIGHT_BLUE}${BOLD}EPEL Repository${F_END}\n"
 if [[ "$OS_VERSION" = "6" ]]; then
