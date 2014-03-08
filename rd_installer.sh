@@ -277,6 +277,7 @@ chkconfig nodejs-socket-io on
 chkconfig $webserver on
 chkconfig radiusd on
 chkconfig pptpd on
+chkconfig mysqld on
 
 # Start/Restart services
 echo -e "Checking if services are ${LIGHT_BLUE}${BOLD}fully Operational${F_END}\n"
