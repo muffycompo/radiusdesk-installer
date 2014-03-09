@@ -33,7 +33,7 @@ case "$c" in
 	echo -e "Using ${LIGHT_BLUE}${BOLD}Apache${F_END} Web server"
 	webserver="httpd";;
   * ) 
-	  echo "${LIGHT_RED}Oops...something went wrong, perharps you made a mistake in you selection?${F_END}"
+	  echo -e "${LIGHT_RED}Oops...something went wrong, perharps you made a mistake in you selection?${F_END}"
 	  exit 1;;
 esac
 
