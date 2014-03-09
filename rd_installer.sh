@@ -289,7 +289,7 @@ service pptpd restart > /dev/null 2>&1
 
 cd; rm -rf ${TEMP_PATH}
 
-echo -e "\n\n"
+echo -e "\n"
 echo -e "${LIGHT_GREEN}${BOLD}INSTALLATION COMPLETED SUCCESSFULLY!!!${F_END}\n"
 echo -e "To access your RadiusDESK server, visit ${LIGHT_GREEN}${BOLD}http://${IP_ADDRESS}/rd${F_END}\n"
 echo -e "USERNAME: ${LIGHT_YELLOW}${BOLD}root${F_END}  PASSWORD: ${LIGHT_YELLOW}${BOLD}admin${F_END}\n\n"
