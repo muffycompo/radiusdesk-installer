@@ -14,7 +14,7 @@ This project tries to simplify or ease the process of getting a working installa
 4. When the script is done installing and configuring your system, we recommend rebooting your machine/server to ensure everything is persistent on reboot.
 
 ## Limitations
-1. The installer only installs RadiusDESK on a RHEL/CentOS 6.x machines/servers
+1. The installer only works RadiusDESK on a RHEL/CentOS 6.x machines/servers
 2. Installer assumes default installation values (Database passwords, FreeRADIUS secrets etc)
 
 ## Resources
