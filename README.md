@@ -9,7 +9,7 @@ This project tries to simplify or ease the process of getting a working installa
    a) If you have git already installed, just use `git clone git clone https://github.com/muffycompo/radiusdesk-installer.git`. **Note:** you can install git on RHEL/CentOS 6.x via yum (`yum install -y wget unzip`)
    
    b) If you prefer to download the zip file `wget -cL https://github.com/muffycompo/radiusdesk-installer/archive/master.zip`. **Note:** just make sure you have **wget** and **unzip** installed (`yum install -y wget unzip`)
-2. Run/execute the Installer script `cd radiusdesk-installer; ./rd_installer.sh` and choose your preffered web server (**Nginx** or **Apache**)
+2. Run/execute the Installer script `cd radiusdesk-installer; ./rd_installer.sh` and choose your preferred web server (**Nginx** or **Apache**)
 3. Grab yourself a cup of Coffee as the installer installs all the components required to have a working RadiusDESK server.
 4. When the script is done installing and configuring your system, we recommend rebooting your machine/server to ensure everything is persistent on reboot.
 
