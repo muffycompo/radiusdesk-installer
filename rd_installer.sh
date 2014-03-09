@@ -141,6 +141,7 @@ elif [[ "${webserver}" = "httpd" ]]; then
 	HTTP_DOCUMENT_ROOT='/var/www/html/'
 	
 	# 1) Apache: httpd.conf
+	cp -aR ${CONF_DIR}php.ini /etc/
 	cp -aR ${CONF_DIR}apache/httpd.conf /etc/httpd/conf/
 	
 	# Start services needed by RADIUSdesk
