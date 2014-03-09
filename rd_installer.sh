@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Description: This project tries to simplify or ease the process of getting a working installation of RadiusDESK on a vanilla/minimal installation of RHEL/CentOS 6.X (32 bit/64 bit).
+# Author: Mfawa Alfred Onen
+# Link/URL: https://github.com/muffycompo/radiusdesk-installer
+# Date: March 09, 2014
+# Usage: ./rd_installer.sh
+
 # Define Utility variables
 ARCH_TYPE=`arch`
 OS_VERSION=`awk -F' ' '{ print $0 }' /etc/redhat-release | grep -o "[0-9]" | head -1`
@@ -99,8 +105,8 @@ wget -qL https://github.com/cakephp/cakephp/archive/2.2.9.zip -O ${TEMP_PATH}cak
 echo -e "Downloading ${LIGHT_BLUE}${BOLD}Ext.JS 4.2.1${F_END}\n"
 wget -q http://sourceforge.net/p/radiusdesk/code/HEAD/tree/extjs/ext-4.2.1-gpl.zip?format=raw -O ${TEMP_PATH}ext-4.2.1-gpl.zip
 
-# Download RadiusDESK Source
-echo -e "Checking out ${LIGHT_BLUE}${BOLD}RadiusDESK source${F_END}\n"
+# Download RADIUSdesk Source
+echo -e "Checking out ${LIGHT_BLUE}${BOLD}RADIUSdesk source${F_END}\n"
 svn --quiet checkout http://svn.code.sf.net/p/radiusdesk/code/trunk ${TEMP_PATH}source > /dev/null 2>&1
 
 # Download NodeJS Source
@@ -125,8 +131,8 @@ if [[ "${webserver}" = "nginx" ]]; then
 	# 1c) php-fpm: www.conf
 	cp -aR ${CONF_DIR}php-fpm/www.conf /etc/php-fpm.d/
 	
-	# Start services needed by RadiusDESK
-	echo -e "Starting ${LIGHT_BLUE}${BOLD}services${F_END} needed by RadiusDESK\n"
+	# Start services needed by RADIUSdesk
+	echo -e "Starting ${LIGHT_BLUE}${BOLD}services${F_END} needed by RADIUSdesk\n"
 	chkconfig php-fpm on
 	service php-fpm start > /dev/null 2>&1
 	service ${webserver} start > /dev/null 2>&1
@@ -137,15 +143,15 @@ elif [[ "${webserver}" = "httpd" ]]; then
 	# 1) Apache: httpd.conf
 	cp -aR ${CONF_DIR}apache/httpd.conf /etc/httpd/conf/
 	
-	# Start services needed by RadiusDESK
-	echo -e "Starting ${LIGHT_BLUE}${BOLD}services${F_END} needed by RadiusDESK\n"
+	# Start services needed by RADIUSdesk
+	echo -e "Starting ${LIGHT_BLUE}${BOLD}services${F_END} needed by RADIUSdesk\n"
 	service ${webserver} start > /dev/null 2>&1
 else
 	echo -e "${LIGHT_RED}${BOLD}Something happened and we can not configure your system${F_END}\n"
 	exit 1
 fi
 
-# Start services needed by RadiusDESK contd.
+# Start services needed by RADIUSdesk contd.
 service mysqld start > /dev/null 2>&1
 
 # Get to tmp directory where the action begins
@@ -158,7 +164,7 @@ mv ${TEMP_PATH}cakephp-2.2.9 ${HTTP_DOCUMENT_ROOT}
 ln -s ${HTTP_DOCUMENT_ROOT}cakephp-2.2.9 ${HTTP_DOCUMENT_ROOT}cake2
 
 # Install rd_cake, rd2, meshdesk, rd_clients, rd_login_pages
-echo -e "Installing ${LIGHT_BLUE}${BOLD}RadiusDESK${F_END}\n"
+echo -e "Installing ${LIGHT_BLUE}${BOLD}RADIUSdesk${F_END}\n"
 cp -aR ${SOURCE_DIR}rd_cake ${HTTP_DOCUMENT_ROOT}cake2/
 cp -aR ${SOURCE_DIR}rd2 ${HTTP_DOCUMENT_ROOT}rd
 cp -aR ${SOURCE_DIR}rd_login_pages ${HTTP_DOCUMENT_ROOT}rd_login_pages
@@ -170,7 +176,7 @@ unzip -q ext-4.2.1-gpl.zip
 mv ext*/ ${HTTP_DOCUMENT_ROOT}rd/ext
 cp -aR ${HTTP_DOCUMENT_ROOT}rd/ext/examples/ux ${HTTP_DOCUMENT_ROOT}rd/ext/src
 
-# RadiusDESK cron script
+# RADIUSdesk cron script
 cp -a ${HTTP_DOCUMENT_ROOT}cake2/rd_cake/Setup/Cron/rd /etc/cron.d/
 sed -i 's|www-data|apache|g' /etc/cron.d/rd
 
@@ -192,7 +198,7 @@ sed -i 's|<script src="ext/ext-dev.js"></script>|<script src="ext/ext-all.js"></
 sed -i 's|Ext.Loader.setConfig({enabled:true});|Ext.Loader.setConfig({enabled:true,disableCaching: false});|g' ${HTTP_DOCUMENT_ROOT}rd/app.js 
 
 # Import sql file to database
-echo -e "Configuring ${LIGHT_BLUE}${BOLD}MySQL Database${F_END} for RadiusDESK\n"
+echo -e "Configuring ${LIGHT_BLUE}${BOLD}MySQL Database${F_END} for RADIUSdesk\n"
 mysql -u root -e "CREATE DATABASE rd;" > /dev/null 2>&1
 mysql -u root -e "GRANT ALL PRIVILEGES ON rd.* to 'rd'@'127.0.0.1' IDENTIFIED BY 'rd';" > /dev/null 2>&1
 mysql -u root -e "GRANT ALL PRIVILEGES ON rd.* to 'rd'@'localhost' IDENTIFIED BY 'rd';" > /dev/null 2>&1
@@ -291,7 +297,7 @@ cd; rm -rf ${TEMP_PATH}
 
 echo -e "\n"
 echo -e "${LIGHT_GREEN}${BOLD}INSTALLATION COMPLETED SUCCESSFULLY!!!${F_END}\n"
-echo -e "To access your RadiusDESK server, visit ${LIGHT_GREEN}${BOLD}http://${IP_ADDRESS}/rd${F_END} on your browser\n"
+echo -e "To access your RADIUSdesk server, visit ${LIGHT_GREEN}${BOLD}http://${IP_ADDRESS}/rd${F_END} on your browser\n"
 echo -e "USERNAME: ${LIGHT_YELLOW}${BOLD}root${F_END}  PASSWORD: ${LIGHT_YELLOW}${BOLD}admin${F_END}\n\n"
 echo -e "We recommend ${LIGHT_RED}${BOLD}rebooting${F_END} your computer to ensure everything went as planned :)\n"
 
