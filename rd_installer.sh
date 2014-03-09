@@ -291,9 +291,9 @@ cd; rm -rf ${TEMP_PATH}
 
 echo -e "\n"
 echo -e "${LIGHT_GREEN}${BOLD}INSTALLATION COMPLETED SUCCESSFULLY!!!${F_END}\n"
-echo -e "To access your RadiusDESK server, visit ${LIGHT_GREEN}${BOLD}http://${IP_ADDRESS}/rd${F_END}\n"
+echo -e "To access your RadiusDESK server, visit ${LIGHT_GREEN}${BOLD}http://${IP_ADDRESS}/rd${F_END} on your browser\n"
 echo -e "USERNAME: ${LIGHT_YELLOW}${BOLD}root${F_END}  PASSWORD: ${LIGHT_YELLOW}${BOLD}admin${F_END}\n\n"
-echo -e "We recommend ${LIGHT_RED}${BOLD}rebooting${F_END} you computer to ensure everything went as planned :)\n"
+echo -e "We recommend ${LIGHT_RED}${BOLD}rebooting${F_END} your computer to ensure everything went as planned :)\n"
 
 read -p "Do you want to reboot your computer now? [Y]es or [N]o: " answer
 case "$answer" in 
