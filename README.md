@@ -16,6 +16,7 @@ This project tries to simplify or ease the process of getting a working installa
 ## Limitations
 1. The installer only works RADIUSdesk on a RHEL/CentOS 6.x machines/servers
 2. Installer assumes default installation values (Database passwords, FreeRADIUS secrets etc)
+3. The installer does not install CoovaChilli for captive portal/ hotspot
 
 ## Resources
 1. [RADIUSdesk Course/Tutorials](http://www.maomuffy.com/introduction-to-radiusdesk-with-rhelcentos-6-x-mini-course/) by [Mfawa Alfred Onen](http://ng.linkedin.com/in/mfawaalfredonen/)
@@ -23,7 +24,9 @@ This project tries to simplify or ease the process of getting a working installa
 
 ## TODO
 1. Make the installer Operating System agnostic (Support multiple Linux OS)
-2. Modularize installer code (maybe look at using Puppet)
+2. Make installer to prompt users for Database user, password, RADIUS secret
+3. Allow users to optionally opt for CoovaChilli installation
+
 
 ## Contributions
 1. Anyone is welcome to contribute by sending a pull request with your desired feature tested and implemented.
