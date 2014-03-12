@@ -22,6 +22,14 @@ fi
 # Prompt for web server technology
 ask_for_webserver
 
+
+# Prompt for database customization
+ask_for_database_customization
+
+
+# Prompt for RADIUS customization
+ask_for_radius_customization
+
 ########## KICKSTART & PACKAGES ##############
 
 # Check if user is Root
@@ -180,15 +188,21 @@ echo -e "Updating ${LIGHT_BLUE}${BOLD}RADIUSdesk Paths${F_END} for RHEL/CentOS c
 echo "=========================================================================================="
 update_radiusdesk_paths ${HTTP_DOCUMENT_ROOT}
 
+# Customize FreeRADIUS
+customize_freeradius ${HTTP_DOCUMENT_ROOT} ${rad_secret}
+
+# FreeRADIUS configuration
+configure_radiusdesk_freeradius ${HTTP_DOCUMENT_ROOT} ${RADIUS_DIR} ${TEMP_PATH}
+
+# Customize Database
+customize_database ${HTTP_DOCUMENT_ROOT} ${db_host} ${db_user} ${db_password} ${db_name}
+
 # Import sql file to database
 echo ""
 echo "============================================================================"
 echo -e "Installing ${LIGHT_BLUE}${BOLD}Database Schema${F_END} for RADIUSdesk"
 echo "============================================================================"
-install_radiusdesk_schema ${HTTP_DOCUMENT_ROOT}
-
-# FreeRADIUS configuration
-configure_radiusdesk_freeradius ${HTTP_DOCUMENT_ROOT} ${RADIUS_DIR} ${TEMP_PATH}
+install_radiusdesk_schema ${HTTP_DOCUMENT_ROOT} ${db_name} ${db_user} ${db_password}
 
 # Disabled TTY Requirements for Sudoers
 fix_radiusdesk_sudoers ${SUDOERS_FILE} ${HTTP_DOCUMENT_ROOT}

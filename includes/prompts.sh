@@ -2,6 +2,7 @@
 
 ########## Start Prompts #########
 
+# Prompt for Web server technology
 function ask_for_webserver(){
 	echo ""
 	read -p "What web server should we use? [N]ginx or [A]pache: " answer
@@ -21,6 +22,7 @@ function ask_for_webserver(){
 	esac
 }
 
+# Prompt for System Reboot
 function ask_for_reboot(){
 	echo ""
 	read -p "Do you want to reboot your computer now? [Y]es or [N]o: " answer
@@ -35,6 +37,60 @@ function ask_for_reboot(){
 	  * ) 
 		exit 1;;
 	esac
+}
+
+# Prompt MySQL Database Customization
+function ask_for_database_customization(){
+	echo ""
+	read -p "Do you want to customize database credentials? [N]o or [Y]es : " y_n
+	case "${y_n}" in 
+	  y|Y|yes|Yes )
+		read -p "Database host (Default: localhost) " db_host
+		[ "${db_host}" = "" ] && db_host="localhost"
+		
+		read -p "Database user (Default: rd): " db_user
+		[ "${db_user}" = "" ] && db_user="rd"
+		
+		read -p "Database password (Default: rd): " db_password
+		[ "${db_password}" = "" ] && db_password="rd"
+		
+		read -p "Database name (Default: rd): " db_name
+		[ "${db_name}" = "" ] && db_name="rd"
+		;;
+	  n|N|no|No|  )
+		db_host="localhost"
+		db_user="rd"
+		db_password="rd"
+		db_name="rd"
+		;;
+	  * ) 
+		db_host="localhost"
+		db_user="rd"
+		db_password="rd"
+		db_name="rd"
+		;;
+	esac
+	echo ""
+}
+
+
+# Prompt FreeRADIUS Customization
+function ask_for_radius_customization(){
+	echo ""
+	read -p "Do you want to customize RADIUS credentials? [N]o or [Y]es : " y_n
+	case "${y_n}" in 
+	  y|Y|yes|Yes )
+		read -p "RADIUS Secret (Default: testing123) " rad_secret
+		[ "${rad_secret}" = "" ] && rad_secret="testing123"
+		;;
+	  n|N|no|No|  )
+		rad_secret="testing123"
+		;;
+	  * ) 
+		rad_secret="testing123"
+		;;
+	esac
+	echo ""
 }
 
 ########## End Prompts #########

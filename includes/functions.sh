@@ -181,10 +181,10 @@ function update_radiusdesk_paths(){
 
 # Install RADIUSdesk MySQL Schema
 function install_radiusdesk_schema(){
-	mysql -u root -e "CREATE DATABASE rd;" > /dev/null 2>&1
-	mysql -u root -e "GRANT ALL PRIVILEGES ON rd.* to 'rd'@'127.0.0.1' IDENTIFIED BY 'rd';" > /dev/null 2>&1
-	mysql -u root -e "GRANT ALL PRIVILEGES ON rd.* to 'rd'@'localhost' IDENTIFIED BY 'rd';" > /dev/null 2>&1
-	mysql -u root rd < ${1}cake2/rd_cake/Setup/Db/rd.sql > /dev/null 2>&1
+	mysql -u root -e "CREATE DATABASE ${2};" > /dev/null 2>&1
+	mysql -u root -e "GRANT ALL PRIVILEGES ON ${2}.* to '${3}'@'127.0.0.1' IDENTIFIED BY '${4}';" > /dev/null 2>&1
+	mysql -u root -e "GRANT ALL PRIVILEGES ON ${2}.* to '${3}'@'localhost' IDENTIFIED BY '${4}';" > /dev/null 2>&1
+	mysql -u root ${2} < ${1}cake2/rd_cake/Setup/Db/rd.sql > /dev/null 2>&1
 }
 
 # Configure FreeRADIUS
@@ -253,6 +253,39 @@ function mk_temp_dir(){
 	mkdir -p /tmp/radiusdesk/
 	# Temporary fix
 	cp -aR utils/dynamic-clients /tmp/radiusdesk/
+}
+
+# Customize FreeRadius
+function customize_freeradius(){
+	sed -i "s|testing123|${2}|g" ${1}cake2/rd_cake/Setup/Scripts/radscenario.pl
+	sed -i "s|testing123|${2}|g" ${1}cake2/rd_cake/Setup/Db/rd.sql
+}
+
+# Customize MySQL Database
+function customize_database(){	
+	#Logfile.node.js
+	sed -i "s|host     : 'localhost'|host     : '${2}'|g" ${1}cake2/rd_cake/Setup/Node.js/Logfile.node.js
+	sed -i "s|user     : 'rd'|user     : '${3}'|g" ${1}cake2/rd_cake/Setup/Node.js/Logfile.node.js
+	sed -i "s|password : 'rd'|password : '${4}'|g" ${1}cake2/rd_cake/Setup/Node.js/Logfile.node.js
+	sed -i "s|database : 'rd'|database : '${5}'|g" ${1}cake2/rd_cake/Setup/Node.js/Logfile.node.js
+	
+	#sql.conf
+	sed -i "s|server = \"localhost\"|server = \"${2}\"|g" /etc/raddb/sql.conf
+	sed -i "s|login = \"rd\"|login = \"${3}\"|g" /etc/raddb/sql.conf
+	sed -i "s|password = \"rd\"|password = \"${4}\"|g" /etc/raddb/sql.conf
+	sed -i "s|radius_db = \"rd\"|radius_db = \"${5}\"|g" /etc/raddb/sql.conf
+	
+	#SQLConnector.pm
+	sed -i "s|my \$db_server   = '127.0.0.1'|my \$db_server   = '${2}'|g" /etc/raddb/rlm_perl_modules/SQLConnector.pm
+	sed -i "s|my \$db_user     = 'rd'|my \$db_user     = '${3}'|g" /etc/raddb/rlm_perl_modules/SQLConnector.pm
+	sed -i "s|my \$db_password = 'rd'|my \$db_password = '${4}'|g" /etc/raddb/rlm_perl_modules/SQLConnector.pm
+	sed -i "s|my \$db_name     = 'rd'|my \$db_name     = '${5}'|g" /etc/raddb/rlm_perl_modules/SQLConnector.pm
+	
+	#database.php
+	sed -i "s|'host' => 'localhost'|'host' => '${2}'|g" ${1}cake2/rd_cake/Config/database.php
+	sed -i "s|'login' => 'rd'|'login' => '${3}'|g" ${1}cake2/rd_cake/Config/database.php
+	sed -i "s|'password' => 'rd'|'password' => '${4}'|g" ${1}cake2/rd_cake/Config/database.php
+	sed -i "s|'database' => 'rd'|'database' => '${5}'|g" ${1}cake2/rd_cake/Config/database.php
 }
 
 # Clear Temporary Directory
