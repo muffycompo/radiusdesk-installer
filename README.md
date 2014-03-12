@@ -9,13 +9,14 @@ This project tries to simplify or ease the process of getting a working installa
    a) If you have git already installed, just use `git clone git clone https://github.com/muffycompo/radiusdesk-installer.git`. **Note:** you can install git on RHEL/CentOS 6.x via yum (`yum install -y git`)
    
    b) If you prefer to download the zip file `wget -cL https://github.com/muffycompo/radiusdesk-installer/archive/master.zip`. **Note:** just make sure you have **wget** and **unzip** installed (`yum install -y wget unzip`)
-2. Run/execute the Installer script as **root** `cd radiusdesk-installer; ./rd_installer.sh` and choose your preferred web server (**Nginx** or **Apache**)
-3. Grab yourself a cup of Coffee as the installer installs all the components required to have a working RADIUSdesk server.
+2. Run/execute the Installer script as **root** `cd radiusdesk-installer; ./rd-installer` and walk through the wizard.
+3. Grab yourself a **cup of Coffee** as the installer provisions your server with RADIUSdesk.
 4. When the script is done installing and configuring your system, we recommend rebooting your machine/server to ensure everything is persistent on reboot.
 
 ## Limitations
 1. The installer only works RADIUSdesk on a RHEL/CentOS 6.x machines/servers
 2. Installer assumes default installation values (Database passwords, FreeRADIUS secrets etc)
+3. The installer does not install CoovaChilli for captive portal/ hotspot
 
 ## Resources
 1. [RADIUSdesk Course/Tutorials](http://www.maomuffy.com/introduction-to-radiusdesk-with-rhelcentos-6-x-mini-course/) by [Mfawa Alfred Onen](http://ng.linkedin.com/in/mfawaalfredonen/)
@@ -23,7 +24,9 @@ This project tries to simplify or ease the process of getting a working installa
 
 ## TODO
 1. Make the installer Operating System agnostic (Support multiple Linux OS)
-2. Modularize installer code (maybe look at using Puppet)
+2. Make installer to prompt users for Database user, password, RADIUS secret
+3. Allow users to optionally opt for CoovaChilli installation
+
 
 ## Contributions
 1. Anyone is welcome to contribute by sending a pull request with your desired feature tested and implemented.
