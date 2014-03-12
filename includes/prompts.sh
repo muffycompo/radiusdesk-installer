@@ -3,6 +3,7 @@
 ########## Start Prompts #########
 
 function ask_for_webserver(){
+	echo -e "\n"
 	read -p "What web server should we use? [N]ginx or [A]pache: " answer
 	case "${answer}" in 
 	  n|N|nginx|Nginx ) 
@@ -18,6 +19,7 @@ function ask_for_webserver(){
 }
 
 function ask_for_reboot(){
+	echo -e "\n"
 	read -p "Do you want to reboot your computer now? [Y]es or [N]o: " answer
 	case "${answer}" in 
 	  y|Y|yes|Yes ) 

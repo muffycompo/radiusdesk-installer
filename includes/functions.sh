@@ -147,7 +147,7 @@ function install_nodejs(){
 function install_radiusdesk(){
 	get_to ${1}
 	cp -aR ${2}rd_cake ${3}cake2/
-	cp -aR ${2}rd2 ${3}rd
+	cp -aR ${2}rd ${3}rd
 	cp -aR ${2}rd_login_pages ${3}rd_login_pages
 	cp -aR ${2}rd_clients ${3}rd_clients
 	cp -aR ${2}meshdesk ${3}meshdesk

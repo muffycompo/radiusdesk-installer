@@ -64,7 +64,7 @@ echo -e "Downloading ${LIGHT_BLUE}${BOLD}Ext.JS 4.2.1${F_END}\n"
 wget_download http://sourceforge.net/p/radiusdesk/code/HEAD/tree/extjs/ext-4.2.1-gpl.zip?format=raw ${TEMP_PATH}ext-4.2.1-gpl.zip
 
 # Download RADIUSdesk Source
-echo -e "Checking out ${LIGHT_BLUE}${BOLD}RADIUSdesk source${F_END}\n"
+echo -e "Downloading ${LIGHT_BLUE}${BOLD}RADIUSdesk SVN sources${F_END}\n"
 svn --quiet checkout http://svn.code.sf.net/p/radiusdesk/code/trunk ${TEMP_PATH}source > /dev/null 2>&1
 
 # Download NodeJS Source
