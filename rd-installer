@@ -131,7 +131,7 @@ echo -e "Installing ${LIGHT_BLUE}${BOLD}Database Schema${F_END} for RADIUSdesk\n
 install_radiusdesk_schema ${HTTP_DOCUMENT_ROOT}
 
 # FreeRADIUS configuration
-configure_radiusdesk_freeradius ${HTTP_DOCUMENT_ROOT} ${RADIUS_DIR}
+configure_radiusdesk_freeradius ${HTTP_DOCUMENT_ROOT} ${RADIUS_DIR} ${TEMP_PATH}
 
 # Disabled TTY Requirements for Sudoers
 fix_radiusdesk_sudoers ${SUDOERS_FILE} ${HTTP_DOCUMENT_ROOT}
