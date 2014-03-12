@@ -211,7 +211,7 @@ function configure_radiusdesk_freeradius(){
 	sed -i 's|"/usr/local/bin/radclient"|"/usr/bin/radclient"|g' ${1}cake2/rd_cake/Setup/Scripts/radscenario.pl
 
 	ln -s ${2}sites-available/dynamic-clients ${2}sites-enabled/dynamic-clients
-	cp -aR ${3}dynamic-clients > ${2}sites-enabled/dynamic-clients
+	cp -aR ${3}dynamic-clients ${2}sites-enabled/dynamic-clients
 
 cat > ${2}modules/raw <<EOF
 raw { 
