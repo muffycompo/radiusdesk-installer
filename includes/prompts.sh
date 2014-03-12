@@ -27,11 +27,11 @@ function ask_for_reboot(){
 	case "${answer}" in 
 	  y|Y|yes|Yes )
 		echo ""
-		echo -e "${LIGHT_RED}${BOLD}Rebooting...${F_END}will be back in second :)"
+		echo -e "${LIGHT_RED}${BOLD}Rebooting...${F_END}will be back in minute :)"
 		init 6;;
 	  n|N|no|No )
 		echo ""
-		echo -e "No biggy...we will do it another time :)";;
+		echo -e "No biggy...we will do it later time :)";;
 	  * ) 
 		exit 1;;
 	esac

@@ -5,7 +5,7 @@
 # Link/URL: http://muffycompo.github.io/radiusdesk-installer
 # Date: March 09, 2014
 # Usage: ./rd_installer.sh
-# Version: 1.0
+# Version: 1.0.1
 
 # Ensure variables, functions and prompts exist
 if [[ ! -e "includes/variables.sh" ]] || [[ ! -e "includes/functions.sh" ]] || [[ ! -e "includes/prompts.sh" ]]; then
