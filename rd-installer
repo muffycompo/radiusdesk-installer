@@ -164,7 +164,7 @@ clear_dir ${TEMP_PATH}
 # RADIUSdesk Installation complete
 echo -e "\n"
 echo -e "${LIGHT_GREEN}${BOLD}INSTALLATION COMPLETED SUCCESSFULLY!!!${F_END}\n"
-echo -e "To access your RADIUSdesk server, visit ${LIGHT_GREEN}${BOLD}http://${IP_ADDRESS}/rd${F_END} on your browser\n"
+echo -e "To access your RADIUSdesk server, visit ${LIGHT_BLUE}${BOLD}http://${IP_ADDRESS}/rd${F_END} on your browser\n"
 echo -e "USERNAME: ${LIGHT_BLUE}${BOLD}root${F_END}  PASSWORD: ${LIGHT_BLUE}${BOLD}admin${F_END}\n\n"
 echo -e "We recommend ${LIGHT_RED}${BOLD}rebooting${F_END} your computer to ensure everything went as planned :)\n"
 
