@@ -47,8 +47,8 @@
 
 <p>b) If you prefer to download the zip file <code>wget -cL https://github.com/muffycompo/radiusdesk-installer/archive/master.zip</code>. <strong>Note:</strong> just make sure you have <strong>wget</strong> and <strong>unzip</strong> installed (<code>yum install -y wget unzip</code>)</p>
 </li>
-<li>Run/execute the Installer script as <strong>root</strong> <code>cd radiusdesk-installer; ./rd_installer.sh</code> and choose your preferred web server (<strong>Nginx</strong> or <strong>Apache</strong>)</li>
-<li>Grab yourself a cup of Coffee as the installer installs all the components required to have a working RADIUSdesk server.</li>
+<li>Run/execute the Installer script as <strong>root</strong> <code>cd radiusdesk-installer; ./rd-installer</code> and walk through the wizard.</li>
+<li></li>Grab yourself a <strong>cup of Coffee</strong> as the installer provisions your server with RADIUSdesk.</li>
 <li>When the script is done installing and configuring your system, we recommend rebooting your machine/server to ensure everything is persistent on reboot.</li>
 </ol><h3>
 <a name="limitations" class="anchor" href="#limitations"><span class="octicon octicon-link"></span></a>Limitations</h3>
@@ -56,6 +56,7 @@
 <ol>
 <li>The installer only works RADIUSdesk on a RHEL/CentOS 6.x machines/servers</li>
 <li>Installer assumes default installation values (Database passwords, FreeRADIUS secrets etc)</li>
+<li>The installer does not install CoovaChilli for captive portal/ hotspot</li>
 </ol><h3>
 <a name="resources" class="anchor" href="#resources"><span class="octicon octicon-link"></span></a>Resources</h3>
 
@@ -71,7 +72,8 @@
 
 <ol>
 <li>Make the installer Operating System agnostic (Support multiple Linux OS)</li>
-<li>Modularize installer code (maybe look at using Puppet)</li>
+<li>Make installer to prompt users for Database user, password, RADIUS secret</li>
+<li>Allow users to optionally opt for CoovaChilli installation</li>
 </ol><h3>
 <a name="contributions" class="anchor" href="#contributions"><span class="octicon octicon-link"></span></a>Contributions</h3>
 
@@ -87,8 +89,7 @@
     <!-- FOOTER  -->
     <div id="footer_wrap" class="outer">
       <footer class="inner">
-        <p class="copyright">RADIUSdesk Installer maintained by <a href="https://github.com/muffycompo">muffycompo</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+        <p class="copyright">RADIUSdesk Installer maintained by <a href="https://github.com/muffycompo">Mfawa Alfred Onen</a></p>
       </footer>
     </div>
 
