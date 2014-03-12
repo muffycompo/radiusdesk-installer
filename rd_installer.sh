@@ -167,7 +167,7 @@ ln -s ${HTTP_DOCUMENT_ROOT}cakephp-2.2.9 ${HTTP_DOCUMENT_ROOT}cake2
 # Install rd_cake, rd2, meshdesk, rd_clients, rd_login_pages
 echo -e "Installing ${LIGHT_BLUE}${BOLD}RADIUSdesk${F_END}\n"
 cp -aR ${SOURCE_DIR}rd_cake ${HTTP_DOCUMENT_ROOT}cake2/
-cp -aR ${SOURCE_DIR}rd2 ${HTTP_DOCUMENT_ROOT}rd
+cp -aR ${SOURCE_DIR}rd ${HTTP_DOCUMENT_ROOT}rd
 cp -aR ${SOURCE_DIR}rd_login_pages ${HTTP_DOCUMENT_ROOT}rd_login_pages
 cp -aR ${SOURCE_DIR}rd_clients ${HTTP_DOCUMENT_ROOT}rd_clients
 cp -aR ${SOURCE_DIR}meshdesk ${HTTP_DOCUMENT_ROOT}meshdesk
