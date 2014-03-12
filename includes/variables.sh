@@ -8,8 +8,6 @@ CONF_DIR='conf/'
 TEMP_PATH='/tmp/radiusdesk/'
 SOURCE_DIR='source/'
 IP_ADDRESS=`ifconfig eth0 | grep "inet addr" | awk -F: '{print $2}' | awk '{print $1}'`
-IP_TABLES=`which iptables`
-MYSQL=`which mysql`
 SUDOERS_FILE='/etc/sudoers'
 RADIUS_DIR='/etc/raddb/'
   

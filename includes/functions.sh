@@ -25,8 +25,8 @@ function check_selinux_status(){
 
 # Reset IPTables
 function reset_iptables_rules(){
-	${1} -F
-	${1} -X 
+	iptables -F
+	iptables -X 
 	service iptables save > /dev/null 2>&1
 }
 
@@ -181,10 +181,10 @@ function update_radiusdesk_paths(){
 
 # Install RADIUSdesk MySQL Schema
 function install_radiusdesk_schema(){
-	${1} -u root -e "CREATE DATABASE rd;" > /dev/null 2>&1
-	${1} -u root -e "GRANT ALL PRIVILEGES ON rd.* to 'rd'@'127.0.0.1' IDENTIFIED BY 'rd';" > /dev/null 2>&1
-	${1} -u root -e "GRANT ALL PRIVILEGES ON rd.* to 'rd'@'localhost' IDENTIFIED BY 'rd';" > /dev/null 2>&1
-	${1} -u root rd < ${2}cake2/rd_cake/Setup/Db/rd.sql > /dev/null 2>&1
+	mysql -u root -e "CREATE DATABASE rd;" > /dev/null 2>&1
+	mysql -u root -e "GRANT ALL PRIVILEGES ON rd.* to 'rd'@'127.0.0.1' IDENTIFIED BY 'rd';" > /dev/null 2>&1
+	mysql -u root -e "GRANT ALL PRIVILEGES ON rd.* to 'rd'@'localhost' IDENTIFIED BY 'rd';" > /dev/null 2>&1
+	mysql -u root rd < ${1}cake2/rd_cake/Setup/Db/rd.sql > /dev/null 2>&1
 }
 
 # Configure FreeRADIUS

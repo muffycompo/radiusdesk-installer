@@ -32,7 +32,7 @@ check_selinux_status
 
 # Flush iptable rules -> TODO: Revert to a more secure system
 #echo -n "Flushing default Iptable rules: "
-reset_iptables_rules ${IP_TABLES}
+reset_iptables_rules
 
 # Install some packages from base repo
 echo -e "Installing ${LIGHT_BLUE}${BOLD}pre-requisite packages${F_END}\n"
@@ -128,7 +128,7 @@ update_radiusdesk_paths ${HTTP_DOCUMENT_ROOT}
 
 # Import sql file to database
 echo -e "Installing ${LIGHT_BLUE}${BOLD}Database Schema${F_END} for RADIUSdesk\n"
-install_radiusdesk_schema ${MYSQL} ${HTTP_DOCUMENT_ROOT}
+install_radiusdesk_schema ${HTTP_DOCUMENT_ROOT}
 
 # FreeRADIUS configuration
 configure_radiusdesk_freeradius ${HTTP_DOCUMENT_ROOT} ${RADIUS_DIR}
