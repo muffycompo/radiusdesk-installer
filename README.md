@@ -13,19 +13,23 @@ This project tries to simplify or ease the process of getting a working installa
 3. Grab yourself a **cup of Coffee** as the installer provisions your server with RADIUSdesk.
 4. When the script is done installing and configuring your system, we recommend rebooting your machine/server to ensure everything is persistent on reboot.
 
+## Features
+1. A wizard for customizing Web server, Database Credentials (Host, User, Password & DB Name) and FreeRADIUS secret 
+2. Installer downloads latest copy of RADIUSdesk so that you are always on edge
+3. Somewhat modularized, so you can always extend RADIUSdesk installer to support your environment
+
 ## Limitations
-1. The installer only works RADIUSdesk on a RHEL/CentOS 6.x machines/servers
-2. Installer assumes default installation values (Database passwords, FreeRADIUS secrets etc)
-3. The installer does not install CoovaChilli for captive portal/ hotspot
+1. The installer only works RADIUSdesk on a RHEL/CentOS 6.x machine/server
+2. The installer does not install CoovaChilli for captive portal/ hotspot
 
 ## Resources
 1. [RADIUSdesk Course/Tutorials](http://www.maomuffy.com/introduction-to-radiusdesk-with-rhelcentos-6-x-mini-course/) by [Mfawa Alfred Onen](http://ng.linkedin.com/in/mfawaalfredonen/)
 2. [RADIUSdesk Project](http://www.radiusdesk.com) by [Dirk van der Walt](http://www.linkedin.com/pub/dirk-van-der-walt/11/b64/79a)
+3. [RADIUSdesk Installer Videos](http://www.maomuffy.com/radiusdesk-installer-project/)
 
 ## TODO
 1. Make the installer Operating System agnostic (Support multiple Linux OS)
-2. Make installer to prompt users for Database user, password, RADIUS secret
-3. Allow users to optionally opt for CoovaChilli installation
+2. Allow users to optionally opt for CoovaChilli installation
 
 
 ## Contributions
