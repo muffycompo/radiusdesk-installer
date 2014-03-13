@@ -57,13 +57,13 @@ function ask_for_database_customization(){
 		read -p "Database name (Default: rd): " db_name
 		[ "${db_name}" = "" ] && db_name="rd"
 		;;
-	  n|N|no|No|  )
+	  n|N|no|No|" ")
 		db_host="localhost"
 		db_user="rd"
 		db_password="rd"
 		db_name="rd"
 		;;
-	  * ) 
+	  * )
 		db_host="localhost"
 		db_user="rd"
 		db_password="rd"
