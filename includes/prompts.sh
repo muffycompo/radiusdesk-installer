@@ -83,7 +83,7 @@ function ask_for_radius_customization(){
 		read -p "RADIUS Secret (Default: testing123) " rad_secret
 		[ "${rad_secret}" = "" ] && rad_secret="testing123"
 		;;
-	  n|N|no|No|  )
+	  n|N|no|No)
 		rad_secret="testing123"
 		;;
 	  * ) 
