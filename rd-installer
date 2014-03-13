@@ -19,7 +19,7 @@ else
 fi
 
 # Show RADIUSdesk Installer Version when it -v is passed to Installer
-show_version
+show_version ${1}
 
 # Prompt for web server technology
 ask_for_webserver
