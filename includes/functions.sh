@@ -11,7 +11,8 @@ function show_version(){
 		  exit 0;;
 		-)
 			case $OPTARG in
-			 version) echo -e "RADIUSdesk Installer ${LIGHT_BLUE}${BOLD}${RD_INSTALLER_VERSION}${F_END}" >&2;;
+			 version) echo -e "RADIUSdesk Installer ${LIGHT_BLUE}${BOLD}${RD_INSTALLER_VERSION}${F_END}" >&2
+			 exit 0;;
 			 *) 
 			 echo -e "Usage: ${LIGHT_BLUE}${BOLD}./$(basename $0) -v | --version${F_END}" >&2
 			 exit 1;;
