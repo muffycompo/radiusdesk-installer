@@ -51,8 +51,20 @@ function ask_for_database_customization(){
 		read -p "Database user (Default: rd): " db_user
 		[ "${db_user}" = "" ] && db_user="rd"
 		
-		read -p "Database password (Default: rd): " db_password
+		# Mask password enter and replace with *
+		unset sec_pass
+		prompt="Database password (Default: rd): "
+		while IFS= read -p "${prompt}" -r -s -n 1 sec_pass
+			do
+				if [[ ${sec_pass} == $'\0' ]]
+					then
+						break
+					fi
+				prompt='*'
+				db_password+="${sec_pass}"
+		done
 		[ "${db_password}" = "" ] && db_password="rd"
+		echo
 		
 		read -p "Database name (Default: rd): " db_name
 		[ "${db_name}" = "" ] && db_name="rd"
@@ -80,8 +92,20 @@ function ask_for_radius_customization(){
 	read -p "Do you want to customize RADIUS credentials? [N]o or [Y]es : " y_n
 	case "${y_n}" in 
 	  y|Y|yes|Yes )
-		read -p "RADIUS Secret (Default: testing123) " rad_secret
+		# Mask secret enter and replace with *
+		unset rad_pass
+		rad_prompt="RADIUS Secret (Default: testing123) "
+		while IFS= read -p "${rad_prompt}" -r -s -n 1 rad_pass
+			do
+				if [[ ${rad_pass} == $'\0' ]]
+					then
+						break
+					fi
+				rad_prompt='*'
+				rad_secret+="${rad_pass}"
+		done
 		[ "${rad_secret}" = "" ] && rad_secret="testing123"
+		echo
 		;;
 	  n|N|no|No)
 		rad_secret="testing123"
