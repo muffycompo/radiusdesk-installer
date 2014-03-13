@@ -5,7 +5,7 @@
 # Prompt for Web server technology
 function ask_for_webserver(){
 	echo ""
-	read -p "What web server should we use? [N]ginx or [A]pache: " answer
+	read -p "Pick a web server to use? [N]ginx or [A]pache: " answer
 	case "${answer}" in 
 	  n|N|nginx|Nginx )
 		echo ""
