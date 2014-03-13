@@ -294,5 +294,18 @@ function clear_dir(){
 	rm -rf ${1}
 }
 
-
-########## Start Functions #########
+function show_version(){
+	while getopts ":v" opt; do
+	  case $opt in
+		v)
+		  echo -e "RADIUSdesk Installer ${LIGHT_BLUE}${BOLD}${RD_INSTALLER_VERSION}${F_END}" >&2
+		  exit 0
+		  ;;
+		\?)
+		  echo -e "Invalid option: -$OPTARG" >&2
+		  exit 1
+		  ;;
+	  esac
+	done
+}
+########## End Functions #########
