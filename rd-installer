@@ -18,7 +18,7 @@ else
 	source includes/prompts.sh
 fi
 
-# Show RADIUSdesk Installer Version when it -v is passed to Installer
+# Show RADIUSdesk Installer Version when -v is passed to Installer
 show_version ${1}
 
 # Prompt for web server technology
