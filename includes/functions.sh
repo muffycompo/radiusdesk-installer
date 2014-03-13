@@ -303,6 +303,7 @@ function show_version(){
 		  ;;
 		\?)
 		  echo -e "Invalid option: -$OPTARG" >&2
+		  echo -e "Usage: $(basename $0) -v" >&2;
 		  exit 1
 		  ;;
 	  esac
