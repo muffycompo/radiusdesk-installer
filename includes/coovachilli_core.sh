@@ -62,7 +62,7 @@ install_mao_repo ${ARCH_TYPE}
 echo ""
 echo "============================================================="
 echo -e "5. Installing ${LIGHT_BLUE}${BOLD}CoovaChilli 1.3.0${F_END}"
-yum_install coova-chilli
+yum_install coova-chilli vixie-cron
 
 #configure CoovaChilli
 configure_coovachilli ${COOVACHILLI_DIR} ${wan_if} ${lan_if} ${lan_net} ${lan_sm} ${radius_secret} ${uam_secret}
