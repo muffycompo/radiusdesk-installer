@@ -11,6 +11,7 @@ IP_ADDRESS=`ifconfig eth0 | grep "inet addr" | awk -F: '{print $2}' | awk '{prin
 SUDOERS_FILE='/etc/sudoers'
 RADIUS_DIR='/etc/raddb/'
 IF_COUNT=`ifconfig | egrep '^eth' | wc -l`
+COOVACHILLI_DIR='/etc/chilli/'
   
 # Color Guide
 LIGHT_RED='\e[91m'

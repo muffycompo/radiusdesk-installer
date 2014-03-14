@@ -29,7 +29,6 @@ ask_for_database_customization
 ask_for_radius_customization
 
 ########## KICKSTART & PACKAGES ##############
-
 # Check if user is Root
 echo ""
 echo "============================================================="

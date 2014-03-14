@@ -288,6 +288,80 @@ function customize_database(){
 	sed -i "s|'database' => 'rd'|'database' => '${5}'|g" ${1}cake2/rd_cake/Config/database.php
 }
 
+function configure_coovachilli(){
+TRIM_UAM_IP="`echo "${4}" | awk -F'.' '{ print $1"."$2"."$3 }'`.1"
+cat > ${1}config <<EOF
+HS_WANIF=${2}
+HS_LANIF=${3}
+HS_NETWORK=${4}
+HS_NETMASK=${5}
+HS_UAMLISTEN=${TRIM_UAM_IP}
+HS_UAMPORT=3990
+HS_UAMUIPORT=4990
+HS_DNS_DOMAIN=maomuffy.com
+HS_DNS1=208.67.222.222
+HS_DNS2=208.67.220.220
+HS_UAMALLOW=www.maomuffy.com
+HS_RADIUS=localhost
+HS_RADIUS2=localhost
+HS_RADSECRET=${6}
+HS_UAMSECRET=${7}
+HS_UAMALIASNAME=chilli
+HS_NASIP=127.0.0.1
+
+HS_NASID=rd_nas
+HS_SSID="Struisbaai"
+HS_UAMSERVER=${TRIM_UAM_IP}
+HS_UAMFORMAT=http://${TRIM_UAM_IP}/cake2/rd_cake/dynamic_details/chilli_browser_detect/
+
+HS_MACAUTH=on
+HS_ANYIP=on
+HS_TCP_PORTS="22 80 8000 53 1812 67 443"
+HS_MODE=hotspot
+HS_TYPE=chillispot
+# HS_POSTAUTH_PROXY=<host or ip>
+# HS_POSTAUTH_PROXYPORT=<port>
+HS_WWWDIR=/etc/chilli/www
+HS_WWWBIN=/etc/chilli/wwwsh
+HS_PROVIDER=RADIUSdesk
+HS_PROVIDER_LINK=http://www.maomuffy.com
+HS_LOC_NAME="RADIUSdesk Hotspot"
+HS_LOC_NETWORK="RADIUSdesk_Network"
+HS_LOC_AC=234 
+HS_LOC_CC=1
+HS_LOC_ISOCC=NG
+HS_COAPORT=3799
+EOF
+
+# Add NAT rules - MASQUERADING
+iptables -F POSTROUTING -t nat
+iptables -I POSTROUTING -t nat -o ${2} -j MASQUERADE
+service iptables save > /dev/null 2>&1
+
+# Custom firewall rules for CoovaChilli start-up
+cat > /etc/chilli/ipup.sh <<EOF
+iptables -I INPUT -i tun0 -p tcp -m tcp --dport 80 --dst ${TRIM_UAM_IP} -j ACCEPT
+iptables -I INPUT -i tun0 -p tcp -m tcp --dport 443 --dst ${TRIM_UAM_IP} -j ACCEPT
+iptables -I INPUT -i tun0 -p tcp -m tcp --dport 22 --dst ${TRIM_UAM_IP} -j ACCEPT
+iptables -I INPUT -i tun0 -p tcp -m tcp --dport 8000 --dst ${TRIM_UAM_IP} -j ACCEPT
+iptables -I INPUT -i tun0 -p tcp -m tcp --dport 53 --dst ${TRIM_UAM_IP} -j ACCEPT
+iptables -I INPUT -i tun0 -p tcp -m tcp --dport 1812 --dst ${TRIM_UAM_IP} -j ACCEPT
+iptables -I INPUT -i tun0 -p tcp -m tcp --dport 67 --dst ${TRIM_UAM_IP} -j ACCEPT
+EOF
+
+# Custom firewall rules for CoovaChilli shut-down
+cat > /etc/chilli/ipup.sh <<EOF
+iptables -D INPUT -i tun0 -p tcp -m tcp --dport 80 --dst ${TRIM_UAM_IP} -j ACCEPT
+iptables -D INPUT -i tun0 -p tcp -m tcp --dport 443 --dst ${TRIM_UAM_IP} -j ACCEPT
+iptables -D INPUT -i tun0 -p tcp -m tcp --dport 22 --dst ${TRIM_UAM_IP} -j ACCEPT
+iptables -D INPUT -i tun0 -p tcp -m tcp --dport 8000 --dst ${TRIM_UAM_IP} -j ACCEPT
+iptables -D INPUT -i tun0 -p tcp -m tcp --dport 53 --dst ${TRIM_UAM_IP} -j ACCEPT
+iptables -D INPUT -i tun0 -p tcp -m tcp --dport 1812 --dst ${TRIM_UAM_IP} -j ACCEPT
+iptables -D INPUT -i tun0 -p tcp -m tcp --dport 67 --dst ${TRIM_UAM_IP} -j ACCEPT
+EOF
+
+}
+
 # Clear Temporary Directory
 function clear_dir(){
 	cd ~/

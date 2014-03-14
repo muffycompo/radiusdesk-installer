@@ -85,7 +85,6 @@ function ask_for_database_customization(){
 	echo ""
 }
 
-
 # Prompt FreeRADIUS Customization
 function ask_for_radius_customization(){
 	echo ""
@@ -137,5 +136,57 @@ function installer_menu(){
 	
 	esac
 }
+
+
+# Prompt CoovaChilli Customization
+function ask_for_coovachilli_customization(){
+	echo ""
+	read -p "WAN Interface (Default: eth0) " wan_if
+	[ "${wan_if}" = "" ] && wan_if="eth0"
+
+	read -p "LAN Interface (Default: eth1) " lan_if
+	[ "${lan_if}" = "" ] && lan_if="eth1"
+
+	read -p "LAN Network (Default: 192.168.1.0) " lan_net
+	[ "${lan_net}" = "" ] && lan_net="192.168.1.0"
+
+	read -p "LAN Subnet Mask (Default: 255.255.255.0) " lan_sm
+	[ "${lan_sm}" = "" ] && lan_sm="255.255.255.0"
+
+	# Mask password enter and replace with *
+	unset uam
+	uam_prompt="UAM Secret (Default: uam_s3cr3t) "
+	while IFS= read -p "${uam_prompt}" -r -s -n 1 uam
+		do
+			if [[ ${uam} == $'\0' ]]
+				then
+					break
+				fi
+			uam_prompt='*'
+			uam_secret+="${uam}"
+	done
+	[ "${uam_secret}" = "" ] && uam_secret="uam_s3cr3t"
+	echo
+
+	read -p "RADIUSdesk Server IP (Default: localhost) " radiusdesk_ip
+	[ "${radiusdesk_ip}" = "" ] && radiusdesk_ip="localhost"
+
+	# Mask password enter and replace with *
+	unset rad_sec_chilli
+	rad_sec_prompt="RADIUS Secret (Default: testing123) "
+	while IFS= read -p "${rad_sec_prompt}" -r -s -n 1 rad_sec_chilli
+		do
+			if [[ ${rad_sec_chilli} == $'\0' ]]
+				then
+					break
+				fi
+			rad_sec_prompt='*'
+			radius_secret+="${rad_sec_chilli}"
+	done
+	[ "${radius_secret}" = "" ] && radius_secret="testing123"
+	echo
+	echo
+}
+
 
 ########## End Prompts #########
