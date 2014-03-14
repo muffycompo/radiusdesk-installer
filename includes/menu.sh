@@ -14,8 +14,8 @@ function installer_menu(){
 	echo -n "Select an option: "
 	read menu_opt
 	case "${menu_opt}" in
-		1) source rhel_centos_core.sh;;
-		2) source coovachilli_core.sh;;
+		1) source includes/rhel_centos_core.sh;;
+		2) source includes/coovachilli_core.sh;;
 		3|q) exit 1;;
 		*) 
 		echo "Invalid selection!"
