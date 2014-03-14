@@ -116,28 +116,6 @@ function ask_for_radius_customization(){
 	echo ""
 }
 
-# Installer Menu
-function installer_menu(){
-	echo "===================================="
-	echo -e "Welcome to RADIUSdesk Installer"
-	echo "===================================="
-	echo -e "1) Install RADIUSdesk"
-	echo -e "2) Install CoovaChilli (if you need a Captive Portal)"
-	echo -e "3) Quit or q"
-	echo -n "Select an option: "
-	read menu_opt
-	case "${menu_opt}" in
-		1) echo "Installing RADIUSdesk";;
-		2) echo "Installing CoovaChilli";;
-		3|q) echo "Quiting Installer";;
-		*) 
-		echo "Invalid selection!"
-		exit 1;;
-	
-	esac
-}
-
-
 # Prompt CoovaChilli Customization
 function ask_for_coovachilli_customization(){
 	echo ""
