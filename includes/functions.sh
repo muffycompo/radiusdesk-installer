@@ -338,6 +338,11 @@ iptables -F POSTROUTING -t nat
 iptables -I POSTROUTING -t nat -o ${2} -j MASQUERADE
 service iptables save > /dev/null 2>&1
 
+# Enable IP FORWARDING
+net.ipv4.ip_forward = 0
+sed -i 's|net.ipv4.ip_forward = 0|net.ipv4.ip_forward = 1|g' /etc/sysctl.conf
+sysctl -p
+
 # Custom firewall rules for CoovaChilli start-up
 cat > /etc/chilli/ipup.sh <<EOF
 iptables -I INPUT -i tun0 -p tcp -m tcp --dport 80 --dst ${TRIM_UAM_IP} -j ACCEPT
