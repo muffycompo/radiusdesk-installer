@@ -17,10 +17,10 @@ This project tries to simplify or ease the process of getting a working installa
 1. A wizard for customizing Web server, Database Credentials (Host, User, Password & DB Name) and FreeRADIUS secret 
 2. Installer downloads latest copy of RADIUSdesk so that you are always on edge
 3. Somewhat modularized, so you can always extend RADIUSdesk installer to support your environment
+4. Setup Captive Portal with CoovaChilli
 
 ## Limitations
 1. The installer only works RADIUSdesk on a RHEL/CentOS 6.x machine/server
-2. The installer does not install CoovaChilli for captive portal/ hotspot
 
 ## Resources
 1. [RADIUSdesk Course/Tutorials](http://www.maomuffy.com/introduction-to-radiusdesk-with-rhelcentos-6-x-mini-course/) by [Mfawa Alfred Onen](http://ng.linkedin.com/in/mfawaalfredonen/)
@@ -29,8 +29,6 @@ This project tries to simplify or ease the process of getting a working installa
 
 ## TODO
 1. Make the installer Operating System agnostic (Support multiple Linux OS)
-2. Allow users to optionally opt for CoovaChilli installation
-
 
 ## Contributions
 1. Anyone is welcome to contribute by sending a pull request with your desired feature tested and implemented.
