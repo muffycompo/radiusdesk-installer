@@ -6,7 +6,7 @@ source includes/variables.sh
 # Installer Menu
 function installer_menu(){
 	echo "===================================="
-	echo -e "Welcome to RADIUSdesk Installer"
+	echo -e "Welcome to RADIUSdesk Installer v${RD_INSTALLER_VERSION}"
 	echo "===================================="
 	echo -e "1) Install RADIUSdesk"
 	echo -e "2) Install CoovaChilli (if you need a Captive Portal)"
