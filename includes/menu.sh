@@ -1,6 +1,7 @@
 #!/bin/bash
 
 ########## Start Menu #########
+source includes/variables.sh
 
 # Installer Menu
 function installer_menu(){
