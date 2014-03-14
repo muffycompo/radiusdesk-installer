@@ -10,6 +10,7 @@ SOURCE_DIR='source/'
 IP_ADDRESS=`ifconfig eth0 | grep "inet addr" | awk -F: '{print $2}' | awk '{print $1}'`
 SUDOERS_FILE='/etc/sudoers'
 RADIUS_DIR='/etc/raddb/'
+IF_COUNT=`ifconfig | egrep '^eth' | wc -l`
   
 # Color Guide
 LIGHT_RED='\e[91m'
