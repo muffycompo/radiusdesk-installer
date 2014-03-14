@@ -65,7 +65,7 @@ echo -e "5. Installing ${LIGHT_BLUE}${BOLD}CoovaChilli 1.3.0${F_END}"
 yum_install coova-chilli vixie-cron
 
 #configure CoovaChilli
-configure_coovachilli ${COOVACHILLI_DIR} ${wan_if} ${lan_if} ${lan_net} ${lan_sm} ${radius_secret} ${uam_secret}
+configure_coovachilli ${COOVACHILLI_DIR} ${wan_if} ${lan_if} ${lan_net} ${lan_sm} ${radius_secret} ${uam_secret} ${radiusdesk_ip}
 
 # Start CoovaChilli on Boot
 start_service_on_boot chilli
