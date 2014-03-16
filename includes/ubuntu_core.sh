@@ -105,7 +105,7 @@ if [[ "${webserver}" = "nginx" ]]; then
 	echo "============================================================="
 	echo -e "8. Starting ${LIGHT_BLUE}${BOLD}services${F_END} needed by RADIUSdesk"
 	echo /etc/init.d/php-fpm start >> /etc/rc.local
-	restart_ubuntu_service php-fpm
+	restart_ubuntu_service php5-fpm
 	restart_ubuntu_service ${webserver}
 	
 elif [[ "${webserver}" = "apache2" ]]; then
