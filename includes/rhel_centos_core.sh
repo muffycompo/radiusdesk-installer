@@ -225,6 +225,9 @@ echo ""
 echo -e "We recommend ${LIGHT_RED}${BOLD}rebooting${F_END} your computer to ensure everything went as planned :)"
 echo "============================================================================"
 
+# Prompt for CoovaChilli Installation
+ask_for_coovachilli_install
+
 # Prompt User to reboot
 ask_for_reboot
 

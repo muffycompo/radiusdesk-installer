@@ -4,19 +4,19 @@
 
 # Prompt for Web server technology
 function ask_for_webserver(){
-	echo ""
+	echo
 	read -p "Pick a web server to use? [N]ginx or [A]pache: " answer
 	case "${answer}" in 
 	  n|N|nginx|Nginx )
-		echo ""
+		echo
 		echo -e "Using ${LIGHT_BLUE}${BOLD}Nginx${F_END} Web server"
 		webserver="nginx";;
 	  a|A|apache|Apache )
-		echo ""
+		echo
 		echo -e "Using ${LIGHT_BLUE}${BOLD}Apache${F_END} Web server"
 		webserver="httpd";;
 	  * )
-		echo ""
+		echo
 		echo -e "${LIGHT_RED}Oops...something went wrong, perharps you made a mistake in you selection!${F_END}"
 		exit 1;;
 	esac
@@ -24,16 +24,16 @@ function ask_for_webserver(){
 
 # Prompt for System Reboot
 function ask_for_reboot(){
-	echo ""
+	echo
 	read -p "Do you want to reboot your computer now? [Y]es or [N]o: " answer
 	case "${answer}" in 
 	  y|Y|yes|Yes )
-		echo ""
+		echo
 		echo -e "${LIGHT_RED}${BOLD}Rebooting...${F_END}will be back in minute :)"
 		init 6;;
 	  n|N|no|No )
-		echo ""
-		echo -e "No biggy...we will do it later time :)";;
+		echo
+		echo -e "No biggy...maybe later :)";;
 	  * ) 
 		exit 1;;
 	esac
@@ -41,7 +41,7 @@ function ask_for_reboot(){
 
 # Prompt MySQL Database Customization
 function ask_for_database_customization(){
-	echo ""
+	echo
 	read -p "Do you want to customize database credentials? [N]o or [Y]es : " y_n
 	case "${y_n}" in 
 	  y|Y|yes|Yes )
@@ -82,12 +82,12 @@ function ask_for_database_customization(){
 		db_name="rd"
 		;;
 	esac
-	echo ""
+	echo
 }
 
 # Prompt FreeRADIUS Customization
 function ask_for_radius_customization(){
-	echo ""
+	echo
 	read -p "Do you want to customize RADIUS credentials? [N]o or [Y]es : " y_n
 	case "${y_n}" in 
 	  y|Y|yes|Yes )
@@ -113,12 +113,12 @@ function ask_for_radius_customization(){
 		rad_secret="testing123"
 		;;
 	esac
-	echo ""
+	echo
 }
 
 # Prompt CoovaChilli Customization
 function ask_for_coovachilli_customization(){
-	echo ""
+	echo
 	read -p "WAN Interface (Default: eth0) " wan_if
 	[ "${wan_if}" = "" ] && wan_if="eth0"
 
@@ -166,5 +166,36 @@ function ask_for_coovachilli_customization(){
 	echo
 }
 
+
+# Prompt for CoovaChilli Installation
+function ask_for_coovachilli_install(){
+	echo
+	read -p "Will you like to setup CoovaChilli Captive Portal? [Y]es or [N]o: " chilli_answer
+	case "${chilli_answer}" in 
+	  y|Y|yes|Yes )
+		ask_for_coovachilli_customization
+		# Install CoovaChilli 1.3.0 from maorepo
+		echo
+		echo "============================================================="
+		echo -e "Installing ${LIGHT_BLUE}${BOLD}CoovaChilli 1.3.0${F_END}"
+		yum_install coova-chilli vixie-cron
+		
+		#configure CoovaChilli
+		echo
+		echo "============================================================="
+		echo -e "Configuring ${LIGHT_BLUE}${BOLD}CoovaChilli 1.3.0${F_END}"
+		configure_coovachilli ${COOVACHILLI_DIR} ${wan_if} ${lan_if} ${lan_net} ${lan_sm} ${radius_secret} ${uam_secret} ${radiusdesk_ip}
+
+		# Start CoovaChilli on Boot
+		start_service_on_boot chilli
+
+		# Start CoovaChilli
+		restart_service chilli
+
+		;;
+	  n|N|no|No ) echo;;
+	  * ) echo;;
+	esac
+}
 
 ########## End Prompts #########

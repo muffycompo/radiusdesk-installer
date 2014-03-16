@@ -29,18 +29,18 @@ fi
 ask_for_coovachilli_customization
 
 # Check if user is Root
-echo ""
+echo
 echo "============================================================="
 echo -n "1. Checking if you are root: "
 check_root_privileges
 
 # Check if SELinux is disabled
-echo ""
+echo
 echo "============================================================="
 echo -n "2. Checking if SELinux is enabled: "
 check_selinux_status
 
-echo ""
+echo
 #echo -n "Flushing default Iptable rules: "
 reset_iptables_rules
 
@@ -50,7 +50,7 @@ echo -e "3. Installing ${LIGHT_BLUE}${BOLD}pre-requisite packages${F_END}"
 yum_install nano curl wget unzip
  
 # Install EPEL/POPTOP repo
-echo ""
+echo
 echo "============================================================="
 echo -e "4. Installing ${LIGHT_BLUE}${BOLD}EPEL Repository${F_END}"
 install_epel_repo ${OS_VERSION} ${ARCH_TYPE}
@@ -59,12 +59,15 @@ install_epel_repo ${OS_VERSION} ${ARCH_TYPE}
 install_mao_repo ${ARCH_TYPE}
 
 # Install CoovaChilli 1.3.0 from maorepo
-echo ""
+echo
 echo "============================================================="
 echo -e "5. Installing ${LIGHT_BLUE}${BOLD}CoovaChilli 1.3.0${F_END}"
 yum_install coova-chilli vixie-cron
 
 #configure CoovaChilli
+echo
+echo "============================================================="
+echo -e "Configuring ${LIGHT_BLUE}${BOLD}CoovaChilli 1.3.0${F_END}"
 configure_coovachilli ${COOVACHILLI_DIR} ${wan_if} ${lan_if} ${lan_net} ${lan_sm} ${radius_secret} ${uam_secret} ${radiusdesk_ip}
 
 # Start CoovaChilli on Boot
@@ -77,13 +80,13 @@ restart_service chilli
 
 # CoovaChilli Installation complete
 echo
-echo "================================================================================="
+echo "======================================================================================="
 echo -e "${LIGHT_GREEN}${BOLD}INSTALLATION COMPLETED SUCCESSFULLY!!!${F_END}"
 echo
-echo -e "Connect your clients to ${lan_if} and see your Captive Portal  hotspot in action!"
+echo -e "Connect your clients to ${lan_if} and see your Captive Portal in action!"
 echo 
 echo -e "We recommend ${LIGHT_RED}${BOLD}rebooting${F_END} your computer to ensure everything went as planned :)"
-echo "================================================================================="
+echo "======================================================================================="
 
 # Prompt User to reboot
 ask_for_reboot
