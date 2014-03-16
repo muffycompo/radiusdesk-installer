@@ -413,16 +413,16 @@ function customize_database(){
 	sed -i "s|database : 'rd'|database : '${5}'|g" ${1}cake2/rd_cake/Setup/Node.js/Logfile.node.js
 	
 	#sql.conf
-	sed -i "s|server = \"localhost\"|server = \"${2}\"|g" /etc/raddb/sql.conf
-	sed -i "s|login = \"rd\"|login = \"${3}\"|g" /etc/raddb/sql.conf
-	sed -i "s|password = \"rd\"|password = \"${4}\"|g" /etc/raddb/sql.conf
-	sed -i "s|radius_db = \"rd\"|radius_db = \"${5}\"|g" /etc/raddb/sql.conf
+	sed -i "s|server = \"localhost\"|server = \"${2}\"|g" ${6}sql.conf
+	sed -i "s|login = \"rd\"|login = \"${3}\"|g" ${6}sql.conf
+	sed -i "s|password = \"rd\"|password = \"${4}\"|g" ${6}sql.conf
+	sed -i "s|radius_db = \"rd\"|radius_db = \"${5}\"|g" ${6}sql.conf
 	
 	#SQLConnector.pm
-	sed -i "s|my \$db_server   = '127.0.0.1'|my \$db_server   = '${2}'|g" /etc/raddb/rlm_perl_modules/SQLConnector.pm
-	sed -i "s|my \$db_user     = 'rd'|my \$db_user     = '${3}'|g" /etc/raddb/rlm_perl_modules/SQLConnector.pm
-	sed -i "s|my \$db_password = 'rd'|my \$db_password = '${4}'|g" /etc/raddb/rlm_perl_modules/SQLConnector.pm
-	sed -i "s|my \$db_name     = 'rd'|my \$db_name     = '${5}'|g" /etc/raddb/rlm_perl_modules/SQLConnector.pm
+	sed -i "s|my \$db_server   = '127.0.0.1'|my \$db_server   = '${2}'|g" ${6}rlm_perl_modules/SQLConnector.pm
+	sed -i "s|my \$db_user     = 'rd'|my \$db_user     = '${3}'|g" ${6}rlm_perl_modules/SQLConnector.pm
+	sed -i "s|my \$db_password = 'rd'|my \$db_password = '${4}'|g" ${6}rlm_perl_modules/SQLConnector.pm
+	sed -i "s|my \$db_name     = 'rd'|my \$db_name     = '${5}'|g" ${6}rlm_perl_modules/SQLConnector.pm
 	
 	#database.php
 	sed -i "s|'host' => 'localhost'|'host' => '${2}'|g" ${1}cake2/rd_cake/Config/database.php

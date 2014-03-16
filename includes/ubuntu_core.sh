@@ -167,7 +167,7 @@ customize_freeradius ${HTTP_DOCUMENT_ROOT} ${rad_secret}
 configure_radiusdesk_ubuntu_freeradius ${HTTP_DOCUMENT_ROOT} ${RADIUS_UBUNTU_DIR} ${TEMP_PATH}
 
 # Customize Database
-customize_database ${HTTP_DOCUMENT_ROOT} ${db_host} ${db_user} ${db_password} ${db_name}
+customize_database ${HTTP_DOCUMENT_ROOT} ${db_host} ${db_user} ${db_password} ${db_name} ${RADIUS_UBUNTU_DIR}
 
 # Import sql file to database
 echo ""
