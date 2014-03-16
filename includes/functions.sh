@@ -483,6 +483,8 @@ iptables-save > /dev/null 2>&1
 
 # Enable IP FORWARDING
 sed -i 's|net.ipv4.ip_forward = 0|net.ipv4.ip_forward = 1|g' /etc/sysctl.conf
+# commented in Ubuntu
+sed -i 's|#net.ipv4.ip_forward = 1|net.ipv4.ip_forward = 1|g' /etc/sysctl.conf
 sysctl -p > /dev/null 2>&1
 
 # Custom firewall rules for CoovaChilli start-up

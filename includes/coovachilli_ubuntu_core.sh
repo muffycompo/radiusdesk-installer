@@ -47,6 +47,7 @@ aptget_install nano curl wget unzip
 echo
 echo "============================================================="
 echo -e "3. Installing ${LIGHT_BLUE}${BOLD}CoovaChilli 1.3.0${F_END}"
+mk_temp_dir
 get_to ${TEMP_PATH}
 wget_download http://ap.coova.org/chilli/coova-chilli_1.3.0_i386.deb coova-chilli_1.3.0_i386.deb
 dpkg -i coova-chilli*.deb > /dev/null 2>&1
@@ -56,6 +57,8 @@ echo
 echo "============================================================="
 echo -e "4. Configuring ${LIGHT_BLUE}${BOLD}CoovaChilli 1.3.0${F_END}"
 configure_coovachilli ${COOVACHILLI_DIR} ${wan_if} ${lan_if} ${lan_net} ${lan_sm} ${radius_secret} ${uam_secret} ${radiusdesk_ip}
+
+clear_dir
 
 # Enable Chilli
 sed -i 's|START_CHILLI=0|START_CHILLI=1|g' /etc/default/chilli
