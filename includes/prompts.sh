@@ -172,7 +172,17 @@ function ask_for_coovachilli_install(){
 	read -p "Will you like to setup CoovaChilli Captive Portal? [Y]es or [N]o: " chilli_answer
 	case "${chilli_answer}" in 
 	  y|Y|yes|Yes )
+		# Ensure we have two network cards NICs
+		if [[ ${IF_COUNT} -lt 2 ]]; then
+		echo "============================================================"
+		echo -e "${LIGHT_RED}${BOLD}You MUST have atleast two network interface cards (NICs)!${F_END}"
+		echo "============================================================"
+		exit 1
+		fi
+		
+		# CoovaChilli Customization Prompt
 		ask_for_coovachilli_customization
+		
 		# Install CoovaChilli 1.3.0 from maorepo
 		echo
 		echo "============================================================="
