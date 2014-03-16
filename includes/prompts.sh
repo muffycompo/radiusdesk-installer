@@ -169,7 +169,6 @@ function ask_for_coovachilli_customization(){
 
 # Prompt for CoovaChilli Installation
 function ask_for_coovachilli_install(){
-	echo
 	read -p "Will you like to setup CoovaChilli Captive Portal? [Y]es or [N]o: " chilli_answer
 	case "${chilli_answer}" in 
 	  y|Y|yes|Yes )
