@@ -2,7 +2,6 @@
 
 ########## Start Menu #########
 source includes/variables.sh
-source includes/functions.sh
 
 # Installer Menu
 function installer_menu(){
@@ -13,20 +12,19 @@ function installer_menu(){
 	echo -e "2) Setup CoovaChilli Captive Portal (Optional)"
 	echo -e "3) Quit or q"
 	echo -n "Select an option: "
-	RD_DISTRO=os_distro_type
 	read menu_opt
 	case "${menu_opt}" in
 		1) 
-		if [[ "${RD_DISTRO}" = "red" ]] || [[ "${RD_DISTRO}" = "centos" ]]; then
+		if [[ "${1}" = "red" ]] || [[ "${1}" = "centos" ]]; then
 			source includes/rhel_centos_core.sh
-		elif [[ "${RD_DISTRO}" = "ubuntu" ]]; then
+		elif [[ "${1}" = "ubuntu" ]]; then
 			source includes/ubuntu_core.sh
 		fi
 		;;
 		2) 
-		if [[ "${RD_DISTRO}" = "red" ]] || [[ "${RD_DISTRO}" = "centos" ]]; then
+		if [[ "${1}" = "red" ]] || [[ "${1}" = "centos" ]]; then
 			source includes/coovachilli_core.sh
-		elif [[ "${RD_DISTRO}" = "ubuntu" ]]; then
+		elif [[ "${1}" = "ubuntu" ]]; then
 			source includes/coovachilli_ubuntu_core.sh
 		fi
 		;;
