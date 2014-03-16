@@ -125,8 +125,8 @@ function copy_nginx_configs(){
 # Copy Ubuntu Nginx Config
 function copy_ubuntu_nginx_configs(){
 	# 1a) Nginx: php.ini
-	cp -aR ${1}php.ini /etc/php5/fpm/
-	cp -aR ${1}php.ini /etc/php5/cli/
+	cp -aR ${1}ubuntu_php.ini /etc/php5/fpm/php.ini
+	cp -aR ${1}ubuntu_php.ini /etc/php5/cli/php.ini
 	sed -i.bak 's/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g' /etc/php5/cli/php.ini
 
 	# 1b) Nginx: nginx.conf, default.conf
