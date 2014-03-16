@@ -14,10 +14,16 @@ function ask_for_webserver(){
 	  a|A|apache|Apache )
 		echo
 		echo -e "Using ${LIGHT_BLUE}${BOLD}Apache${F_END} Web server"
-		webserver="httpd";;
+		OT=os_distro_type
+		if [[ "${OT}" = "red" ]] || [[ "${OT}" = "centos" ]]; then
+			webserver="httpd"
+		elif [[ "${OT}" = "ubuntu" ]]; then
+			webserver="apache2"
+		fi
+		;;
 	  * )
 		echo
-		echo -e "${LIGHT_RED}Oops...something went wrong, perharps you made a mistake in you selection!${F_END}"
+		echo -e "${LIGHT_RED}Oops...something went wrong, perharps you made a mistake in your selection!${F_END}"
 		exit 1;;
 	esac
 }
@@ -200,6 +206,51 @@ function ask_for_coovachilli_install(){
 
 		# Start CoovaChilli
 		restart_service chilli
+
+		;;
+	  n|N|no|No ) echo;;
+	  * ) echo;;
+	esac
+}
+
+# Prompt for CoovaChilli Installation
+function ask_for_coovachilli_install_ubuntu(){
+	read -p "Will you like to setup CoovaChilli Captive Portal? [Y]es or [N]o: " chilli_answer
+	case "${chilli_answer}" in 
+	  y|Y|yes|Yes )
+		# Ensure we have two network cards NICs
+		if [[ ${IF_COUNT} -lt 2 ]]; then
+		echo "============================================================"
+		echo -e "${LIGHT_RED}${BOLD}You MUST have atleast two network interface cards (NICs)!${F_END}"
+		echo "============================================================"
+		exit 1
+		fi
+		
+		# CoovaChilli Customization Prompt
+		ask_for_coovachilli_customization
+		
+		# Install CoovaChilli 1.3.0 from maorepo
+		echo
+		echo "============================================================="
+		echo -e "Installing ${LIGHT_BLUE}${BOLD}CoovaChilli 1.3.0${F_END}"
+		get_to ${TEMP_PATH}
+		wget_download http://ap.coova.org/chilli/coova-chilli_1.3.0_i386.deb coova-chilli_1.3.0_i386.deb
+		dpkg -i coova-chilli*.deb > /dev/null 2>&1
+		
+		#configure CoovaChilli
+		echo
+		echo "============================================================="
+		echo -e "Configuring ${LIGHT_BLUE}${BOLD}CoovaChilli 1.3.0${F_END}"
+		configure_coovachilli ${COOVACHILLI_DIR} ${wan_if} ${lan_if} ${lan_net} ${lan_sm} ${radius_secret} ${uam_secret} ${radiusdesk_ip}
+
+		# Enable Chilli
+		sed -i 's|START_CHILLI=0|START_CHILLI=1|g' /etc/default/chilli
+		
+		# Start CoovaChilli on Boot
+		start_ubuntu_service_on_boot chilli
+
+		# Start CoovaChilli
+		start_ubuntu_service chilli
 
 		;;
 	  n|N|no|No ) echo;;

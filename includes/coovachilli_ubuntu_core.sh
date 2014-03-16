@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Description: CoovaChilli Core RHEL/CentOS Installer.
+# Description: CoovaChilli Core Ubuntu Installer.
 # Author: Mfawa Alfred Onen
 # Link/URL: http://muffycompo.github.io/radiusdesk-installer
 # Date: March 14, 2014
@@ -34,48 +34,37 @@ echo "============================================================="
 echo -n "1. Checking if you are root: "
 check_root_privileges
 
-# Check if SELinux is disabled
-echo
-echo "============================================================="
-echo -n "2. Checking if SELinux is enabled: "
-check_selinux_status
-
 echo
 #echo -n "Flushing default Iptable rules: "
 reset_iptables_rules
 
 # Install some packages from base repo
 echo "============================================================="
-echo -e "3. Installing ${LIGHT_BLUE}${BOLD}pre-requisite packages${F_END}"
-yum_install nano curl wget unzip
- 
-# Install EPEL/POPTOP repo
+echo -e "2. Installing ${LIGHT_BLUE}${BOLD}pre-requisite packages${F_END}"
+aptget_install nano curl wget unzip
+
+# Install CoovaChilli 1.3.0
 echo
 echo "============================================================="
-echo -e "4. Installing ${LIGHT_BLUE}${BOLD}EPEL Repository${F_END}"
-install_epel_repo ${OS_VERSION} ${ARCH_TYPE}
-
-# Download & Install RHEL/CentOS 6 FreeRADIUS RPMs -> TODO: Compile RPMs for more OS_VERSIONS
-install_mao_repo ${ARCH_TYPE}
-
-# Install CoovaChilli 1.3.0 from maorepo
-echo
-echo "============================================================="
-echo -e "5. Installing ${LIGHT_BLUE}${BOLD}CoovaChilli 1.3.0${F_END}"
-yum_install coova-chilli vixie-cron
+echo -e "3. Installing ${LIGHT_BLUE}${BOLD}CoovaChilli 1.3.0${F_END}"
+get_to ${TEMP_PATH}
+wget_download http://ap.coova.org/chilli/coova-chilli_1.3.0_i386.deb coova-chilli_1.3.0_i386.deb
+dpkg -i coova-chilli*.deb > /dev/null 2>&1
 
 #configure CoovaChilli
 echo
 echo "============================================================="
-echo -e "Configuring ${LIGHT_BLUE}${BOLD}CoovaChilli 1.3.0${F_END}"
+echo -e "4. Configuring ${LIGHT_BLUE}${BOLD}CoovaChilli 1.3.0${F_END}"
 configure_coovachilli ${COOVACHILLI_DIR} ${wan_if} ${lan_if} ${lan_net} ${lan_sm} ${radius_secret} ${uam_secret} ${radiusdesk_ip}
 
-# Start CoovaChilli on Boot
-start_service_on_boot chilli
+# Enable Chilli
+sed -i 's|START_CHILLI=0|START_CHILLI=1|g' /etc/default/chilli
 
+# Start CoovaChilli on Boot
+start_ubuntu_service_on_boot chilli
 
 # Start CoovaChilli
-restart_service chilli
+start_ubuntu_service chilli
 
 
 # CoovaChilli Installation complete

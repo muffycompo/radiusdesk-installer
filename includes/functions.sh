@@ -35,6 +35,11 @@ function yum_install(){
 	yum -q install -y ${@} > /dev/null 2>&1
 }
 
+# APT-GET Installer
+function aptget_install(){
+	apt-get -qq -y install ${@} > /dev/null 2>&1
+}
+
 # EPEL/POPTOP REPO
 function install_epel_repo(){
 	if [[ ${1} -eq 6 ]]; then
@@ -67,9 +72,24 @@ function start_service(){
 	service ${1} start > /dev/null 2>&1
 }
 
+# Start Ubuntu Service
+function start_ubuntu_service(){
+	/etc/init.d/${1} start > /dev/null 2>&1
+}
+
 # Restart Service
 function restart_service(){
 	service ${1} restart > /dev/null 2>&1
+}
+
+# Restart Ubuntu Service
+function restart_ubuntu_service(){
+	/etc/init.d/${1} restart > /dev/null 2>&1
+}
+
+# Stop Service
+function stop_ubuntu_service(){
+	/etc/init.d/${1} stop > /dev/null 2>&1
 }
 
 # Stop Service
@@ -80,6 +100,11 @@ function stop_service(){
 # Start Service on Boot
 function start_service_on_boot(){
 	chkconfig ${1} on
+}
+
+# Start Ubuntu Service on Boot
+function start_ubuntu_service_on_boot(){
+	echo "/etc/init.d/${1} start" >> /etc/rc.local
 }
 
 # Copy Nginx Config
@@ -96,11 +121,38 @@ function copy_nginx_configs(){
 	cp -aR ${1}php-fpm/www.conf /etc/php-fpm.d/
 }
 
+# Copy Ubuntu Nginx Config
+function copy_ubuntu_nginx_configs(){
+	# 1a) Nginx: php.ini
+	cp -aR ${1}php.ini /etc/php5/fpm/
+	cp -aR ${1}php.ini /etc/php5/cli/
+	sed -i.bak 's/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g' /etc/php5/cli/php.ini
+
+	# 1b) Nginx: nginx.conf, default.conf
+	cp -aR ${1}nginx/ubuntu_nginx.conf /etc/nginx/nginx.conf
+	cp -aR ${1}nginx/ubuntu_default.conf /etc/nginx/sites-available/default
+
+	# 1c) php-fpm: www.conf
+	cp -aR ${1}php-fpm/ubuntu_www.conf /etc/php5/fpm/pool.d/www.conf
+}
+
 # Copy Apache Config
 function copy_apache_configs(){
 	# 1) Apache: httpd.conf
 	cp -aR ${1}php.ini /etc/
 	cp -aR ${1}apache/httpd.conf /etc/httpd/conf/
+}
+
+# Copy Ubuntu Apache Config
+function copy_ubuntu_apache_configs(){
+	# 1) Apache: httpd.conf
+	cp -aR ${1}php.ini /etc/php5/fpm/
+	cp -aR ${1}php.ini /etc/php5/cli/
+	cp -aR ${1}apache/apache2.conf /etc/apache2/apache2.conf
+	# Enable RADIUSdesk required modules
+	a2enmod rewrite
+	a2enmod deflate
+	a2enmod headers
 }
 
 # cd to directory
@@ -143,6 +195,17 @@ function install_nodejs(){
 	chkconfig --add nodejs-socket-io
 }
 
+# Install Ubuntu NodeJS
+function install_ubuntu_nodejs(){
+	npm -g install tail socket.io connect mysql forever > /dev/null 2>&1
+
+	# Fix Paths for RHEL/CentOS compatibility
+	sed -i "s|/usr/share/nginx/www/html/|${1}|g" ${2}nodejs-socket-io
+	sed -i "s|/usr/share/nginx/www/cake2|${1}cake2|g" ${2}nodejs-socket-io
+	# Add to Startup
+	update-rc.d nodejs-socket-io start 80 2 3 4 5 . stop 20 0 1 6 .  > /dev/null 2>&1
+}
+
 # Install RADIUSdesk
 function install_radiusdesk(){
 	get_to ${1}
@@ -169,11 +232,26 @@ function install_radiusdesk_cron(){
 	fi
 }
 
+# Install RADIUSdesk Ubuntu CRON
+function install_radiusdesk_ubuntu_cron(){
+	cp -a ${1}cake2/rd_cake/Setup/Cron/rd /etc/cron.d/
+	
+	bash -c "grep -R --files-with-matches '/var/www' ${1}cake2 | sort | uniq | xargs sed -i 's|/var/www/|${1}|g'"
+	sed -i "s|/var/www/cake2|${1}cake2|g" /etc/cron.d/rd
+}
+
 # Update RADIUSdesk Paths
 function update_radiusdesk_paths(){
 	sed -i 's|/usr/local/share|/usr/share|g' ${1}cake2/rd_cake/Config/RadiusDesk.php
 	sed -i 's|/usr/local/etc/raddb|/etc/raddb|g' ${1}cake2/rd_cake/Config/RadiusDesk.php
 	sed -i 's|/usr/local/bin|/usr/bin|g' ${1}cake2/rd_cake/Config/RadiusDesk.php
+	sed -i "s|'id' => 'pptp',     'active' => false|'id' => 'pptp',     'active' => true|g" ${1}cake2/rd_cake/Config/RadiusDesk.php
+	sed -i 's|<script src="ext/ext-dev.js"></script>|<script src="ext/ext-all.js"></script>|g' ${1}rd/index.html
+	sed -i 's|Ext.Loader.setConfig({enabled:true});|Ext.Loader.setConfig({enabled:true,disableCaching: false});|g' ${1}rd/app.js 
+}
+
+# Update RADIUSdesk Ubuntu Paths
+function update_radiusdesk_ubuntu_paths(){
 	sed -i "s|'id' => 'pptp',     'active' => false|'id' => 'pptp',     'active' => true|g" ${1}cake2/rd_cake/Config/RadiusDesk.php
 	sed -i 's|<script src="ext/ext-dev.js"></script>|<script src="ext/ext-all.js"></script>|g' ${1}rd/index.html
 	sed -i 's|Ext.Loader.setConfig({enabled:true});|Ext.Loader.setConfig({enabled:true,disableCaching: false});|g' ${1}rd/app.js 
@@ -224,10 +302,60 @@ EOF
 
 }
 
+
+# Configure FreeRADIUS
+function configure_radiusdesk_ubuntu_freeradius(){
+	# Patch 
+	# patch -p1 < ../source/rd_cake/Setup/Radius/rlm_raw_patch
+	get_to ${3}
+	tar xzf freeradius-server-2.2.0.tar.gz
+	cd freeradius-server*/
+	patch -p1 < ${1}cake2/source/rd_cake/Setup/Radius/rlm_raw_patch
+	echo "rlm_raw" >> src/modules/stable
+	 
+	# Configure and install FreeRADIUS
+	./configure > /dev/null 2>&1; make -i > /dev/null 2>&1; make -i install > /dev/null 2>&1; ldconfig > /dev/null 2>&1
+	cd ../
+	
+	cp -aR /usr/local/sbin/rc.radiusd /etc/init.d/radiusd
+	update-rc.d radiusd start 80 2 3 4 5 . stop 20 0 1 6 .  > /dev/null 2>&1
+	
+	# Replace existing checkrad with RADIUSdesk modified version
+	cp -aR ${1}cake2/rd_cake/Setup/Radius/checkrad /usr/local/sbin
+
+	# Backup original raddb directory
+	mv ${2} /usr/local/etc/raddb.bak
+	tar xzf ${1}cake2/rd_cake/Setup/Radius/raddb_rd.tar.gz --directory=/usr/local/etc/
+
+	sed -i 's|#	sql2|	raw|g' ${2}radiusd.conf
+	sed -i 's|client localhost {|#client localhost {|g' ${2}clients.conf
+	sed -i 's|}|#}|g' ${2}clients.conf
+
+	ln -s ${2}sites-available/dynamic-clients ${2}sites-enabled/dynamic-clients
+	cp -aR ${3}dynamic-clients ${2}sites-enabled/dynamic-clients
+
+cat > ${2}modules/raw <<EOF
+raw { 
+  
+}
+EOF
+
+	# Local IP for PPTP
+	echo "localip 10.20.30.1" >> /etc/pptpd.conf
+
+}
+
 # Fix sudoers file for RADIUSdesk
 function fix_radiusdesk_sudoers(){
 	sed -i 's|Defaults    requiretty|#Defaults    requiretty|g' ${1}
 	sed -i 's|Defaults   !visiblepw|#Defaults   !visiblepw|g' ${1}
+	# Add admin group to Sudoers
+	echo "%admin ALL=(ALL) ALL apache ALL = NOPASSWD:${2}cake2/rd_cake/Setup/Scripts/radmin_wrapper.pl" >> ${1}
+
+}
+
+# Fix Ubuntu sudoers file for RADIUSdesk
+function fix_ubuntu_radiusdesk_sudoers(){
 	# Add admin group to Sudoers
 	echo "%admin ALL=(ALL) ALL apache ALL = NOPASSWD:${2}cake2/rd_cake/Setup/Scripts/radmin_wrapper.pl" >> ${1}
 
@@ -244,6 +372,21 @@ function fix_radiusdesk_permissions_ownership(){
 	# Permissions
 	chmod 755 /usr/sbin/checkrad
 	chmod 644 /etc/raddb/dictionary
+	chmod -R 777 ${1}cake2/rd_cake/Setup/Scripts/*.pl
+	chmod 755 /etc/init.d/nodejs-socket-io
+}
+
+# Fix RADIUSdesk permissions and ownership for Ubuntu
+function fix_radiusdesk_permissions_ownership_ubuntu(){
+	# Web Directory -> both nginx and httpd use apache user
+	chown -R www-data:www-data ${1}
+
+	# Radius Directory
+	# chown -R radiusd:radiusd /usr/local/etc/raddb
+
+	# Permissions
+	chmod 755 /usr/local/sbin/checkrad
+	chmod 644 /usr/local/etc/raddb/dictionary
 	chmod -R 777 ${1}cake2/rd_cake/Setup/Scripts/*.pl
 	chmod 755 /etc/init.d/nodejs-socket-io
 }
@@ -336,7 +479,7 @@ EOF
 # Add NAT rules - MASQUERADING
 iptables -F POSTROUTING -t nat
 iptables -I POSTROUTING -t nat -o ${2} -j MASQUERADE
-service iptables save > /dev/null 2>&1
+iptables-save > /dev/null 2>&1
 
 # Enable IP FORWARDING
 sed -i 's|net.ipv4.ip_forward = 0|net.ipv4.ip_forward = 1|g' /etc/sysctl.conf
@@ -370,6 +513,23 @@ EOF
 function clear_dir(){
 	cd ~/
 	rm -rf ${1}
+}
+
+# Utility Functions
+function to_lower(){
+	echo "${1}" | sed "y/ABCDEFGHIJKLMNOPQRSTUVWXYZ/abcdefghijklmnopqrstuvwxyz/"
+}
+
+function os_distro_type(){
+	if [[ -f "/etc/redhat-release" ]] ; then
+		DISTRO=`cat /etc/redhat-release | sed s/\ release.*//`
+	elif [[ -f "/etc/debian_version" ]] || [[ -f "/etc/lsb-release" ]]; then
+		DISTRO=`cat /etc/lsb-release | grep '^DISTRIB_ID' | awk -F=  '{ print $2 }'`
+	else
+		DISTRO="Unsupported"
+	fi
+
+	to_lower ${DISTRO}
 }
 
 ########## End Functions #########
