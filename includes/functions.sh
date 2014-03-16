@@ -200,7 +200,7 @@ function install_nodejs(){
 function install_ubuntu_nodejs(){
 	npm -g install tail socket.io connect mysql forever > /dev/null 2>&1
 
-	# Fix Paths for RHEL/CentOS compatibility
+	# Fix Paths for Ubuntu compatibility
 	sed -i "s|/usr/share/nginx/www/html/|${1}|g" ${2}nodejs-socket-io
 	sed -i "s|/usr/share/nginx/www/cake2|${1}cake2|g" ${2}nodejs-socket-io
 	# Add to Startup
