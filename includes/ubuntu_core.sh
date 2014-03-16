@@ -55,7 +55,7 @@ echo "mysql-server mysql-server/root_password_again password" | debconf-set-sele
 echo "postfix postfix/mailname string mail.maomuffy.com" | debconf-set-selections 
 echo "postfix postfix/main_mailer_type string 'Internet Site'" | debconf-set-selections
 # Make changes to add additional repositories for NodeJS
-aptget_install ${webserver} language-pack-en-base php5 php5-fpm mysql-server mysql-client php5-mysql php5-cli php5-gd php5-curl subversion php5-xcache git mailutils unixODBC perl postgresql gcc make pptpd libltdl7 python-software-properties python g++ make build-essential libmysqlclient-dev libperl-dev libssl-dev libpam0g-dev libgdbm-dev libldap2-dev libsasl2-dev unixODBC libkrb5-dev libperl-dev libpcap-dev python-dev snmp libsnmp-dev libpq-dev autotools-dev libtool dpatch dh-make devscripts
+aptget_install ${webserver} language-pack-en-base php5 php5-json php5-fpm mysql-server mysql-client php5-mysql php5-cli php5-gd php5-curl subversion php5-xcache git mailutils unixODBC perl postgresql gcc make pptpd libltdl7 python-software-properties python g++ make build-essential libmysqlclient-dev libperl-dev libssl-dev libpam0g-dev libgdbm-dev libldap2-dev libsasl2-dev unixODBC libkrb5-dev libperl-dev libpcap-dev python-dev snmp libsnmp-dev libpq-dev autotools-dev libtool dpatch dh-make devscripts
 add-apt-repository -y ppa:chris-lea/node.js > /dev/null 2>&1
 apt-get -qq update -y  > /dev/null 2>&1
 aptget_install nodejs
@@ -192,6 +192,7 @@ install_ubuntu_nodejs ${HTTP_DOCUMENT_ROOT} /etc/init.d/
 start_ubuntu_service_on_boot ${webserver}
 start_ubuntu_service_on_boot pptpd
 start_ubuntu_service_on_boot mysql
+start_ubuntu_service_on_boot php5-fpm
 
 # Start/Restart services
 echo ""
@@ -202,6 +203,7 @@ restart_ubuntu_service ${webserver}
 restart_ubuntu_service radiusd
 restart_ubuntu_service pptpd
 restart_ubuntu_service mysql
+restart_ubuntu_service php5-fpm
 
 # Clear temporary directory
 clear_dir ${TEMP_PATH}

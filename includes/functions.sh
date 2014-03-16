@@ -104,7 +104,8 @@ function start_service_on_boot(){
 
 # Start Ubuntu Service on Boot
 function start_ubuntu_service_on_boot(){
-	echo "/etc/init.d/${1} start" >> /etc/rc.local
+	#echo "/etc/init.d/${1} start" >> /etc/rc.local
+	update-rc.d ${1} defaults
 }
 
 # Copy Nginx Config
