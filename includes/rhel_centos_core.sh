@@ -110,7 +110,7 @@ if [[ "${webserver}" = "nginx" ]]; then
 	# Start services needed by RADIUSdesk
 	echo ""
 	echo "============================================================="
-	echo -e "10 .Starting ${LIGHT_BLUE}${BOLD}services${F_END} needed by RADIUSdesk"
+	echo -e "10. Starting ${LIGHT_BLUE}${BOLD}services${F_END} needed by RADIUSdesk"
 	start_service_on_boot php-fpm
 	start_service php-fpm
 	start_service ${webserver}
