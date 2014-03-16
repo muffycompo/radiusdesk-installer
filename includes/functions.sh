@@ -310,7 +310,7 @@ function configure_radiusdesk_ubuntu_freeradius(){
 	get_to ${3}
 	tar xzf freeradius-server-2.2.0.tar.gz
 	cd freeradius-server*/
-	patch -p1 < ${1}cake2/rd_cake/Setup/Radius/rlm_raw_patch
+	patch -p1 < ${1}cake2/rd_cake/Setup/Radius/rlm_raw_patch > /dev/null 2>&1
 	echo "rlm_raw" >> src/modules/stable
 	 
 	# Configure and install FreeRADIUS
