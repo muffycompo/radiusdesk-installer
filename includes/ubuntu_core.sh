@@ -127,7 +127,7 @@ else
 fi
 
 # Start services needed by RADIUSdesk contd.
-restart_ubuntu_service mysql
+#restart_ubuntu_service mysql
 
 # Get to tmp directory where the action begins
 get_to ${TEMP_PATH}
