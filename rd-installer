@@ -8,10 +8,13 @@
 
 # Include Menu
 source includes/menu.sh
+source includes/functions.sh
 
 # Show RADIUSdesk Installer Version when -v is passed to Installer
 show_version ${1}
 
-installer_menu
+RD_DISTRO=$(os_distro_type)
+
+installer_menu ${RD_DISTRO}
 
 # END
