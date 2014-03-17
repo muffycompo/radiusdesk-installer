@@ -358,7 +358,7 @@ function fix_radiusdesk_sudoers(){
 # Fix Ubuntu sudoers file for RADIUSdesk
 function fix_ubuntu_radiusdesk_sudoers(){
 	# Add admin group to Sudoers
-	echo "%admin ALL=(ALL) ALL apache ALL = NOPASSWD:${2}cake2/rd_cake/Setup/Scripts/radmin_wrapper.pl" >> ${1}
+	echo "%admin ALL=(ALL) ALL www-data ALL = NOPASSWD:${2}cake2/rd_cake/Setup/Scripts/radmin_wrapper.pl" >> ${1}
 
 }
 

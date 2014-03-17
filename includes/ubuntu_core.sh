@@ -157,7 +157,7 @@ install_radiusdesk_ubuntu_cron ${HTTP_DOCUMENT_ROOT}
 
 echo ""
 echo "============================================================="
-echo -e "13. Updating ${LIGHT_BLUE}${BOLD}RADIUSdesk Paths${F_END} for Ubuntu compatibility"
+echo -e "13. Updating ${LIGHT_BLUE}${BOLD}RADIUSdesk Paths${F_END} for Ubuntu/Debian compatibility"
 update_radiusdesk_ubuntu_paths ${HTTP_DOCUMENT_ROOT}
 
 # Customize FreeRADIUS
