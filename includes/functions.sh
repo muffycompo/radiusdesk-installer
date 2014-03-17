@@ -477,10 +477,17 @@ HS_LOC_ISOCC=NG
 HS_COAPORT=3799
 EOF
 
-# Add NAT rules - MASQUERADING
-iptables -F POSTROUTING -t nat
-iptables -I POSTROUTING -t nat -o ${2} -j MASQUERADE
-iptables-save > /dev/null 2>&1
+# # Add NAT rules - MASQUERADING
+# iptables -F POSTROUTING -t nat
+# iptables -I POSTROUTING -t nat -o ${2} -j MASQUERADE
+# iptables-save > /dev/null 2>&1
+sed -i '/ifconfig $HS_LANIF 0.0.0.0/c \
+#NAT mod \
+iptables -F POSTROUTING -t nat \
+iptables -I POSTROUTING -t nat -o $HS_WANIF -j MASQUERADE \
+#END NAT mod \
+\
+ifconfig $HS_LANIF 0.0.0.0' /etc/init.d/chilli
 
 # Enable IP FORWARDING
 sed -i 's|net.ipv4.ip_forward = 0|net.ipv4.ip_forward = 1|g' /etc/sysctl.conf
@@ -509,6 +516,7 @@ iptables -D INPUT -i tun0 -p tcp -m tcp --dport 53 --dst ${TRIM_UAM_IP} -j ACCEP
 iptables -D INPUT -i tun0 -p tcp -m tcp --dport 1812 --dst ${TRIM_UAM_IP} -j ACCEPT
 iptables -D INPUT -i tun0 -p tcp -m tcp --dport 67 --dst ${TRIM_UAM_IP} -j ACCEPT
 EOF
+
 
 # Fix CoovaChilli Defaults
 sed -i 's|HS_UAMALLOW|#HS_UAMALLOW|g' /etc/chilli/defaults
