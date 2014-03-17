@@ -520,6 +520,9 @@ if [[ -d "${9}" ]]; then
 	sed -i "s|$uamsecret = 'uam_s3cr3t';|$uamsecret = '${7}';|g" ${9}rd_login_pages/services/uam.php
 fi
 
+# Disable DNS lookup for SSH
+echo "UseDNS no" >> /etc/ssh/sshd_config
+
 }
 
 # Clear Temporary Directory
