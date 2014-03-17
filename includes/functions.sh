@@ -500,7 +500,7 @@ iptables -I INPUT -i tun0 -p tcp -m tcp --dport 67 --dst ${TRIM_UAM_IP} -j ACCEP
 EOF
 
 # Custom firewall rules for CoovaChilli shut-down
-cat > /etc/chilli/ipup.sh <<EOF
+cat > /etc/chilli/ipdown.sh <<EOF
 iptables -D INPUT -i tun0 -p tcp -m tcp --dport 80 --dst ${TRIM_UAM_IP} -j ACCEPT
 iptables -D INPUT -i tun0 -p tcp -m tcp --dport 443 --dst ${TRIM_UAM_IP} -j ACCEPT
 iptables -D INPUT -i tun0 -p tcp -m tcp --dport 22 --dst ${TRIM_UAM_IP} -j ACCEPT
