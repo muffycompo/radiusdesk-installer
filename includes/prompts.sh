@@ -199,7 +199,7 @@ function ask_for_coovachilli_install(){
 		echo
 		echo "============================================================="
 		echo -e "Configuring ${LIGHT_BLUE}${BOLD}CoovaChilli 1.3.0${F_END}"
-		configure_coovachilli ${COOVACHILLI_DIR} ${wan_if} ${lan_if} ${lan_net} ${lan_sm} ${radius_secret} ${uam_secret} ${radiusdesk_ip}
+		configure_coovachilli ${COOVACHILLI_DIR} ${wan_if} ${lan_if} ${lan_net} ${lan_sm} ${radius_secret} ${uam_secret} ${radiusdesk_ip} ${1}
 
 		# Start CoovaChilli on Boot
 		start_service_on_boot chilli
@@ -241,7 +241,7 @@ function ask_for_coovachilli_install_ubuntu(){
 		echo
 		echo "============================================================="
 		echo -e "Configuring ${LIGHT_BLUE}${BOLD}CoovaChilli 1.3.0${F_END}"
-		configure_coovachilli ${COOVACHILLI_DIR} ${wan_if} ${lan_if} ${lan_net} ${lan_sm} ${radius_secret} ${uam_secret} ${radiusdesk_ip}
+		configure_coovachilli ${COOVACHILLI_DIR} ${wan_if} ${lan_if} ${lan_net} ${lan_sm} ${radius_secret} ${uam_secret} ${radiusdesk_ip} ${1}
 
 		# Enable Chilli
 		sed -i 's|START_CHILLI=0|START_CHILLI=1|g' /etc/default/chilli

@@ -510,6 +510,16 @@ iptables -D INPUT -i tun0 -p tcp -m tcp --dport 1812 --dst ${TRIM_UAM_IP} -j ACC
 iptables -D INPUT -i tun0 -p tcp -m tcp --dport 67 --dst ${TRIM_UAM_IP} -j ACCEPT
 EOF
 
+# Fix CoovaChilli Defaults
+sed -i 's|HS_UAMALLOW|#HS_UAMALLOW|g' /etc/chilli/defaults
+sed -i 's|HS_UAMHOMEPAGE|#HS_UAMHOMEPAGE|g' /etc/chilli/defaults
+
+# Update UAM Secret for rd_login_pages
+if [[ -d "${9}" ]]; then
+	sed -i "s|<?|<?php|g" ${9}rd_login_pages/services/uam.php
+	sed -i "s|$uamsecret = 'uam_s3cr3t';|$uamsecret = '${7}';|g" ${9}rd_login_pages/services/uam.php
+fi
+
 }
 
 # Clear Temporary Directory

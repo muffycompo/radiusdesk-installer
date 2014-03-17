@@ -226,7 +226,7 @@ echo -e "We recommend ${LIGHT_RED}${BOLD}rebooting${F_END} your computer to ensu
 echo "============================================================================"
 
 # Prompt for CoovaChilli Installation
-ask_for_coovachilli_install
+ask_for_coovachilli_install ${HTTP_DOCUMENT_ROOT}
 
 # Prompt User to reboot
 ask_for_reboot
