@@ -47,13 +47,8 @@ aptget_install nano curl wget unzip
 echo
 echo "============================================================="
 echo -e "3. Installing ${LIGHT_BLUE}${BOLD}CoovaChilli 1.3.0${F_END}"
-if [[ "$(arch)" = "x86_64" ]]; then
-	wget_download http://maomuffy.com/repo/ubuntu/coovachilli/x86_64/coova-chilli_1.3.0_amd64.deb coova-chilli_1.3.0.deb
-else
-	wget_download http://ap.coova.org/chilli/coova-chilli_1.3.0_i386.deb coova-chilli_1.3.0.deb
-fi
-dpkg -i coova-chilli*.deb > /dev/null 2>&
-rm -rf coova-chilli*.deb
+
+install_ubuntu_coovachilli ${ARCH_TYPE}
 
 #configure CoovaChilli
 echo
