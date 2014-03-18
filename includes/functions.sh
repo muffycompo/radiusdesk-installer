@@ -151,9 +151,9 @@ function copy_ubuntu_apache_configs(){
 	cp -aR ${1}php.ini /etc/php5/cli/
 	cp -aR ${1}apache/apache2.conf /etc/apache2/apache2.conf
 	# Enable RADIUSdesk required modules
-	a2enmod rewrite
-	a2enmod deflate
-	a2enmod headers
+	a2enmod rewrite > /dev/null 2>&1
+	a2enmod deflate > /dev/null 2>&1
+	a2enmod headers > /dev/null 2>&1
 }
 
 # cd to directory

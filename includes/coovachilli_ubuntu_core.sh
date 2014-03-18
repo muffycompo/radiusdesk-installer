@@ -47,7 +47,6 @@ aptget_install nano curl wget unzip
 echo
 echo "============================================================="
 echo -e "3. Installing ${LIGHT_BLUE}${BOLD}CoovaChilli 1.3.0${F_END}"
-
 install_ubuntu_coovachilli ${ARCH_TYPE}
 
 #configure CoovaChilli

@@ -10,7 +10,11 @@ function ask_for_webserver(){
 	  n|N|nginx|Nginx )
 		echo
 		echo -e "Using ${LIGHT_BLUE}${BOLD}Nginx${F_END} Web server"
-		webserver="nginx";;
+		if [[ "${1}" = "ubuntu" ]]; then
+			webserver="nginx"
+			php_processor="php5-fpm"
+		fi
+		;;
 	  a|A|apache|Apache )
 		echo
 		echo -e "Using ${LIGHT_BLUE}${BOLD}Apache${F_END} Web server"
@@ -18,6 +22,7 @@ function ask_for_webserver(){
 			webserver="httpd"
 		elif [[ "${1}" = "ubuntu" ]]; then
 			webserver="apache2"
+			php_processor="php5"
 		fi
 		;;
 	  * )
@@ -232,9 +237,7 @@ function ask_for_coovachilli_install_ubuntu(){
 		echo
 		echo "============================================================="
 		echo -e "Installing ${LIGHT_BLUE}${BOLD}CoovaChilli 1.3.0${F_END}"
-		get_to ${TEMP_PATH}
-		wget_download http://ap.coova.org/chilli/coova-chilli_1.3.0_i386.deb coova-chilli_1.3.0_i386.deb
-		dpkg -i coova-chilli*.deb > /dev/null 2>&1
+		install_ubuntu_coovachilli ${ARCH_TYPE}
 		
 		#configure CoovaChilli
 		echo
