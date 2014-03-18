@@ -147,8 +147,8 @@ function copy_apache_configs(){
 # Copy Ubuntu Apache Config
 function copy_ubuntu_apache_configs(){
 	# 1) Apache: httpd.conf
-	cp -aR ${1}php.ini /etc/php5/fpm/
-	cp -aR ${1}php.ini /etc/php5/cli/
+	cp -aR ${1}ubuntu_php.ini /etc/php5/cli/php.ini
+	cp -aR ${1}ubuntu_php.ini /etc/php5/apache2/php.ini
 	cp -aR ${1}apache/apache2.conf /etc/apache2/apache2.conf
 	# Enable RADIUSdesk required modules
 	a2enmod rewrite > /dev/null 2>&1
