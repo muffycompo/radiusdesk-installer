@@ -1,7 +1,7 @@
 RADIUSdesk Installer
 ====================
 ## Overview
-This project tries to simplify or ease the process of getting a working installation of [RADIUSdesk](http://www.radiusdesk.com) on a vanilla/minimal installation of RHEL/CentOS 6.X (32 bit/64 bit). This will be an ongoing effort and there is plans to support more Distros (Fedora,Debian,Ubuntu etc) and so please feel free to contribute by sending a pull request.
+This project tries to simplify or ease the process of getting a working installation of [RADIUSdesk](http://www.radiusdesk.com) on a vanilla/minimal installation of RHEL/CentOS 6.X/Ubuntu 13.10 (32 bit/64 bit). This will be an ongoing effort and there is plans to support more Distros (like openSUSE etc) and so please feel free to contribute by sending a pull request.
 
 ## Installation & Usage
 1. Clone or download the project.
@@ -19,19 +19,20 @@ This project tries to simplify or ease the process of getting a working installa
 3. Somewhat modularized, so you can always extend RADIUSdesk installer to support your environment
 4. Setup Captive Portal with CoovaChilli
 
-## Limitations
-1. The installer only works RADIUSdesk on a RHEL/CentOS 6.x machine/server
+## Compatibility
+The installer has been tested on the following Linux Operating Systems
+1. CentOS 6.4/6.5 (64 bit) 
+2. Red Hat Enterprise Linux 6.4/6.5 (64 bit)
+3. Ubuntu 13.10 [Saucy Salamander] (64 bit)
 
 ## Resources
 1. [RADIUSdesk Course/Tutorials](http://www.maomuffy.com/introduction-to-radiusdesk-with-rhelcentos-6-x-mini-course/) by [Mfawa Alfred Onen](http://ng.linkedin.com/in/mfawaalfredonen/)
 2. [RADIUSdesk Project](http://www.radiusdesk.com) by [Dirk van der Walt](http://www.linkedin.com/pub/dirk-van-der-walt/11/b64/79a)
 3. [RADIUSdesk Installer Videos](http://www.maomuffy.com/radiusdesk-installer-project/)
 
-## TODO
-1. Make the installer Operating System agnostic (Support multiple Linux OS)
-
 ## Contributions
 1. Anyone is welcome to contribute by sending a pull request with your desired feature tested and implemented.
+2. If you have tested the installer in a Linux Distribution that is not in the compatibility list, kindly contact send an email to muffycompoqm[at]gmail[dot]com.
 
 ## Copyright and License
 
