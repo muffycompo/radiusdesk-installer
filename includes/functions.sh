@@ -559,12 +559,12 @@ function os_distro_type(){
 function install_ubuntu_coovachilli(){
 if [ "${1}" = "x86_64" ]; then
 	wget_download http://maomuffy.com/repo/ubuntu/coovachilli/x86_64/coova-chilli_1.3.0_amd64.deb coova-chilli_1.3.0.deb
+	dpkg -i coova-chilli_1.3.0.deb > /dev/null 2>&
 else
 	wget_download http://ap.coova.org/chilli/coova-chilli_1.3.0_i386.deb coova-chilli_1.3.0.deb
+	dpkg -i coova-chilli_1.3.0.deb > /dev/null 2>&
 fi
 
-`dpkg -i coova-chilli_1.3.0.deb > /dev/null 2>&`
-rm -rf coova-chilli_1.3.0.deb
 }
 
 ########## End Functions #########
