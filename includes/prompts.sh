@@ -14,10 +14,9 @@ function ask_for_webserver(){
 	  a|A|apache|Apache )
 		echo
 		echo -e "Using ${LIGHT_BLUE}${BOLD}Apache${F_END} Web server"
-		OT=os_distro_type
-		if [[ "${OT}" = "red" ]] || [[ "${OT}" = "centos" ]]; then
+		if [[ "${1}" = "red" ]] || [[ "${1}" = "centos" ]]; then
 			webserver="httpd"
-		elif [[ "${OT}" = "ubuntu" ]]; then
+		elif [[ "${1}" = "ubuntu" ]]; then
 			webserver="apache2"
 		fi
 		;;

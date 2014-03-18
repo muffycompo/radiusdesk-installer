@@ -18,7 +18,8 @@ else
 fi
 
 # Prompt for web server technology
-ask_for_webserver
+OT=$(os_distro_type)
+ask_for_webserver ${OT}
 
 
 # Prompt for database customization
