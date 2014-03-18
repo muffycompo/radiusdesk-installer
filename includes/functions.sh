@@ -563,8 +563,8 @@ else
 	wget_download http://ap.coova.org/chilli/coova-chilli_1.3.0_i386.deb coova-chilli_1.3.0.deb
 fi
 
-#dpkg -i coova-chilli_1.3.0.deb > /dev/null 2>&
-#rm -rf coova-chilli_1.3.0.deb
+`dpkg -i coova-chilli_1.3.0.deb > /dev/null 2>&`
+rm -rf coova-chilli_1.3.0.deb
 }
 
 ########## End Functions #########
