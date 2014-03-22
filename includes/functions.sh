@@ -25,7 +25,7 @@ function check_selinux_status(){
 
 # Check AppArmor status
 function check_apparmor_status(){
-	[[ -f "/etc/init.d/apparmor" ]]; then
+	if [[ -f "/etc/init.d/apparmor" ]]; then
 		/etc/init.d/apparmor stop > /dev/null 2>&1
 		/etc/init.d/apparmor teardown > /dev/null 2>&1
 		update-rc.d -f apparmor remove > /dev/null 2>&1
