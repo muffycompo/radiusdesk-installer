@@ -23,6 +23,18 @@ function check_selinux_status(){
 	fi
 }
 
+# Check AppArmor status
+function check_apparmor_status(){
+	[[ -f "/etc/init.d/apparmor" ]]; then
+		/etc/init.d/apparmor stop > /dev/null 2>&1
+		/etc/init.d/apparmor teardown > /dev/null 2>&1
+		update-rc.d -f apparmor remove > /dev/null 2>&1
+		echo -e "${LIGHT_YELLOW}${BOLD}Corrected${F_END}"
+	else
+		echo -e "${LIGHT_GREEN}${BOLD}Disabled${F_END}"
+	fi
+}
+
 # Reset IPTables
 function reset_iptables_rules(){
 	iptables -F
