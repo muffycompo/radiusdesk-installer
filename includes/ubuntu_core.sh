@@ -166,6 +166,9 @@ echo "============================================================="
 echo -e "14. Updating ${LIGHT_BLUE}${BOLD}RADIUSdesk Paths${F_END} for Ubuntu/Debian compatibility"
 update_radiusdesk_ubuntu_paths ${HTTP_DOCUMENT_ROOT}
 
+echo
+echo "============================================================="
+echo -e "15. Installing FreeRADIUS 2.2.0"
 # Customize FreeRADIUS
 customize_freeradius ${HTTP_DOCUMENT_ROOT} ${rad_secret}
 
@@ -178,7 +181,7 @@ customize_database ${HTTP_DOCUMENT_ROOT} ${db_host} ${db_user} ${db_password} ${
 # Import sql file to database
 echo ""
 echo "============================================================="
-echo -e "15. Installing ${LIGHT_BLUE}${BOLD}Database Schema${F_END} for RADIUSdesk"
+echo -e "16. Installing ${LIGHT_BLUE}${BOLD}Database Schema${F_END} for RADIUSdesk"
 install_radiusdesk_schema ${HTTP_DOCUMENT_ROOT} ${db_name} ${db_user} ${db_password}
 
 # Disabled TTY Requirements for Sudoers
@@ -191,7 +194,7 @@ fix_radiusdesk_permissions_ownership_ubuntu ${HTTP_DOCUMENT_ROOT}
 # NodeJS Installation
 echo ""
 echo "============================================================="
-echo -e "16. Installing ${LIGHT_BLUE}${BOLD}NodeJS${F_END}"
+echo -e "17. Installing ${LIGHT_BLUE}${BOLD}NodeJS${F_END}"
 install_ubuntu_nodejs ${HTTP_DOCUMENT_ROOT} /etc/init.d/
 
 # Make things start on boot
@@ -203,7 +206,7 @@ start_ubuntu_service_on_boot php5-fpm
 # Start/Restart services
 echo ""
 echo "============================================================="
-echo -e "17. Checking if services are ${LIGHT_BLUE}${BOLD}fully Operational${F_END}"
+echo -e "18. Checking if services are ${LIGHT_BLUE}${BOLD}fully Operational${F_END}"
 restart_ubuntu_service nodejs-socket-io
 restart_ubuntu_service ${webserver}
 #restart_ubuntu_service radiusd

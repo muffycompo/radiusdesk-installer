@@ -169,6 +169,9 @@ echo "============================================================="
 echo -e "15. Updating ${LIGHT_BLUE}${BOLD}RADIUSdesk Paths${F_END} for RHEL/CentOS compatibility"
 update_radiusdesk_paths ${HTTP_DOCUMENT_ROOT}
 
+echo
+echo "============================================================="
+echo -e "16. Installing FreeRADIUS 2.2.0"
 # Customize FreeRADIUS
 customize_freeradius ${HTTP_DOCUMENT_ROOT} ${rad_secret}
 
@@ -181,7 +184,7 @@ customize_database ${HTTP_DOCUMENT_ROOT} ${db_host} ${db_user} ${db_password} ${
 # Import sql file to database
 echo
 echo "============================================================="
-echo -e "16. Installing ${LIGHT_BLUE}${BOLD}Database Schema${F_END} for RADIUSdesk"
+echo -e "17. Installing ${LIGHT_BLUE}${BOLD}Database Schema${F_END} for RADIUSdesk"
 install_radiusdesk_schema ${HTTP_DOCUMENT_ROOT} ${db_name} ${db_user} ${db_password}
 
 # Disabled TTY Requirements for Sudoers
@@ -194,7 +197,7 @@ fix_radiusdesk_permissions_ownership ${HTTP_DOCUMENT_ROOT}
 # NodeJS Installation
 echo
 echo "============================================================="
-echo -e "17. Installing ${LIGHT_BLUE}${BOLD}NodeJS${F_END}"
+echo -e "18. Installing ${LIGHT_BLUE}${BOLD}NodeJS${F_END}"
 install_nodejs ${TEMP_PATH} ${HTTP_DOCUMENT_ROOT} /etc/init.d/
 
 # Make things start on boot
@@ -207,7 +210,7 @@ start_service_on_boot mysqld
 # Start/Restart services
 echo
 echo "============================================================="
-echo -e "18. Checking if services are ${LIGHT_BLUE}${BOLD}fully Operational${F_END}"
+echo -e "19. Checking if services are ${LIGHT_BLUE}${BOLD}fully Operational${F_END}"
 start_service nodejs-socket-io
 restart_service ${webserver}
 start_service radiusd
