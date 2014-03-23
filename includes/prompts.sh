@@ -10,7 +10,10 @@ function ask_for_webserver(){
 	  n|N|nginx|Nginx )
 		echo
 		echo -e "Using ${LIGHT_BLUE}${BOLD}Nginx${F_END} Web server"
-		if [[ "${1}" = "ubuntu" ]]; then
+		if [[ "${1}" = "red" ]] || [[ "${1}" = "centos" ]]; then
+			webserver="nginx"
+			php_processor="php-fpm"
+		elif [[ "${1}" = "ubuntu" ]]; then
 			webserver="nginx"
 			php_processor="php5-fpm"
 		fi
@@ -20,6 +23,7 @@ function ask_for_webserver(){
 		echo -e "Using ${LIGHT_BLUE}${BOLD}Apache${F_END} Web server"
 		if [[ "${1}" = "red" ]] || [[ "${1}" = "centos" ]]; then
 			webserver="httpd"
+			php_processor="php"
 		elif [[ "${1}" = "ubuntu" ]]; then
 			webserver="apache2"
 			php_processor="php5"

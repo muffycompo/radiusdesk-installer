@@ -62,7 +62,7 @@ install_epel_repo ${OS_VERSION} ${ARCH_TYPE}
 echo ""
 echo "============================================================="
 echo -e "5. Installing ${LIGHT_BLUE}${BOLD}required packages${F_END}"
-yum_install ${webserver} php php-fpm php-pear php-gd php-common php-cli php-mysql php-xcache mysql-server mysql subversion git vixie-cron mailx python perl unixODBC postgresql krb5 openldap libtool-ltdl gcc-c++ gcc make pptpd
+yum_install ${webserver} ${php_processor} php-fpm php-pear php-gd php-common php-cli php-mysql php-xcache mysql-server mysql subversion git vixie-cron mailx python perl unixODBC postgresql krb5 openldap libtool-ltdl gcc-c++ gcc make pptpd
 
 # Download & Install RHEL/CentOS 6 FreeRADIUS RPMs -> TODO: Compile RPMs for more OS_VERSIONS
 install_mao_repo ${ARCH_TYPE}
