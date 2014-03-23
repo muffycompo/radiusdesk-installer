@@ -131,14 +131,9 @@ else
 	echo
 	echo "============================================================="
 	echo -e "${LIGHT_RED}${BOLD}Something happened and we can not configure your system${F_END}"
-	echo ${webserver}
 	exit 1
 fi
 
-# Debug Only
-echo ${webserver}
-exit 1
-#
 
 # Start services needed by RADIUSdesk contd.
 start_service mysqld
