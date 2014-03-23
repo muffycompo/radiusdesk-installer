@@ -17,7 +17,7 @@ function check_selinux_status(){
 	if [[ "$(getenforce)" = "Enforcing" ]]; then
 		setenforce 0
 		sed -i.bak 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/sysconfig/selinux
-		echo -e "${LIGHT_YELLOW}${BOLD}Corrected${F_END}"
+		echo -e "${LIGHT_RED}${BOLD}Corrected${F_END}"
 	else
 		echo -e "${LIGHT_GREEN}${BOLD}Disabled${F_END}"
 	fi
@@ -29,7 +29,7 @@ function check_apparmor_status(){
 		/etc/init.d/apparmor stop > /dev/null 2>&1
 		/etc/init.d/apparmor teardown > /dev/null 2>&1
 		update-rc.d -f apparmor remove > /dev/null 2>&1
-		echo -e "${LIGHT_YELLOW}${BOLD}Corrected${F_END}"
+		echo -e "${LIGHT_RED}${BOLD}Corrected${F_END}"
 	else
 		echo -e "${LIGHT_GREEN}${BOLD}Disabled${F_END}"
 	fi
