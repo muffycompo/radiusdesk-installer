@@ -31,19 +31,19 @@ ask_for_radius_customization
 
 ########## KICKSTART & PACKAGES ##############
 # Check if user is Root
-echo ""
+echo
 echo "============================================================="
 echo -n "1. Checking if you are root: "
 check_root_privileges
 
 # Check if SELinux is disabled
-echo ""
+echo
 echo "============================================================="
 echo -n "2. Checking if SELinux is enabled: "
 check_selinux_status
 
 # Flush iptable rules -> TODO: Revert to a more secure system
-echo ""
+echo
 #echo -n "Flushing default Iptable rules: "
 reset_iptables_rules
 
@@ -53,13 +53,13 @@ echo -e "3. Installing ${LIGHT_BLUE}${BOLD}pre-requisite packages${F_END}"
 yum_install nano curl wget unzip
  
 # Install EPEL/POPTOP repo
-echo ""
+echo
 echo "============================================================="
 echo -e "4. Installing ${LIGHT_BLUE}${BOLD}EPEL Repository${F_END}"
 install_epel_repo ${OS_VERSION} ${ARCH_TYPE}
 
 # Install required packages
-echo ""
+echo
 echo "============================================================="
 echo -e "5. Installing ${LIGHT_BLUE}${BOLD}required packages${F_END}"
 yum_install ${webserver} ${php_processor} php-fpm php-pear php-gd php-common php-cli php-mysql php-xcache mysql-server mysql subversion git vixie-cron mailx python perl unixODBC postgresql krb5 openldap libtool-ltdl gcc-c++ gcc make pptpd
@@ -74,25 +74,25 @@ install_mao_repo ${ARCH_TYPE}
 mk_temp_dir
 
 # Download CakePHP 2.2.9 -> TODO: Find a way to make this version agnostic
-echo ""
+echo
 echo "============================================================="
 echo -e "6. Downloading ${LIGHT_BLUE}${BOLD}CakePHP 2.2.9${F_END}"
 wget_download https://github.com/cakephp/cakephp/archive/2.2.9.zip ${TEMP_PATH}cakephp-2.2.9.zip
 
 # Download Ext.Js 4.2.1
-echo ""
+echo
 echo "============================================================="
 echo -e "7. Downloading ${LIGHT_BLUE}${BOLD}Ext.JS 4.2.1${F_END}"
 wget_download http://sourceforge.net/p/radiusdesk/code/HEAD/tree/extjs/ext-4.2.1-gpl.zip?format=raw ${TEMP_PATH}ext-4.2.1-gpl.zip
 
 # Download RADIUSdesk Source
-echo ""
+echo
 echo "============================================================="
 echo -e "8. Downloading ${LIGHT_BLUE}${BOLD}RADIUSdesk SVN sources${F_END}"
 svn --quiet checkout http://svn.code.sf.net/p/radiusdesk/code/trunk ${TEMP_PATH}source > /dev/null 2>&1
 
 # Download NodeJS Source
-echo ""
+echo
 echo "============================================================="
 echo -e "9. Downloading ${LIGHT_BLUE}${BOLD}NodeJS 0.10.26 source${F_END}"
 wget_download http://nodejs.org/dist/v0.10.26/node-v0.10.26.tar.gz ${TEMP_PATH}node-v0.10.26.tar.gz
@@ -109,7 +109,7 @@ if [[ "${webserver}" = "nginx" ]]; then
 	copy_nginx_configs ${CONF_DIR}
 	
 	# Start services needed by RADIUSdesk
-	echo ""
+	echo
 	echo "============================================================="
 	echo -e "10. Starting ${LIGHT_BLUE}${BOLD}services${F_END} needed by RADIUSdesk"
 	start_service_on_boot php-fpm
@@ -123,16 +123,22 @@ elif [[ "${webserver}" = "httpd" ]]; then
 	copy_apache_configs ${CONF_DIR}
 	
 	# Start services needed by RADIUSdesk
-	echo ""
+	echo
 	echo "============================================================="
 	echo -e "10. Starting ${LIGHT_BLUE}${BOLD}services${F_END} needed by RADIUSdesk"
 	start_service ${webserver}
 else
-	echo ""
+	echo
 	echo "============================================================="
 	echo -e "${LIGHT_RED}${BOLD}Something happened and we can not configure your system${F_END}"
+	echo ${webserver}
 	exit 1
 fi
+
+# Debug Only
+echo ${webserver}
+exit 1
+#
 
 # Start services needed by RADIUSdesk contd.
 start_service mysqld
@@ -141,29 +147,29 @@ start_service mysqld
 get_to ${TEMP_PATH}
 
 # Install CakePHP
-echo ""
+echo
 echo "============================================================="
 echo -e "11. Installing ${LIGHT_BLUE}${BOLD}CakePHP${F_END}"
 install_cakephp ${TEMP_PATH} ${HTTP_DOCUMENT_ROOT}
 
 # Install rd_cake, rd2, meshdesk, rd_clients, rd_login_pages
-echo ""
+echo
 echo "============================================================="
 echo -e "12. Installing ${LIGHT_BLUE}${BOLD}RADIUSdesk${F_END}"
 install_radiusdesk ${TEMP_PATH} ${SOURCE_DIR} ${HTTP_DOCUMENT_ROOT}
 
-echo ""
+echo
 echo "============================================================="
 echo -e "13. Installing ${LIGHT_BLUE}${BOLD}Ext.JS${F_END}"
 install_extjs ${TEMP_PATH} ${HTTP_DOCUMENT_ROOT}
 
 # RADIUSdesk cron script
-echo ""
+echo
 echo "============================================================="
 echo -e "14. Installing ${LIGHT_BLUE}${BOLD}Cron Script${F_END} for RADIUSdesk"
 install_radiusdesk_cron ${HTTP_DOCUMENT_ROOT} ${webserver}
 
-echo ""
+echo
 echo "============================================================="
 echo -e "15. Updating ${LIGHT_BLUE}${BOLD}RADIUSdesk Paths${F_END} for RHEL/CentOS compatibility"
 update_radiusdesk_paths ${HTTP_DOCUMENT_ROOT}
@@ -178,7 +184,7 @@ configure_radiusdesk_freeradius ${HTTP_DOCUMENT_ROOT} ${RADIUS_DIR} ${TEMP_PATH}
 customize_database ${HTTP_DOCUMENT_ROOT} ${db_host} ${db_user} ${db_password} ${db_name} ${RADIUS_DIR}
 
 # Import sql file to database
-echo ""
+echo
 echo "============================================================="
 echo -e "16. Installing ${LIGHT_BLUE}${BOLD}Database Schema${F_END} for RADIUSdesk"
 install_radiusdesk_schema ${HTTP_DOCUMENT_ROOT} ${db_name} ${db_user} ${db_password}
@@ -191,7 +197,7 @@ fix_radiusdesk_sudoers ${SUDOERS_FILE} ${HTTP_DOCUMENT_ROOT}
 fix_radiusdesk_permissions_ownership ${HTTP_DOCUMENT_ROOT}
 
 # NodeJS Installation
-echo ""
+echo
 echo "============================================================="
 echo -e "17. Installing ${LIGHT_BLUE}${BOLD}NodeJS${F_END}"
 install_nodejs ${TEMP_PATH} ${HTTP_DOCUMENT_ROOT} /etc/init.d/
@@ -204,7 +210,7 @@ start_service_on_boot pptpd
 start_service_on_boot mysqld
 
 # Start/Restart services
-echo ""
+echo
 echo "============================================================="
 echo -e "18. Checking if services are ${LIGHT_BLUE}${BOLD}fully Operational${F_END}"
 start_service nodejs-socket-io
@@ -216,13 +222,13 @@ start_service pptpd
 clear_dir ${TEMP_PATH}
 
 # RADIUSdesk Installation complete
-echo ""
+echo
 echo "==========================================================================="
 echo -e "${LIGHT_GREEN}${BOLD}INSTALLATION COMPLETED SUCCESSFULLY!!!${F_END}"
-echo ""
+echo
 echo -e "To access your RADIUSdesk server, visit ${LIGHT_BLUE}${BOLD}http://${IP_ADDRESS}/rd${F_END} on your browser"
 echo -e "USERNAME: ${LIGHT_BLUE}${BOLD}root${F_END}  PASSWORD: ${LIGHT_BLUE}${BOLD}admin${F_END}"
-echo ""
+echo
 echo -e "We recommend ${LIGHT_RED}${BOLD}rebooting${F_END} your computer to ensure everything went as planned :)"
 echo "============================================================================"
 
