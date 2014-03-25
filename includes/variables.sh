@@ -2,7 +2,7 @@
 
 
 ########## Start Installer Variables #########
-RD_INSTALLER_VERSION='1.0.2'
+RD_INSTALLER_VERSION='1.0.3'
 ARCH_TYPE=`arch`
 OS_VERSION=`[[ -f "/etc/redhat-release" ]] && awk -F' ' '{ print $0 }' /etc/redhat-release | grep -o "[0-9]" | head -1`
 CONF_DIR='conf/'
