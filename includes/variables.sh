@@ -8,7 +8,12 @@ OS_VERSION=`[[ -f "/etc/redhat-release" ]] && awk -F' ' '{ print $0 }' /etc/redh
 CONF_DIR='conf/'
 TEMP_PATH='/tmp/radiusdesk/'
 SOURCE_DIR='source/'
-IFACE=`[[ $(ifconfig | awk -F" " '{print $1}' | head -1) = "lo" ]] && eth0`
+IFCFG=`ifconfig | awk -F" " '{print $1}' | head -1`
+if [[ "${IFCFG}" = "lo" ]]; then
+	IFACE="eth0"
+else
+	IFACE="${IFCFG}"
+fi
 IP_ADDRESS=`ifconfig ${IFACE} | grep "inet addr" | awk -F: '{print $2}' | awk '{print $1}'`
 SUDOERS_FILE='/etc/sudoers'
 RADIUS_DIR='/etc/raddb/'
