@@ -71,29 +71,34 @@ aptget_install nodejs
 # Prepare Temp directory for downloaded files
 mk_temp_dir
 
-# Download CakePHP 2.2.9 -> TODO: Find a way to make this version agnostic
-echo ""
-echo "============================================================="
-echo -e "5. Downloading ${LIGHT_BLUE}${BOLD}CakePHP 2.2.9${F_END}"
-wget_download https://github.com/cakephp/cakephp/archive/2.2.9.zip ${TEMP_PATH}cakephp-2.2.9.zip
+if [[ ! -f "${TEMP_PATH}download_complete.txt" ]]; then
+	# Download CakePHP 2.2.9 -> TODO: Find a way to make this version agnostic
+	echo ""
+	echo "============================================================="
+	echo -e "5. Downloading ${LIGHT_BLUE}${BOLD}CakePHP 2.2.9${F_END}"
+	wget_download https://github.com/cakephp/cakephp/archive/2.2.9.zip ${TEMP_PATH}cakephp-2.2.9.zip
 
-# Download Ext.Js 4.2.1
-echo ""
-echo "============================================================="
-echo -e "6. Downloading ${LIGHT_BLUE}${BOLD}Ext.JS 4.2.1${F_END}"
-wget_download http://sourceforge.net/p/radiusdesk/code/HEAD/tree/extjs/ext-4.2.1-gpl.zip?format=raw ${TEMP_PATH}ext-4.2.1-gpl.zip
+	# Download Ext.Js 4.2.1
+	echo ""
+	echo "============================================================="
+	echo -e "6. Downloading ${LIGHT_BLUE}${BOLD}Ext.JS 4.2.1${F_END}"
+	wget_download http://sourceforge.net/p/radiusdesk/code/HEAD/tree/extjs/ext-4.2.1-gpl.zip?format=raw ${TEMP_PATH}ext-4.2.1-gpl.zip
 
-# Download FreeRADIUS
-echo ""
-echo "============================================================="
-echo -e "7. Downloading ${LIGHT_BLUE}${BOLD}FreeRADIUS 2.2.0${F_END}"
-wget_download http://ftp.cc.uoc.gr/mirrors/ftp.freeradius.org/freeradius-server-2.2.0.tar.gz ${TEMP_PATH}freeradius-server-2.2.0.tar.gz
+	# Download FreeRADIUS
+	echo ""
+	echo "============================================================="
+	echo -e "7. Downloading ${LIGHT_BLUE}${BOLD}FreeRADIUS 2.2.0${F_END}"
+	wget_download http://ftp.cc.uoc.gr/mirrors/ftp.freeradius.org/freeradius-server-2.2.0.tar.gz ${TEMP_PATH}freeradius-server-2.2.0.tar.gz
 
-# Download RADIUSdesk Source
-echo ""
-echo "============================================================="
-echo -e "8. Downloading ${LIGHT_BLUE}${BOLD}RADIUSdesk SVN sources${F_END}"
-svn --quiet checkout http://svn.code.sf.net/p/radiusdesk/code/trunk ${TEMP_PATH}source > /dev/null 2>&1
+	# Download RADIUSdesk Source
+	echo ""
+	echo "============================================================="
+	echo -e "8. Downloading ${LIGHT_BLUE}${BOLD}RADIUSdesk SVN sources${F_END}"
+	svn --quiet checkout http://svn.code.sf.net/p/radiusdesk/code/trunk ${TEMP_PATH}source > /dev/null 2>&1
+fi
+
+# Check for download completion
+flag_download_complete ${TEMP_PATH}
 
 ########### RADIUSDESK COMPONENT INSTALLATION ###########
 

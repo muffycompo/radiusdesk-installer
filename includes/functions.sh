@@ -578,4 +578,8 @@ dpkg -i coova-chilli_1.3.0.deb > /dev/null 2>&1
 rm -rf coova-chilli_1.3.0.deb
 }
 
+function flag_download_complete(){
+	touch ${1}download_complete.txt
+}
+
 ########## End Functions #########
