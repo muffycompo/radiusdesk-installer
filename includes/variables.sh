@@ -1,5 +1,6 @@
 #!/bin/bash
 
+
 ########## Start Installer Variables #########
 RD_INSTALLER_VERSION='1.0.2'
 ARCH_TYPE=`arch`
@@ -7,7 +8,8 @@ OS_VERSION=`[[ -f "/etc/redhat-release" ]] && awk -F' ' '{ print $0 }' /etc/redh
 CONF_DIR='conf/'
 TEMP_PATH='/tmp/radiusdesk/'
 SOURCE_DIR='source/'
-IP_ADDRESS=`ifconfig eth0 | grep "inet addr" | awk -F: '{print $2}' | awk '{print $1}'`
+IFACE=`[[ $(ifconfig | awk -F" " '{print $1}' | head -1) = "lo" ]] && eth0`
+IP_ADDRESS=`ifconfig ${IFACE} | grep "inet addr" | awk -F: '{print $2}' | awk '{print $1}'`
 SUDOERS_FILE='/etc/sudoers'
 RADIUS_DIR='/etc/raddb/'
 RADIUS_UBUNTU_DIR='/usr/local/etc/raddb/'
