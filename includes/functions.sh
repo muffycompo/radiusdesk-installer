@@ -364,6 +364,7 @@ function fix_radiusdesk_sudoers(){
 	sed -i 's|Defaults   !visiblepw|#Defaults   !visiblepw|g' ${1}
 	# Add admin group to Sudoers
 	echo "%admin ALL=(ALL) ALL apache ALL = NOPASSWD:${2}cake2/rd_cake/Setup/Scripts/radmin_wrapper.pl" >> ${1}
+	echo "apache ALL = NOPASSWD:${2}cake2/rd_cake/Setup/Scripts/radmin_wrapper.pl" >> ${1}
 
 }
 
@@ -371,6 +372,7 @@ function fix_radiusdesk_sudoers(){
 function fix_ubuntu_radiusdesk_sudoers(){
 	# Add admin group to Sudoers
 	echo "%admin ALL=(ALL) ALL www-data ALL = NOPASSWD:${2}cake2/rd_cake/Setup/Scripts/radmin_wrapper.pl" >> ${1}
+	echo "www-data ALL = NOPASSWD:${2}cake2/rd_cake/Setup/Scripts/radmin_wrapper.pl" >> ${1}
 
 }
 
