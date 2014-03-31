@@ -173,7 +173,7 @@ update_radiusdesk_ubuntu_paths ${HTTP_DOCUMENT_ROOT}
 
 echo
 echo "============================================================="
-echo -e "15. Installing FreeRADIUS 2.2.0"
+echo -e "15. Installing ${LIGHT_BLUE}${BOLD}FreeRADIUS 2.2.0${F_END}"
 # Customize FreeRADIUS
 customize_freeradius ${HTTP_DOCUMENT_ROOT} ${rad_secret}
 
