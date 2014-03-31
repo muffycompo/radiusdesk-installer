@@ -537,13 +537,14 @@ sed -i 's|HS_UAMALLOW|#HS_UAMALLOW|g' /etc/chilli/defaults
 sed -i 's|HS_UAMHOMEPAGE|#HS_UAMHOMEPAGE|g' /etc/chilli/defaults
 
 # Update UAM Secret for rd_login_pages
-if [[ -d "${9}" ]]; then
-	sed -i "s|<?|<?php|g" ${9}rd_login_pages/services/uam.php > /dev/null 2>&1
-	sed -i "s|$uamsecret = 'greatsecret';|$uamsecret = '${7}';|g" ${9}rd_login_pages/services/uam.php > /dev/null 2>&1
-else
-	sed -i "s|<?|<?php|g" ${9}rd_login_pages/services/uam.php > /dev/null 2>&1
-	sed -i "s|$uamsecret = 'greatsecret';|$uamsecret = '${7}';|g" ${9}rd_login_pages/services/uam.php > /dev/null 2>&1
-fi
+sed -i "s|<?|<?php|g" ${9}rd_login_pages/services/uam.php > /dev/null 2>&1
+sed -i "s|$uamsecret = 'greatsecret';|$uamsecret = '${7}';|g" ${9}rd_login_pages/services/uam.php > /dev/null 2>&1
+
+# if [[ -d "${9}" ]]; then
+	# sed -i "s|<?|<?php|g" ${9}rd_login_pages/services/uam.php > /dev/null 2>&1
+	# sed -i "s|$uamsecret = 'greatsecret';|$uamsecret = '${7}';|g" ${9}rd_login_pages/services/uam.php > /dev/null 2>&1
+# else
+# fi
 
 # Disable DNS lookup for SSH
 echo "UseDNS no" >> /etc/ssh/sshd_config
