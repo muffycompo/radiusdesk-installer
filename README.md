@@ -1,7 +1,7 @@
 RADIUSdesk Installer
 ====================
 ## Overview
-This project tries to simplify or ease the process of getting a working installation of [RADIUSdesk](http://www.radiusdesk.com) on a vanilla/minimal installation of RHEL/CentOS 6.X/Ubuntu 13.10 (32 bit/64 bit). This will be an ongoing effort and there is plans to support more Distros (like openSUSE etc) and so please feel free to contribute by sending a pull request.
+This project tries to simplify or ease the process of getting a working installation of [RADIUSdesk](http://www.radiusdesk.com) on a vanilla/minimal installation of RHEL/CentOS 6.X/Ubuntu 13.10/14.04 (64 bit). This will be an ongoing effort and there is plans to support more Distros (like openSUSE etc) and so please feel free to contribute by sending a pull request.
 
 ## Installation & Usage
 1. Clone or download the project.
@@ -24,7 +24,7 @@ The installer has been tested on the following Linux Operating Systems
  
 1. CentOS 6.4/6.5 (64 bit)  
 2. Red Hat Enterprise Linux 6.4/6.5 (64 bit) 
-3. Ubuntu 13.10 (Saucy Salamander - 64 bit) 
+3. Ubuntu 13.10/14.04 (64 bit) 
 
 ## Resources
 1. [RADIUSdesk Course/Tutorials](http://www.maomuffy.com/introduction-to-radiusdesk-with-rhelcentos-6-x-mini-course/) by [Mfawa Alfred Onen](http://ng.linkedin.com/in/mfawaalfredonen/)
