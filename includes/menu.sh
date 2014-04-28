@@ -44,7 +44,7 @@ function show_version(){
 	  case $opt in
 		v)
 			echo -e "${LIGHT_BLUE}${BOLD}#============================================================#${F_END}" >&2
-			echo -e "${LIGHT_BLUE}${BOLD}#${F_END}                    ${LIGHT_RED}${BOLD}RADIUSDesk INSTALLER${F_END}                   ${LIGHT_BLUE}#${F_END}" >&2
+			echo -e "${LIGHT_BLUE}${BOLD}#${F_END}                    ${LIGHT_RED}${BOLD}RADIUSDesk INSTALLER${F_END}                    ${LIGHT_BLUE}#${F_END}" >&2
 			echo -e "${LIGHT_BLUE}${BOLD}#============================================================#${F_END}" >&2
 			echo -e " Version: ${LIGHT_RED}${BOLD}${RD_INSTALLER_VERSION}${F_END}" >&2
 			echo -e "  Author: ${LIGHT_RED}${BOLD}Mfawa Alfred Onen${F_END}" >&2
@@ -56,7 +56,7 @@ function show_version(){
 			case $OPTARG in
 			 version) 
 				echo -e "${LIGHT_BLUE}${BOLD}#============================================================#${F_END}" >&2
-				echo -e "${LIGHT_BLUE}${BOLD}#${F_END}                    ${LIGHT_RED}${BOLD}RADIUSDesk INSTALLER${F_END}                   ${LIGHT_BLUE}#${F_END}" >&2
+				echo -e "${LIGHT_BLUE}${BOLD}#${F_END}                    ${LIGHT_RED}${BOLD}RADIUSDesk INSTALLER${F_END}                    ${LIGHT_BLUE}#${F_END}" >&2
 				echo -e "${LIGHT_BLUE}${BOLD}#============================================================#${F_END}" >&2
 				echo -e " Version: ${LIGHT_RED}${BOLD}${RD_INSTALLER_VERSION}${F_END}" >&2
 				echo -e "  Author: ${LIGHT_RED}${BOLD}Mfawa Alfred Onen${F_END}" >&2
