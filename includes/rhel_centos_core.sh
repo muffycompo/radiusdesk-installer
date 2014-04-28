@@ -77,25 +77,26 @@ if [[ ! -f "${TEMP_PATH}download_complete.txt" ]]; then
 	# Download CakePHP 2.2.9 -> TODO: Find a way to make this version agnostic
 	echo
 	echo "============================================================="
-	echo -e "6. Downloading ${LIGHT_BLUE}${BOLD}CakePHP 2.2.9${F_END}"
+	echo -e "6. Downloading ${LIGHT_BLUE}${BOLD}CakePHP${F_END}"
 	wget_download https://github.com/cakephp/cakephp/archive/2.2.9.zip ${TEMP_PATH}cakephp-2.2.9.zip
 
 	# Download Ext.Js 4.2.1
 	echo
 	echo "============================================================="
-	echo -e "7. Downloading ${LIGHT_BLUE}${BOLD}Ext.JS 4.2.1${F_END}"
-	wget_download http://sourceforge.net/p/radiusdesk/code/HEAD/tree/extjs/ext-4.2.1-gpl.zip?format=raw ${TEMP_PATH}ext-4.2.1-gpl.zip
+	echo -e "7. Downloading ${LIGHT_BLUE}${BOLD}Sencha ExtJS${F_END}"
+	#wget_download http://sourceforge.net/p/radiusdesk/code/HEAD/tree/extjs/ext-4.2.1-gpl.zip?format=raw ${TEMP_PATH}ext-4.2.1-gpl.zip
+	wget_download http://cdn.sencha.com/ext/gpl/ext-4.2.1-gpl.zip ${TEMP_PATH}ext-4.2.1-gpl.zip
 
 	# Download RADIUSdesk Source
 	echo
 	echo "============================================================="
-	echo -e "8. Downloading ${LIGHT_BLUE}${BOLD}RADIUSdesk SVN sources${F_END}"
+	echo -e "8. Downloading ${LIGHT_BLUE}${BOLD}RADIUSdesk${F_END}"
 	svn --quiet checkout http://svn.code.sf.net/p/radiusdesk/code/trunk ${TEMP_PATH}source > /dev/null 2>&1
 
 	# Download NodeJS Source
 	echo
 	echo "============================================================="
-	echo -e "9. Downloading ${LIGHT_BLUE}${BOLD}NodeJS 0.10.26 source${F_END}"
+	echo -e "9. Downloading ${LIGHT_BLUE}${BOLD}NodeJS${F_END}"
 	wget_download http://nodejs.org/dist/v0.10.26/node-v0.10.26.tar.gz ${TEMP_PATH}node-v0.10.26.tar.gz
 fi
 
@@ -160,7 +161,7 @@ install_radiusdesk ${TEMP_PATH} ${SOURCE_DIR} ${HTTP_DOCUMENT_ROOT}
 
 echo
 echo "============================================================="
-echo -e "13. Installing ${LIGHT_BLUE}${BOLD}Ext.JS${F_END}"
+echo -e "13. Installing ${LIGHT_BLUE}${BOLD}Sencha ExtJS${F_END}"
 install_extjs ${TEMP_PATH} ${HTTP_DOCUMENT_ROOT}
 
 # RADIUSdesk cron script
@@ -176,7 +177,7 @@ update_radiusdesk_paths ${HTTP_DOCUMENT_ROOT}
 
 echo
 echo "============================================================="
-echo -e "16. Installing ${LIGHT_BLUE}${BOLD}FreeRADIUS 2.2.0${F_END}"
+echo -e "16. Installing ${LIGHT_BLUE}${BOLD}FreeRADIUS${F_END}"
 # Customize FreeRADIUS
 customize_freeradius ${HTTP_DOCUMENT_ROOT} ${rad_secret}
 
