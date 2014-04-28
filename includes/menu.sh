@@ -43,26 +43,26 @@ function show_version(){
 	while getopts ":v-:" opt; do
 	  case $opt in
 		v)
-			echo -e "${LIGHT_BLUE}${BOLD}#==================================#${F_END}" >&2
-			echo -e "${LIGHT_BLUE}${BOLD}#${F_END}        ${LIGHT_RED}${BOLD}RADIUSdesk INSTALLER${F_END}        ${LIGHT_BLUE}#${F_END}" >&2
-			echo -e "${LIGHT_BLUE}${BOLD}#==================================#${F_END}" >&2
+			echo -e "${LIGHT_BLUE}${BOLD}#==================================================#${F_END}" >&2
+			echo -e "${LIGHT_BLUE}${BOLD}#${F_END}        ${LIGHT_RED}${BOLD}RADIUSDesk INSTALLER${F_END}       ${LIGHT_BLUE}#${F_END}" >&2
+			echo -e "${LIGHT_BLUE}${BOLD}#==================================================#${F_END}" >&2
 			echo -e " Version: ${LIGHT_RED}${BOLD}${RD_INSTALLER_VERSION}${F_END}" >&2
 			echo -e "  Author: ${LIGHT_RED}${BOLD}Mfawa Alfred Onen${F_END}" >&2
 			echo -e " License: ${LIGHT_RED}${BOLD}Apache License${F_END}" >&2
 			echo -e " Website: ${LIGHT_RED}${BOLD}http://muffycompo.github.io/radiusdesk-installer${F_END}" >&2
-			echo -e "${LIGHT_BLUE}${BOLD}#==================================#${F_END}" >&2
+			echo -e "${LIGHT_BLUE}${BOLD}#==================================================#${F_END}" >&2
 		  exit 0;;
 		-)
 			case $OPTARG in
 			 version) 
-			 	echo -e "${LIGHT_BLUE}${BOLD}#==================================#${F_END}" >&2
-				echo -e "${LIGHT_BLUE}${BOLD}#${F_END}        ${LIGHT_RED}${BOLD}RADIUSDesk INSTALLER${F_END}        ${LIGHT_BLUE}#${F_END}" >&2
-				echo -e "${LIGHT_BLUE}${BOLD}#==================================#${F_END}" >&2
+				echo -e "${LIGHT_BLUE}${BOLD}#==================================================#${F_END}" >&2
+				echo -e "${LIGHT_BLUE}${BOLD}#${F_END}        ${LIGHT_RED}${BOLD}RADIUSDesk INSTALLER${F_END}       ${LIGHT_BLUE}#${F_END}" >&2
+				echo -e "${LIGHT_BLUE}${BOLD}#==================================================#${F_END}" >&2
 				echo -e " Version: ${LIGHT_RED}${BOLD}${RD_INSTALLER_VERSION}${F_END}" >&2
 				echo -e "  Author: ${LIGHT_RED}${BOLD}Mfawa Alfred Onen${F_END}" >&2
 				echo -e " License: ${LIGHT_RED}${BOLD}Apache License${F_END}" >&2
 				echo -e " Website: ${LIGHT_RED}${BOLD}http://muffycompo.github.io/radiusdesk-installer${F_END}" >&2
-				echo -e "${LIGHT_BLUE}${BOLD}#==================================#${F_END}" >&2
+				echo -e "${LIGHT_BLUE}${BOLD}#==================================================#${F_END}" >&2
 			 exit 0;;
 			 *) 
 			 echo -e "Usage: ${LIGHT_BLUE}${BOLD}./$(basename $0) -v | --version${F_END}" >&2
