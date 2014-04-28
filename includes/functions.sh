@@ -216,7 +216,7 @@ function install_ubuntu_nodejs(){
 	# Fix Paths for Ubuntu compatibility
 	sed -i "s|/usr/share/nginx/www/html/|${1}|g" ${2}nodejs-socket-io
 	sed -i "s|/usr/share/nginx/www/cake2|${1}cake2|g" ${2}nodejs-socket-io
-	sed -i "s|/var/www/cake2|${2}cake2|g" ${3}nodejs-socket-io
+	sed -i "s|/var/www/cake2|${1}cake2|g" ${2}nodejs-socket-io
 	# Add to Startup
 	update-rc.d nodejs-socket-io start 80 2 3 4 5 . stop 20 0 1 6 .  > /dev/null 2>&1
 }
