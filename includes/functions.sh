@@ -203,6 +203,7 @@ function install_nodejs(){
 	sed -i 's|/usr/lib/node_modules|/usr/local/lib/node_modules|g' ${3}nodejs-socket-io
 	sed -i "s|/usr/share/nginx/www/html/|${2}|g" ${3}nodejs-socket-io
 	sed -i "s|/usr/share/nginx/www/cake2|${2}cake2|g" ${3}nodejs-socket-io
+	sed -i "s|/var/www/cake2|${2}cake2|g" ${3}nodejs-socket-io
 	sed -i "s|/usr/local/var/|/var/|g" ${2}cake2/rd_cake/Setup/Node.js/Logfile.node.js
 	# Add to chkconfig
 	chkconfig --add nodejs-socket-io
@@ -215,6 +216,7 @@ function install_ubuntu_nodejs(){
 	# Fix Paths for Ubuntu compatibility
 	sed -i "s|/usr/share/nginx/www/html/|${1}|g" ${2}nodejs-socket-io
 	sed -i "s|/usr/share/nginx/www/cake2|${1}cake2|g" ${2}nodejs-socket-io
+	sed -i "s|/var/www/cake2|${2}cake2|g" ${3}nodejs-socket-io
 	# Add to Startup
 	update-rc.d nodejs-socket-io start 80 2 3 4 5 . stop 20 0 1 6 .  > /dev/null 2>&1
 }
