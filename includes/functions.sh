@@ -590,4 +590,25 @@ function flag_download_complete(){
 	touch ${1}download_complete.txt
 }
 
+function check_interfaces(){
+# Create an empty array
+local IFC=()
+
+for i in `cat /proc/net/dev | grep ':' | cut -d ':' -f 1`
+do
+	#ifname=`echo $i | tr -d ' '`
+	if [ "${i}" != "lo" ]; then
+	   IFC+=("$i")
+	fi
+done
+
+local CT=${#IFC[@]}
+
+#for ((v=0; v<${CT}; v++))
+#do
+#    echo ${IFC[$v]}
+#done
+echo ${CT}
+}
+
 ########## End Functions #########
