@@ -594,7 +594,8 @@ function check_interfaces(){
 # Create an empty array
 local IFC=()
 
-for i in `cat /proc/net/dev | grep ':' | cut -d ':' -f 1`
+# for i in `cat /proc/net/dev | grep ':' | cut -d ':' -f 1`
+for i in `netstat -i | awk '{print $1}' | tail -n+3`
 do
 	#ifname=`echo $i | tr -d ' '`
 	if [ "${i}" != "lo" ]; then
