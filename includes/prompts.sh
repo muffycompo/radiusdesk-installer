@@ -187,7 +187,7 @@ function ask_for_coovachilli_install(){
 	case "${chilli_answer}" in 
 	  y|Y|yes|Yes )
 		# Ensure we have two network cards NICs
-		if [[ ${IF_COUNT} -lt 2 ]]; then
+		if [[ check_interfaces < 2 ]]; then
 		echo "============================================================"
 		echo -e "${LIGHT_RED}${BOLD}You MUST have atleast two network interface cards (NICs)!${F_END}"
 		echo "============================================================"
@@ -227,7 +227,7 @@ function ask_for_coovachilli_install_ubuntu(){
 	case "${chilli_answer}" in 
 	  y|Y|yes|Yes )
 		# Ensure we have two network cards NICs
-		if [[ ${IF_COUNT} -lt 2 ]]; then
+		if [[ check_interfaces < 2 ]]; then
 		echo "============================================================"
 		echo -e "${LIGHT_RED}${BOLD}You MUST have atleast two network interface cards (NICs)!${F_END}"
 		echo "============================================================"
