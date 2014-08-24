@@ -2,13 +2,19 @@
 
 
 ########## Start Installer Variables #########
-RD_INSTALLER_VERSION='1.0.4'
+RD_INSTALLER_VERSION='1.0.5'
 ARCH_TYPE=`arch`
 OS_VERSION=`[[ -f "/etc/redhat-release" ]] && awk -F' ' '{ print $0 }' /etc/redhat-release | grep -o "[0-9]" | head -1`
 CONF_DIR='conf/'
 TEMP_PATH='/tmp/radiusdesk/'
 SOURCE_DIR='source/'
-IFCFG=`ifconfig | awk -F" " '{print $1}' | head -1`
+if [[ "${OS_VERSION}" = "7" ]]; then
+    IFCFG=`ip link | awk -F": " '{print $2}' |  head -3 | tail -1`
+    IP_ADDRESS=`ip -f inet addr | grep inet |awk -F" " '{print $4}' | head -2 | tail -1`
+else
+    IFCFG=`ifconfig | awk -F" " '{print $1}' | head -1`
+    IP_ADDRESS=`ifconfig ${IFACE} | grep "inet addr" | awk -F: '{print $2}' | awk '{print $1}'`
+fi
 if [[ "${IFCFG}" = "lo" ]]; then
 	IFACE="eth0"
 else
