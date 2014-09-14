@@ -31,6 +31,10 @@ The installer has been tested on the following Linux Operating Systems
 2. [RADIUSdesk Project](http://www.radiusdesk.com) by [Dirk van der Walt](http://www.linkedin.com/pub/dirk-van-der-walt/11/b64/79a)
 3. [RADIUSdesk Installer Videos](http://www.maomuffy.com/radiusdesk-installer-project/)
 
+## Contributors
+- Dirk van der Walt
+- Kenneth Peter S. Bongolan
+
 ## Contributions
 1. Anyone is welcome to contribute by sending a pull request with your desired feature tested and implemented.
 2. If you have tested the installer in a Linux Distribution that is not in the compatibility list, kindly contact send an email to muffycompoqm[at]gmail[dot]com.
