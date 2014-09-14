@@ -196,7 +196,7 @@ function install_nodejs(){
 	cd node-v0*/
 	# Configure and install Node.JS
 	./configure > /dev/null 2>&1; make > /dev/null 2>&1 && make install > /dev/null 2>&1
-	npm -g install tail socket.io connect mysql forever > /dev/null 2>&1
+	npm -g install tail socket.io@0.9.17 connect mysql forever > /dev/null 2>&1
 	cd ../
 	# Fix Paths for RHEL/CentOS compatibility
 	sed -i 's|NODE_BIN_DIR="/usr/bin"|NODE_BIN_DIR="/usr/local/bin"|g' ${3}nodejs-socket-io
