@@ -211,7 +211,7 @@ function install_nodejs(){
 
 # Install Ubuntu NodeJS
 function install_ubuntu_nodejs(){
-	npm -g install tail socket.io connect mysql forever > /dev/null 2>&1
+	npm -g install tail socket.io@0.9.17 connect mysql forever > /dev/null 2>&1
 
 	# Fix Paths for Ubuntu compatibility
 	sed -i "s|/usr/share/nginx/www/html/|${1}|g" ${2}nodejs-socket-io
