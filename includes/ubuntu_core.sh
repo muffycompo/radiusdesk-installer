@@ -89,7 +89,7 @@ if [[ ! -f "${TEMP_PATH}download_complete.txt" ]]; then
 	echo ""
 	echo "============================================================="
 	echo -e "7. Downloading ${LIGHT_BLUE}${BOLD}FreeRADIUS${F_END}"
-	wget_download http://ftp.cc.uoc.gr/mirrors/ftp.freeradius.org/freeradius-server-2.2.0.tar.gz ${TEMP_PATH}freeradius-server-2.2.0.tar.gz
+	wget_download ftp://ftp.freeradius.org/pub/freeradius/freeradius-server-2.2.8.tar.gz ${TEMP_PATH}freeradius-server-2.2.0.tar.gz
 
 	# Download RADIUSdesk Source
 	echo ""
