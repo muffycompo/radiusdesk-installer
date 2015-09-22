@@ -176,9 +176,9 @@ function get_to(){
 # Install CakePHP
 function install_cakephp(){
 	get_to ${1}
-	unzip -q cakephp-2.2.9.zip
-	mv ${1}cakephp-2.2.9 ${2}
-	ln -s ${2}cakephp-2.2.9 ${2}cake2
+	unzip -q cakephp.zip
+	mv ${1}cakephp ${2}
+	ln -s ${2}cakephp ${2}cake2
 }
 
 # Install Ext.JS
