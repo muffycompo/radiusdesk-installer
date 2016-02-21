@@ -1,4 +1,4 @@
-RADIUSdesk Installer GitHub Page
+RADIUSDesk Installer GitHub Page
 ==================================
 
-The official website for RADIUSdesk Installer.
+The official website for RADIUSDesk Installer.
