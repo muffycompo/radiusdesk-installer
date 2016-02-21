@@ -15,7 +15,7 @@ RADIUSDesk Installer is an [Ansible](http://www.ansible.com) powered utility tha
    
    d) SSH into the local/remote server atleast once to have SSH add an entry in its `known_hosts` file. i.e. `ssh localhost` or `ssh 192.168.23.101`
    
-   e) Edit the `servers` if you want to customize your [server groups](http://docs.ansible.com/ansible/intro\_inventory.html#hosts-and-groups)
+   e) Edit the `servers` if you want to customize your server groups. Reference: `http://docs.ansible.com/ansible/intro\_inventory.html#hosts-and-groups`
    
 2. Run/execute the Installer as **root** or a user with sudo privileges `cd radiusdesk-installer; ./rd-installer` and select I or 1 to commence the installation of RADIUSDesk using default values.
 3. Grab yourself a **cup of Coffee** as the installer provisions your server with RADIUSDesk.
@@ -23,15 +23,19 @@ RADIUSDesk Installer is an [Ansible](http://www.ansible.com) powered utility tha
 
 ## Features
 1. A very customizable installer (Edit `roles/radiusdesk/vars/Debian.yml` or `roles/radiusdesk/vars/RedHat.yml` depending on your Operating System family like Debian, RedHat etc)
+
 **Note:** ensure you use a YAML linter to check your syntax anytime you make any change to the variable file(s).
+
 2. Somewhat modularized, so you can always extend RADIUSDesk installer to support your environment
+
 3. Setup PPTPD (Optional)
+
 4. Setup Captive Portal with CoovaChilli (Optional)
 
 ## Compatibility
 The installer has been tested on the following Linux Operating Systems
  
-1. CentOS 6.5/6.7 (32/64 bit)  
+1. CentOS 6.5/6.7 (32/64 bit)
 2. Red Hat Enterprise Linux 6.5/6.7 (32/64 bit) 
 3. Ubuntu 14.04/15.04/15.10 (32/64 bit) 
 
@@ -39,10 +43,6 @@ The installer has been tested on the following Linux Operating Systems
 1. [RADIUSDesk Course/Tutorials](http://www.maomuffy.com/introduction-to-radiusdesk-with-rhelcentos-6-x-mini-course/) by [Mfawa Alfred Onen](http://ng.linkedin.com/in/mfawaalfredonen/)
 2. [RADIUSDesk Project](http://www.radiusdesk.com) by [Dirk van der Walt](http://www.linkedin.com/pub/dirk-van-der-walt/11/b64/79a)
 3. [RADIUSDesk Installer Videos](http://www.maomuffy.com/radiusdesk-installer-project/)
-
-# ## Contributors
-# - Dirk van der Walt
-# - Kenneth Peter S. Bongolan
 
 ## Contributions
 1. Anyone is welcome to contribute by sending a pull request with your desired feature tested and implemented.
