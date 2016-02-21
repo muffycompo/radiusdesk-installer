@@ -15,7 +15,7 @@ RADIUSDesk Installer is an [Ansible](http://www.ansible.com) powered utility tha
    
    d) SSH into the local/remote server atleast once to have SSH add an entry in its `known_hosts` file. i.e. `ssh localhost` or `ssh 192.168.23.101`
    
-   e) Edit the `servers` if you want to customize your `[server groups](http://docs.ansible.com/ansible/intro_inventory.html#hosts-and-groups)`
+   e) Edit the `servers` if you want to customize your [server groups](http://docs.ansible.com/ansible/intro\_inventory.html#hosts-and-groups)
    
 2. Run/execute the Installer as **root** or a user with sudo privileges `cd radiusdesk-installer; ./rd-installer` and select I or 1 to commence the installation of RADIUSDesk using default values.
 3. Grab yourself a **cup of Coffee** as the installer provisions your server with RADIUSDesk.
