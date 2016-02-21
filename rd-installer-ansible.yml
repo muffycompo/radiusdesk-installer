@@ -1,5 +1,5 @@
 ---
-- hosts: prod32
+- hosts: default
   sudo: yes
   gather_facts: yes
   roles:
