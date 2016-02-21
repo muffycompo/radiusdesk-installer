@@ -19,6 +19,7 @@ RADIUSDesk Installer is an [Ansible](http://www.ansible.com) powered utility tha
    
 2. Run/execute the Installer as **root** or a user with sudo privileges `cd radiusdesk-installer; ./rd-installer` and select I or 1 to commence the installation of RADIUSDesk using default values.
 3. Grab yourself a **cup of Coffee** as the installer provisions your server with RADIUSDesk.
+
 4. When the installer is done installing and configuring your system, we recommend rebooting your machine/server to ensure everything is persistent on reboot.
 
 ## Features
