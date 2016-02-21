@@ -1,7 +1,7 @@
 RADIUSDesk Installer
 ====================
 ## Overview
-RADIUSDesk Installer is an [Ansible](http://www.ansible.com) powered utility that atempts to simplify or ease the process of getting a working installation of [RADIUSDesk](http://www.radiusdesk.com) on a vanilla/minimal installation of RHEL/CentOS 6.X/Ubuntu 14.04/15.04/15.10 servers. The Installer utilizes Ansible's powerful features like agentless modes, idempotent runs etc.
+RADIUSDesk Installer is an [Ansible](http://www.ansible.com) powered utility that attempts to simplify or ease the process of getting a working installation of [RADIUSDesk](http://www.radiusdesk.com) on a vanilla/minimal installation of RHEL/CentOS 6.X/Ubuntu 14.04/15.04/15.10 servers. The Installer utilizes Ansible's powerful features like agentless modes, idempotent runs etc.
 
 ## Installation & Usage
 1. Clone or download the project.
