@@ -1,119 +1,126 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en-us">
   <head>
-    <meta charset='utf-8' />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="RADIUSdesk Installer : This project tries to simplify or ease the process of getting a working installation of RadiusDESK on a vanilla/minimal installation of RHEL/CentOS 6.x/Ubuntu 13.10 (32 bit/64 bit)." />
-
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
-
-    <title>RADIUSdesk Installer</title>
+    <meta charset="UTF-8">
+    <title>RADIUSDesk Installer by muffycompo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
   </head>
-
   <body>
+    <section class="page-header">
+      <h1 class="project-name">RADIUSDesk Installer</h1>
+      <h2 class="project-tagline">This project tries to simplify or ease the process of getting a working installation of RADIUSDesk on a vanilla/minimal installation of RHEL/CentOS 6.X (32 bit/64 bit) and Ubuntu 14.04/15.04/15.10 servers.</h2>
+      <a href="https://github.com/muffycompo/radiusdesk-installer" class="btn">View on GitHub</a>
+      <a href="https://github.com/muffycompo/radiusdesk-installer/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/muffycompo/radiusdesk-installer/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/muffycompo/radiusdesk-installer">View on GitHub</a>
+    <section class="main-content">
+      <h1>
+<a id="radiusdesk-installer" class="anchor" href="#radiusdesk-installer" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>RADIUSDesk Installer</h1>
 
-          <h1 id="project_title">RADIUSdesk Installer</h1>
-          <h2 id="project_tagline">This project tries to simplify or ease the process of getting a working installation of RADIUSdesk.</h2>
+<h2>
+<a id="overview" class="anchor" href="#overview" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Overview</h2>
 
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/muffycompo/radiusdesk-installer/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/muffycompo/radiusdesk-installer/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
-    </div>
+<p>RADIUSDesk Installer is an <a href="http://www.ansible.com">Ansible</a> powered utility that attempts to simplify or ease the process of getting a working installation of <a href="http://www.radiusdesk.com">RADIUSDesk</a> on a vanilla/minimal installation of RHEL/CentOS 6.X/Ubuntu 14.04/15.04/15.10 servers. The Installer utilizes Ansible's powerful features like agentless modes, idempotent runs etc.</p>
 
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <h3>
-<a name="welcome-to-radiusdesk-installer" class="anchor" href="#welcome-to-radiusdesk-installer"><span class="octicon octicon-link"></span></a>Welcome to RADIUSdesk Installer</h3>
-
-<p>This project tries to simplify or ease the process of getting a working installation of RADIUSdesk on a vanilla/minimal installation of RHEL/CentOS 6.x/Ubuntu 13.10/14.04 (64 bit). This will be an ongoing effort and there is plans to support more Distros (like OpenSUSE etc) and so please feel free to contribute by sending a pull request.</p>
-
-<h3>
-<a name="installation--usage" class="anchor" href="#installation--usage"><span class="octicon octicon-link"></span></a>Installation &amp; Usage</h3>
+<h2>
+<a id="installation--usage" class="anchor" href="#installation--usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation &amp; Usage</h2>
 
 <ol>
 <li>
 <p>Clone or download the project.</p>
 
-<p>a) If you have git already installed, just use <code>git clone https://github.com/muffycompo/radiusdesk-installer.git</code>. <strong>Note:</strong> you can install git on RHEL/CentOS 6.x via yum (<code>yum install -y git</code>)</p>
+<p>a) If you have git already installed, just use <code>git clone https://github.com/muffycompo/radiusdesk-installer.git</code>. <strong>Note:</strong> you can install git on RHEL/CentOS 6.x via yum (<code>yum install -y git</code>) or Ubuntu via apt (<code>apt-get install -y git</code>)</p>
 
-<p>b) If you prefer to download the zip file 
-<code>wget -cL https://github.com/muffycompo/radiusdesk-installer/archive/master.zip</code>. 
-<strong>Note:</strong> just make sure you have <strong>wget</strong> and <strong>unzip</strong> installed (<code>yum install -y wget unzip</code>)</p>
+<p>b) If you prefer to download the zip file <code>wget -cL https://github.com/muffycompo/radiusdesk-installer/archive/master.zip</code>. <strong>Note:</strong> just make sure you have <strong>wget</strong> and <strong>unzip</strong> installed using (<code>yum install -y wget unzip</code>) on RHEL/CentOS 6.x and (<code>apt-get install -y wget unzip</code>) on Ubuntu servers.</p>
+
+<p>c) Ensure you have installed python as Ansible requires python to run.
+<strong>Note:</strong> you can install python on RHEL/CentOS 6.x via yum (<code>yum install -y python</code>) or Ubuntu via apt (<code>apt-get install -y python</code>).</p>
+
+<p>d) SSH into the local/remote server atleast once to have SSH add an entry in its <code>known_hosts</code> file. i.e. <code>ssh localhost</code> or <code>ssh 192.168.23.101</code></p>
+
+<p>e) Edit the <code>servers</code> if you want to customize your server groups. Reference: <code>http://docs.ansible.com/ansible/intro_inventory.html#hosts-and-groups</code></p>
 </li>
-<li>Run/execute the Installer script as <strong>root</strong> <code>cd radiusdesk-installer; ./rd-installer</code> and walk through the wizard.</li>
-<li>Grab yourself a <strong>cup of Coffee</strong> as the installer provisions your server with RADIUSdesk.</li>
-<li>When the script is done installing and configuring your system, we recommend rebooting your machine/server to ensure everything is persistent on reboot.</li>
+<li><p>Run/execute the Installer as <strong>root</strong> or a user with sudo privileges <code>cd radiusdesk-installer; ./rd-installer</code> and select I or 1 to commence the installation of RADIUSDesk using default values.</p></li>
+<li><p>Grab yourself a <strong>cup of Coffee</strong> as the installer provisions your server with RADIUSDesk.</p></li>
+<li><p>When the installer is done installing and configuring your system, we recommend rebooting your machine/server to ensure everything is persistent on reboot.</p></li>
 </ol>
 
-<h3><a name="features" class="anchor" href="#features"><span class="octicon octicon-link"></span></a>Features</h3>
+<h2>
+<a id="features" class="anchor" href="#features" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Features</h2>
+
 <ol>
-  <li>A wizard for customizing Web server, Database Credentials (Host, User, Password & DB Name) and FreeRADIUS secret </li>
-  <li>Installer downloads latest copy of RADIUSdesk so that you are always on edge</li>
-  <li>Somewhat modularized, so you can always extend RADIUSdesk installer to support your environment</li>
-  <li>Setup Captive Portal with CoovaChilli</li>
+<li><p>A very customizable installer (Edit <code>roles/radiusdesk/vars/Debian.yml</code> or <code>roles/radiusdesk/vars/RedHat.yml</code> depending on your Operating System family like Debian, RedHat etc). <strong>Note:</strong> ensure you use a YAML linter to check your syntax anytime you make any change to the variable file(s).</p></li>
+<li><p>Somewhat modularized, so you can always extend RADIUSDesk installer to support your environment</p></li>
+<li><p>Setup PPTPD (Optional)</p></li>
+<li><p>Setup Captive Portal with CoovaChilli (Optional)</p></li>
 </ol>
 
-<h3>
-<a name="compatibility" class="anchor" href="#compatibility"><span class="octicon octicon-link"></span></a>Compatibility</h3>
+<h2>
+<a id="compatibility" class="anchor" href="#compatibility" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Compatibility</h2>
+
 <p>The installer has been tested on the following Linux Operating Systems</p>
-<ol>
-<li>CentOS 6.4/6.5 (64 bit)</li>  
-<li>Red Hat Enterprise Linux 6.4/6.5 (64 bit)</li> 
-<li>Ubuntu 13.10/14.04 (64 bit)</li>
-</ol>
-
-<h3>
-<a name="resources" class="anchor" href="#resources"><span class="octicon octicon-link"></span></a>Resources</h3>
 
 <ol>
-<li>
-<a href="http://www.maomuffy.com/introduction-to-radiusdesk-with-rhelcentos-6-x-mini-course/">RADIUSdesk Course/Tutorials</a> by <a href="http://ng.linkedin.com/in/mfawaalfredonen/">Mfawa Alfred Onen</a>
-</li>
-<li>
-<a href="http://www.radiusdesk.com">RADIUSdesk Project</a> by <a href="http://www.linkedin.com/pub/dirk-van-der-walt/11/b64/79a">Dirk van der Walt</a>
-</li>
-<li>
-<a href="http://www.maomuffy.com/radiusdesk-installer-project/">RADIUSdesk Installer Videos</a>
-</li>
+<li>CentOS 6.5/6.7 (32/64 bit)</li>
+<li>Red Hat Enterprise Linux 6.5/6.7 (32/64 bit) </li>
+<li>Ubuntu 14.04/15.04/15.10 (32/64 bit) </li>
 </ol>
 
-<h3>
-<a name="contributors" class="anchor" href="#contributors"><span class="octicon octicon-link"></span></a>Contributors</h3>
-<ul>
-  <li>Dirk van der Walt</li>
-  <li>Kenneth Peter S. Bongolan</li>
-</ul>
+<h2>
+<a id="resources" class="anchor" href="#resources" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Resources</h2>
 
-<h3>
-<a name="contributions" class="anchor" href="#contributions"><span class="octicon octicon-link"></span></a>Contributions</h3>
+<ol>
+<li>
+<a href="http://www.maomuffy.com/introduction-to-radiusdesk-with-rhelcentos-6-x-mini-course/">RADIUSDesk Course/Tutorials</a> by <a href="http://ng.linkedin.com/in/mfawaalfredonen/">Mfawa Alfred Onen</a>
+</li>
+<li>
+<a href="http://www.radiusdesk.com">RADIUSDesk Project</a> by <a href="http://www.linkedin.com/pub/dirk-van-der-walt/11/b64/79a">Dirk van der Walt</a>
+</li>
+<li><a href="http://www.maomuffy.com/radiusdesk-installer-project/">RADIUSDesk Installer Videos</a></li>
+</ol>
+
+<h2>
+<a id="contributions" class="anchor" href="#contributions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Contributions</h2>
 
 <ol>
 <li>Anyone is welcome to contribute by sending a pull request with your desired feature tested and implemented.</li>
 <li>If you have tested the installer in a Linux Distribution that is not in the compatibility list, kindly contact send an email to muffycompoqm[at]gmail[dot]com.</li>
-</ol><h3>
-<a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
+</ol>
 
-<p>Having trouble with RADIUSdesk? Check out the documentation at <a href="http://www.radiusdesk.com/getting_started/install">RADIUSdesk Getting Started</a> or <a href="http://www.maomuffy.com/introduction-to-radiusdesk-with-rhelcentos-6-x-mini-course">Introduction to RADIUSdesk mini Course</a> and we’ll help you sort things out.</p>
-      </section>
-    </div>
+<h2>
+<a id="copyright-and-license" class="anchor" href="#copyright-and-license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Copyright and License</h2>
 
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">RADIUSdesk Installer is maintained by <a href="https://github.com/muffycompo">Mfawa Alfred Onen</a></p>
+<p>Copyright (c) 2016 Mfawa Alfred Onen</p>
+
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
+
+<p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
+
+<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/muffycompo/radiusdesk-installer">RADIUSDesk Installer</a> is maintained by <a href="https://github.com/muffycompo">muffycompo</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
       </footer>
-    </div>
 
-    
+    </section>
+
+            <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-74089463-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
 
   </body>
 </html>
