@@ -1,0 +1,17 @@
+* * * * * {{ web_user }} {{ nginx_webroot }}/cake2/rd_cake/Console/cake -app {{ nginx_webroot }}/cake2/rd_cake Rd mon >> /dev/null 2>&1
+* * * * * {{ web_user }} {{ nginx_webroot }}/cake2/rd_cake/Console/cake -app {{ nginx_webroot }}/cake2/rd_cake Rd debug_check >> /dev/null 2>&1
+* * * * * {{ web_user }} {{ nginx_webroot }}/cake2/rd_cake/Console/cake -app {{ nginx_webroot }}/cake2/rd_cake Rd auto_close >> /dev/null 2>&1
+* * * * * {{ web_user }} {{ nginx_webroot }}/cake2/rd_cake/Console/cake -app {{ nginx_webroot }}/cake2/rd_cake Accounting >> /dev/null 2>&1
+*/15 * * * * {{ web_user }} {{ nginx_webroot }}/cake2/rd_cake/Console/cake -app {{ nginx_webroot }}/cake2/rd_cake Voucher >> /dev/null 2>&1
+
+#Every two minutes; you ma want to increase it on bigger deployments
+*/2 * * * * {{ web_user }} {{ nginx_webroot }}/cake2/rd_cake/Console/cake -app {{ nginx_webroot }}/cake2/rd_cake Removeduplicates >> /dev/null 2>&1
+
+#Every 10 minutes to keep it stable
+*/10 * * * * {{ web_user }} {{ nginx_webroot }}/cake2/rd_cake/Console/cake -app {{ nginx_webroot }}/cake2/rd_cake Freeradius >> /dev/null 2>&1
+
+#Every 10 minutes check the auto add table to assign devices to users with this feature enabled
+*/10 * * * * {{ web_user }} {{ nginx_webroot }}/cake2/rd_cake/Console/cake -app {{ nginx_webroot }}/cake2/rd_cake AutoAddDevices >> /dev/null 2>&1
+
+#Clean up the old MESHdesk data once a day
+30 1 * * * {{ web_user }} {{ nginx_webroot }}/cake2/rd_cake/Console/cake -app {{ nginx_webroot }}/cake2/rd_cake AutoCleanMESHdesk >> /dev/null 2>&1

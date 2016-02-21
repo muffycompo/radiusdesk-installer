@@ -1,0 +1,66 @@
+#
+# The default server
+#
+server {
+    listen       80 default_server;
+    server_name  _;
+
+    #charset koi8-r;
+
+    #access_log  logs/host.access.log  main;
+
+    location / {
+        root   {{ nginx_webroot }};
+        index  index.php index.html index.htm;
+    }
+
+    location = /favicon.ico {
+      log_not_found off;
+    }
+
+    error_page  404  /404.html;
+    location = /404.html {
+        root   {{ nginx_webroot }};
+    }
+
+    # redirect server error pages to the static page /50x.html
+    #
+    error_page   500 502 503 504  /50x.html;
+    location = /50x.html {
+        root   {{ nginx_webroot }};
+    }
+
+    # pass the PHP scripts to FastCGI server listening on UNIX Socket
+    #
+    location ~ \.php$ {
+        fastcgi_split_path_info ^(.+\.php)(/.+)$;
+        #       # NOTE: You should have "cgi.fix_pathinfo = 0;" in php.ini
+        fastcgi_pass unix:{{ php_fpm_socket }};
+        fastcgi_index index.php;
+        {% if ansible_distribution == 'Ubuntu' and ansible_distribution_major_version == '14' %}
+        include fastcgi_params;
+        {% else %}
+        include fastcgi.conf;
+        {% endif %}
+    }
+
+	## RD-Installer Specific tweaks - Mfawa Alfred Onen
+	location ~* ^.+\.(jpg|jpeg|gif|png|ico|js|css)$ { 
+		rewrite ^/cake2/rd_cake/webroot/(.*)$ /cake2/rd_cake/webroot/$1 break; 
+		rewrite ^/cake2/rd_cake/(.*)$ /cake2/rd_cake/webroot/$1 break; 
+		access_log off; 
+		expires max; 
+		add_header Cache-Control public; 
+	} 
+
+	location /cake2/rd_cake { 
+		 rewrite ^/cake2/rd_cake/(.*)$ /cake2/rd_cake/webroot/$1 break; 
+		 try_files $uri $uri/ /cake2/rd_cake/webroot/index.php?q=$uri&$args; 
+	} 
+    # deny access to .htaccess files, if Apache's document root
+    # concurs with nginx's one
+    #
+    location ~ /\.ht {
+        deny  all;
+    }
+}

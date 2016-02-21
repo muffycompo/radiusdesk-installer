@@ -1,0 +1,148 @@
+#
+#	This is the master dictionary file, which references the
+#	pre-defined dictionary files included with the server.
+#
+#	Any new/changed attributes MUST be placed in this file, as
+#	the pre-defined dictionaries SHOULD NOT be edited.
+#
+#	$Id$
+#
+
+#
+#  The DHCP dictionary is used only when the server is built with
+#  "configure --with-dhcp".  It is not (and should not) be used in
+#  other situations.  If you are running just a RADIUS server, this
+#  line can be deleted.  If you are using DHCP, the following line
+#  should be uncommented.
+#
+#  Ideally, the "configure" process should automatically enable this
+#  dictionary, but we don't yet do that.
+#
+#$INCLUDE	/usr/local/dictionary.dhcp
+
+#
+#	The filename given here should be an absolute path. 
+#
+$INCLUDE	{{ freeradius_shared_dir }}/dictionary
+
+#
+#	Place additional attributes or $INCLUDEs here.  They will
+#	over-ride the definitions in the pre-defined dictionaries.
+#
+#	See the 'man' page for 'dictionary' for information on
+#	the format of the dictionary files.
+
+#
+#	If you want to add entries to the dictionary file,
+#	which are NOT going to be placed in a RADIUS packet,
+#	add them here.  The numbers you pick should be between
+#	3000 and 4000.
+#
+
+#ATTRIBUTE	My-Local-String		3000	string
+#ATTRIBUTE	My-Local-IPAddr		3001	ipaddr
+#ATTRIBUTE	My-Local-Integer	3002	integer
+
+#The following special attributes are used together with NAS device tags.
+#This is a work in progress and should be handled as such
+ATTRIBUTE Rd-Tag-A			    3000 string
+ATTRIBUTE Rd-Tag-B			    3001 string
+ATTRIBUTE Rd-Tag-C			    3002 string
+ATTRIBUTE Rd-Tag-D			    3003 string
+
+
+
+
+#_______________________________________________________________
+# The following has to be added in functionality using unlang:
+# 1.) If the user (Rd-User-Type) is authorized; check if the Rd-Mac-Check flag is 0 or 1.
+# If it is 1; it means that the user can ONLY connect from devices (Calling-Station-Id) in his list
+# So then we have to see if the Calling-Station-Id is included in the request and defined  a user
+# and also if so; if there is a mac defined with this value User-Name=<mac> AND Rd-User-Type=device
+# if so; we can go through auth using this device as the User-Name
+#_______________________________________________________________
+
+ATTRIBUTE Rd-User-Type			3010 string     # One of voucher; user or device
+ATTRIBUTE Rd-Device-Owner 		3011 string     # Username that owns the device (only for Rd-User-Type == device) 
+ATTRIBUTE Rd-Mac-Check			3012 integer    # To be used in future
+ATTRIBUTE Rd-Mac-Tmp-Username	3013 string     # If User=MAC Address; (device) we store the MAC temporary in this placeholder and check if there are restrictions on the owner
+ATTRIBUTE Rd-Tmp-Owner		    3015 string     # If User=MAC Address; (device) we store the owner of the device in this attribute and check if there are restrictions on this owner
+ATTRIBUTE Rd-Rewrite-Mac-User   3016 string     # The value to which a MAC username will be rewritten in order to stick with a convention of AA-BB-CC..
+
+ATTRIBUTE Rd-Account-Disabled	3100 integer    # Set to 1 if user is disabled; set to 0 if enabled
+ATTRIBUTE Rd-Realm			    3102 string     # Set to the name of the realm that the user is assigned to
+ATTRIBUTE Rd-Account-Activation-Time    3103 string #Not required; but if set; will see if the date is in the past and then allow else if in future will fail (uses a Perl script)
+ATTRIBUTE Rd-Not-Track-Acct		3104 integer    # Flag to set if you want to disable sql accounting (enabled by default)
+ATTRIBUTE Rd-Not-Track-Auth		3105 integer    # Flag to set if you want to trach auth request (in the post-auth table - disabled by default)
+ATTRIBUTE Rd-Auth-Type			3106 string     #  Not required; but if set to anything other than sql; it will update control:Auth-Type (e.g. LDAP)
+
+
+#____ Counters Common to Data and Time ____
+
+
+ATTRIBUTE Rd-Reset-Day			3110 integer
+ATTRIBUTE Rd-Start-Time			3111 integer
+
+#____Data CAP counters____
+
+ATTRIBUTE Rd-Reset-Type-Data    3112 string
+ATTRIBUTE Rd-Cap-Type-Data		3113 string 
+ATTRIBUTE Rd-Total-Data		    3114 string
+ATTRIBUTE Rd-Used-Data			3115 string
+ATTRIBUTE Rd-Avail-Data		    3116 string
+#We set this attribute during a Data counter check. This is to do a User -> Device data limitation
+#The user's limitations will be first checked; then we set this the same as Rd-Avail-Data
+#The counter checks for the presence of this attr and will not adjust it if it is already set.
+#Later we compare the two and will use the smallest if they differ (provided we have a hard cap)
+ATTRIBUTE Rd-Tmp-Avail-Data     3117 string
+ 
+
+#____ Time CAP counters___
+
+ATTRIBUTE Rd-Reset-Type-Time    3122 string
+ATTRIBUTE Rd-Cap-Type-Time		3123 string 
+ATTRIBUTE Rd-Total-Time		    3124 string
+ATTRIBUTE Rd-Used-Time			3125 string
+ATTRIBUTE Rd-Avail-Time		    3126 string
+#We set this attribute during a Time counter check. This is to do a User -> Device time limitation
+#The user's limitations will be first checked; then we set this the same as Rd-Avail-Time
+#The counter checks for the presence of this attr and will not adjust it if it is already set.
+#Later we compare the two and will use the smallest if they differ (provided we have a hard cap)
+ATTRIBUTE Rd-Tmp-Avail-Time     3127 string 
+
+#_____ Voucher related AVPs ______________
+
+ATTRIBUTE Rd-Voucher-Timeout        3131 integer
+ATTRIBUTE Rd-Voucher                3132 string
+ATTRIBUTE Rd-Voucher-Time-Expired   3133 integer
+ATTRIBUTE Rd-Voucher-Time-Available 3134 integer
+ATTRIBUTE Rd-Voucher-Device-Owner   3135 string
+
+#______ Auto Add Devices for users _______
+ATTRIBUTE Rd-Auto-Mac               3140 integer
+
+#_____ Some enhancements to the counters 27-5-14 _____
+#We may want to give people 30 Mb every 6 hours
+#Or we may want to give people 10Min access every 30 minutes
+#We also may want to apply a data counter on every device rather than the permanent user to which the devices belongs
+#This is handy for a click-to connect login page
+#Then we can also specify what hour a daily reset should happen. This again is also handy for hotels
+#and guest houses
+
+ATTRIBUTE Rd-Reset-Interval-Data    3141 integer
+ATTRIBUTE Rd-Mac-Counter-Data       3142 integer
+ATTRIBUTE Rd-Reset-Hour-Data        3143 integer
+
+ATTRIBUTE Rd-Reset-Interval-Time    3144 integer
+ATTRIBUTE Rd-Mac-Counter-Time       3145 integer
+ATTRIBUTE Rd-Reset-Hour-Time        3146 integer
+
+#______ New enhancement to prevent users authenticating from certain SSIDs 18-04-15 ____
+# We will check if user has this check attribute and if so find the SSID and apply logic __
+# See policy.conf file
+ATTRIBUTE Rd-Ssid-Check				3150 integer
+ATTRIBUTE Rd-Ssid-Value				3151 string
+
+
+$INCLUDE  {{ freeradius_conf_dir  }}/dictionary_overrides/dictionary.mikrotik
+$INCLUDE  {{ freeradius_conf_dir  }}/dictionary_overrides/dictionary.chillispot

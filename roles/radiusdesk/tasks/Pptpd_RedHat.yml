@@ -1,0 +1,26 @@
+---
+- name: Installing PPTPD Server for RadiusDesk (RHEL/CentOS 6.x/7.x)
+  yum:
+    name="pptpd"
+    state=present
+
+- name: Configuring PPTPD Server for RadiusDesk (RHEL/CentOS 6.x/7.x)
+  template: 
+    dest="/etc/pptpd.conf"
+    src="pptpd/pptpd.conf.j2"
+
+- name: Configuring RadiusDesk to Use PPTPD Server (RHEL/CentOS 6.x/7.x)
+  template:
+    dest="{{ nginx_webroot }}/cake2/rd_cake/Config/RadiusDesk.php"
+    group={{ web_group }}
+    owner={{ web_user }}
+    src=RadiusDesk.php.j2
+    validate='php -l %s'
+
+- name: Ensuring PPTPD Client is writeable by Web Server User (RHEL/CentOS 6.x/7.x)
+  shell:
+    "chown root:{{ web_group }} {{ pptpd_client_dir }}/chap-secrets &&
+    chmod 0664 {{ pptpd_client_dir }}/chap-secrets
+    "
+  notify:
+    - Restart Pptpd

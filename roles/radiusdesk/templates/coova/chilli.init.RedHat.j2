@@ -1,0 +1,126 @@
+#!/bin/sh
+#
+# chilli - CoovaChilli
+#
+# chkconfig: 2345 65 35
+# description: CoovaChilli
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+. /etc/chilli/functions
+
+exec="/usr/sbin/chilli"
+prog=$(basename $exec)
+
+[ -e /etc/sysconfig/$prog ] && . /etc/sysconfig/$prog
+
+lockfile=/var/lock/subsys/$prog
+
+MULTI=$(ls {{ coovachilli_conf_dir }}/*/chilli.conf 2>/dev/null)
+[ -z "$DHCPIF" ] && [ -n "$MULTI" ] && {
+    for c in $MULTI;
+    do
+        echo "Found configuration $c"
+        DHCPIF=$(basename $(echo $c|sed 's#/chilli.conf##'))
+        export DHCPIF
+        echo "Running DHCPIF=$DHCPIF $0 $*"
+        sh $0 $*
+    done
+    exit
+}
+
+pidfile=/var/run/chilli.pid
+CONFIG=/etc/chilli.conf
+
+if [ -n "$DHCPIF" ]; then
+    CONFIG={{ coovachilli_conf_dir }}/$DHCPIF/chilli.conf
+    pidfile=/var/run/chilli.$DHCPIF.pid
+fi
+
+[ -f $CONFIG ] || {
+    echo "$CONFIG not found"
+    exit 0
+}
+
+start() {
+    echo -n $"Starting $prog: "
+
+    check_required
+
+    /sbin/modprobe tun >/dev/null 2>&1
+    echo 1 > /proc/sys/net/ipv4/ip_forward
+
+    [ -e /dev/net/tun ] || {
+        (cd /dev; mkdir net; cd net; mknod tun c 10 200)
+    }
+
+    writeconfig
+    radiusconfig
+
+    test ${HS_ADMINTERVAL:-0} -gt 0 && {
+        (crontab -l 2>&- | grep -v $0
+        echo "*/$HS_ADMINTERVAL * * * * $0 radconfig") | crontab - 2>&-
+    }
+
+    #NAT mod
+    iptables -F POSTROUTING -t nat
+    iptables -I POSTROUTING -t nat -o $HS_WANIF -j MASQUERADE
+    #END NAT mod
+
+    test ${HS_LANIF_KEEPADDR:-0} -eq 0 && ifconfig $HS_LANIF 0.0.0.0
+
+    daemon $exec -c $CONFIG
+    retval=$?
+    echo
+    [ $retval -eq 0 ] && touch $lockfile
+    return $retval
+}
+
+stop() {
+    echo -n $"Stopping $prog: "
+    crontab -l 2>&- | grep -v $0 | crontab -
+
+    killproc $prog
+    retval=$?
+    echo
+    [ $retval -eq 0 ] && rm -f $lockfile
+    [ $retval -eq 0 ] && rm -f $PIDFILE
+    [ $retval -eq 0 ] && rm -f $RUN_D/$IPCFILE
+    [ $retval -eq 0 ] && rm -f $CMDSOCK
+    [ $retval -eq 0 ] && /bin/rm -f /var/run/chilli.*.cfg.bin
+    return $retval
+}
+
+restart() {
+    stop
+    start
+}
+
+case "$1" in
+    start|stop|restart)
+        $1
+        ;;
+    force-reload)
+        restart
+        ;;
+    status)
+        status $prog
+        ;;
+    try-restart|condrestart)
+        if status $prog >/dev/null ; then
+            restart
+        fi
+        ;;
+    reload)
+        # If config can be reloaded without restarting, implement it here,
+        # remove the "exit", and add "reload" to the usage message below.
+        # For example:
+        # status $prog >/dev/null || exit 7
+        # killproc $prog -HUP
+        action $"Service ${0##*/} does not support the reload action: " /bin/false
+        exit 3
+        ;;
+    *)
+        echo $"Usage: $0 {start|stop|status|restart|try-restart|force-reload}"
+        exit 2
+esac

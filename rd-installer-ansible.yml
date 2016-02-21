@@ -1,0 +1,6 @@
+---
+- hosts: prod32
+  sudo: yes
+  gather_facts: yes
+  roles:
+   - radiusdesk

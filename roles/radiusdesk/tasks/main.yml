@@ -1,0 +1,49 @@
+---
+# Loading variables
+- name: Adding RadiusDesk Variables (Ubuntu)
+  include_vars: "{{ ansible_os_family }}.yml"
+  when: ansible_os_family == 'Debian'
+
+- name: Adding RadiusDesk Variables (RHEL/CentOS 6.x/7.x)
+  include_vars: "{{ ansible_os_family }}.yml"
+  when: ansible_os_family == 'RedHat' and (ansible_distribution_major_version == '6' or ansible_distribution_major_version == '7')
+
+- name: RadiusDesk Nginx Setup (Ubuntu)
+  include: Nginx_Debian.yml
+  when: ansible_distribution == 'Ubuntu' and (ansible_distribution_version == '14.04' or ansible_distribution_version == '15.04' or ansible_distribution_version == '15.10')
+
+- name: RadiusDesk Nginx Setup (RHEL/CentOS 6.x/7.x)
+  include: "Nginx_RedHat.yml"
+  when: ansible_os_family == 'RedHat' and (ansible_distribution_major_version == '6' or ansible_distribution_major_version == '7')
+
+- name: RadiusDesk Freeradius Setup (Ubuntu)
+  include: "Freeradius_Debian.yml"
+  when: ansible_distribution == 'Ubuntu' and (ansible_distribution_version == '14.04' or ansible_distribution_version == '15.04' or ansible_distribution_version == '15.10')
+
+- name: RadiusDesk Freeradius Setup (RHEL/CentOS 6.x/7.x)
+  include: "Freeradius_RedHat.yml"
+  when: ansible_os_family == 'RedHat' and (ansible_distribution_major_version == '6' or ansible_distribution_major_version == '7')
+
+- name: RadiusDesk Nodejs Setup (Ubuntu)
+  include: "Nodejs_Debian.yml"
+  when: ansible_distribution == 'Ubuntu' and (ansible_distribution_version == '14.04' or ansible_distribution_version == '15.04' or ansible_distribution_version == '15.10')
+
+- name: RadiusDesk Nodejs Setup (RHEL/CentOS 6.x/7.x)
+  include: "Nodejs_RedHat.yml"
+  when: ansible_os_family == 'RedHat' and (ansible_distribution_major_version == '6' or ansible_distribution_major_version == '7')
+
+- name: RadiusDesk PPTPD Setup (Ubuntu)
+  include: "Pptpd_Debian.yml"
+  when: enable_pptpd_support and ansible_distribution == 'Ubuntu' and (ansible_distribution_version == '14.04' or ansible_distribution_version == '15.04' or ansible_distribution_version == '15.10')
+
+- name: RadiusDesk PPTPD Setup (RHEL/CentOS 6.x/7.x)
+  include: "Pptpd_RedHat.yml"
+  when: enable_pptpd_support and ansible_os_family == 'RedHat' and (ansible_distribution_major_version == '6' or ansible_distribution_major_version == '7')
+
+- name: RadiusDesk CoovaChilli Setup (Ubuntu)
+  include: "Coovachilli_Debian.yml"
+  when: enable_coovachilli_support and ansible_distribution == 'Ubuntu' and (ansible_distribution_version == '14.04' or ansible_distribution_version == '15.04' or ansible_distribution_version == '15.10')
+
+- name: RadiusDesk CoovaChilli Setup (RHEL/CentOS 6.x/7.x)
+  include: "Coovachilli_RedHat.yml"
+  when: enable_coovachilli_support and ansible_os_family == 'RedHat' and (ansible_distribution_major_version == '6' or ansible_distribution_major_version == '7')

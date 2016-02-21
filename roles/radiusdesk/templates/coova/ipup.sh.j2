@@ -1,0 +1,4 @@
+iptables -I INPUT -i tun0 -p tcp -m tcp --dport 80 --dst {{ coovachilii_server_ip }} -j ACCEPT
+iptables -I INPUT -i tun0 -p tcp -m tcp --dport 443 --dst {{ coovachilii_server_ip }} -j ACCEPT
+iptables -I INPUT -i tun0 -p tcp -m tcp --dport 22 --dst {{ coovachilii_server_ip }} -j ACCEPT
+iptables -I INPUT -i tun0 -p tcp -m tcp --dport 8000 --dst {{ coovachilii_server_ip }} -j ACCEPT

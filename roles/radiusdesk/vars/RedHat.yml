@@ -1,0 +1,139 @@
+---
+# Apache (RHEL/CentOS 6.x/7.x)
+apache_pkg_name: httpd
+
+# RadiusDesk Packages (RHEL/CentOS 6.x/7.x)
+rd_pkgs:
+ - php-fpm
+ - php-pear
+ - php-gd
+ - php-common
+ - php-cli
+ - php-mysql
+ - php-xcache
+ - mysql-server
+ - mysql
+ - subversion
+ - git
+ - vixie-cron
+ - mailx
+ - python
+ - MySQL-python
+ - perl
+ - unixODBC
+ - postgresql
+ - openldap
+ - libtool-ltdl
+ - gcc-c++
+ - gcc
+ - make
+ - unzip
+ - tar
+
+# Nginx (RHEL/CentOS 6.x/7.x)
+nginx_pkg_name: nginx
+nginx_service_name: nginx
+nginx_webroot: "/usr/share/nginx/html"
+nginx_config: "/etc/nginx/nginx.conf"
+nginx_default_config: "/etc/nginx/conf.d/default.conf"
+nginx_worker_processes: 4
+nginx_user: nginx
+
+# PHP-FPM (RHEL/CentOS 6.x/7.x)
+php_fpm_service_name: php-fpm
+php_fpm_config: "/etc/php-fpm.d/www.conf"
+php_fpm_socket: "/var/run/php-fpm.sock"
+php_session_save_path: "/var/lib/php/session"
+php_config_file: "/etc/php.ini"
+php_timezone: "Africa/Lagos"
+
+# Web server (RHEL/CentOS 6.x/7.x)
+web_user: apache
+web_group: apache
+
+# Temporary Download Directory
+temp_src_dir: "/tmp/rd_sources"
+
+# Radiusdesk Sources Repo Paths (RHEL/CentOS 6.x/7.x)
+cakephp_git_repo: "https://github.com/cakephp/cakephp.git"
+rd_svn_repo: "svn://dvdwalt@svn.code.sf.net/p/radiusdesk/code/trunk/rd"
+rd_cake_svn_repo: "svn://dvdwalt@svn.code.sf.net/p/radiusdesk/code/trunk/rd_cake"
+rd_login_svn_repo: "svn://dvdwalt@svn.code.sf.net/p/radiusdesk/code/trunk/rd_login"
+extjs_src_url: "https://sourceforge.net/p/radiusdesk/code/HEAD/tree/extjs/ext-6-sencha_cmd.tar.gz?format=raw"
+extjs_src_md5_sum: "e829741694be90a27d7f0c6a24dbfc8b"
+rd_svn_revision: 1620
+
+# Freeradius Packages (RHEL/CentOS 6.x/7.x)
+freeradius_pkgs:
+ - freeradius-2.2.9-1rd*
+ - freeradius-mysql-2.2.9-1rd*
+ - freeradius-perl-2.2.9-1rd*
+ - freeradius-python-2.2.9-1rd*
+ - freeradius-ldap-2.2.9-1rd*
+ - freeradius-utils-2.2.9-1rd*
+ - freeradius-krb5-2.2.9-1rd*
+
+# Freeradius (RHEL/CentOS 6.x/7.x)
+freeradius_conf_dir: "/etc/raddb"
+freeradius_prefix_path: ""
+freeradius_sbin_dir: "/usr/sbin"
+freeradius_bin_dir: "/usr/bin"
+freeradius_shared_dir: "/usr/share/freeradius"
+freeradius_service_name: radiusd
+freeradius_user: radiusd
+freeradius_group: radiusd
+freeradius_log_dir: "/var/log/radius"
+allow_vulnerable_openssl: yes
+
+# Radiusdesk Database (RHEL/CentOS 6.x/7.x)
+rd_db_user: rd
+rd_db_password: rd
+rd_db_name: rd
+
+# MySQL (RHEL/CentOS 6.x/7.x)
+mysql_old_root_password: ""
+mysql_root_password: root
+mysql_service_name: mysqld
+mysql_db_hosts:
+ - 127.0.0.1
+ - localhost
+mysql_my_cnf: "~/.my.cnf"
+
+# Nodejs Packages (RHEL/CentOS 6.x/7.x)
+nodejs_pkgs:
+ - nodejs
+ - npm
+
+# Nodejs Modules (RHEL/CentOS 6.x/7.x)
+nodejs_npm_modules:
+ - tail
+ - connect
+ - mysql
+ - forever
+
+nodejs_socketio_service_name: "nodejs-socket-io"
+
+# PPTPD
+enable_pptpd_support: yes
+pptpd_service_name: pptpd
+pptpd_local_ip_network: "10.20.30"
+pptpd_client_dir: "/etc/ppp"
+
+# CoovaChilli
+enable_coovachilli_support: no
+coovachilli_service_name: chilli
+coovachilli_conf_dir: "/etc/chilli"
+coovachilli_default_conf: ""
+coovachilii_lan_if: "eth2"
+coovachilii_wan_if: "eth1"
+coovachilii_server_ip: "192.168.2.1"
+coovachilii_network_addr: "192.168.2.0"
+coovachilii_network_subnet: "255.255.255.0"
+coovachilii_uam_port: 3990
+coovachilii_uam_secret: "greatsecret"
+coovachilii_radius_server1: "localhost"
+coovachilii_radius_server2: "localhost"
+coovachilii_dns_server1: "208.67.222.222"
+coovachilii_dns_server2: "208.67.220.220"
+coovachilii_user: "chilli"
+coovachilii_group: "chilli"

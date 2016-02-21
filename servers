@@ -1,0 +1,8 @@
+[default]
+localhost
+
+[prod32]
+ubuntu1004-32.maomuffy.com
+
+[prod64]
+ubuntu1004-64.maomuffy.com

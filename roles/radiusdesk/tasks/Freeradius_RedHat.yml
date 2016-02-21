@@ -1,0 +1,129 @@
+---
+- name: Adding RadiusDesk MAO Yum Repository (RHEL/CentOS 6.x/7.x)
+  template:
+    dest="/etc/yum.repos.d/maomuffy.repo"
+    src="maomuffy.repo.j2"
+
+- name: Installing Freeradius for RadiusDesk (RHEL/CentOS 6.x/7.x)
+  yum:
+    name={{ item }}
+    state=present
+  with_items: "{{ freeradius_pkgs }}"
+  ignore_errors: yes
+
+- name: Checking if we already have Freeradius Configuration Directory Backup (RHEL/CentOS 6.x/7.x)
+  stat:
+    path="{{ freeradius_conf_dir | quote }}_orig"
+  register: fr_bk
+
+- name: Renaming Freeradius Configuration Directory (RHEL/CentOS 6.x/7.x)
+  shell: cp -afR {{ freeradius_conf_dir | quote }} {{ freeradius_conf_dir | quote }}_orig
+  when: fr_bk.stat.exists == False
+
+- name: Removing Old Freeradius Configuration Directory (RHEL/CentOS 6.x/7.x)
+  shell: rm -rf {{ freeradius_conf_dir | quote }}
+
+- name: Extracting RadiusDesk Freeradius Configuration (RHEL/CentOS 6.x/7.x)
+  unarchive:
+    src="{{ nginx_webroot }}/cake2/rd_cake/Setup/Radius/raddb_rd.tar.gz"
+    dest={{ temp_src_dir }}/
+    owner={{ freeradius_user }}
+    group={{ freeradius_group }}
+    mode=0664
+    copy=no
+
+- name: Configuring Freeradius Configuration Directory (RHEL/CentOS 6.x/7.x)
+  shell: 
+    "mv {{ temp_src_dir | quote }}/raddb {{ freeradius_conf_dir | quote }} &&
+    chown -R {{ freeradius_user | quote }}:{{ freeradius_group | quote }} {{ freeradius_conf_dir | quote }} &&
+    chmod -R 0664 {{ freeradius_conf_dir | quote }}"
+
+- name: Configuring RadiusDesk Freeradius radiusd.conf (RHEL/CentOS 6.x/7.x)
+  template: 
+    dest={{ freeradius_conf_dir }}/radiusd.conf
+    owner={{ freeradius_user }}
+    group={{ freeradius_group }}
+    mode=0664
+    src="radius/radiusd.conf.j2"
+
+- name: Configuring RadiusDesk Freeradius Dictionary (RHEL/CentOS 6.x/7.x)
+  template: 
+    dest={{ freeradius_conf_dir }}/dictionary
+    owner={{ freeradius_user }}
+    group={{ freeradius_group }}
+    mode=0664
+    src="radius/dictionary.j2"
+
+- name: Configuring RadiusDesk Freeradius Checkrad Script (RHEL/CentOS 6.x/7.x)
+  template: 
+    dest={{ freeradius_sbin_dir }}/checkrad
+    mode=0777
+    src="radius/checkrad.j2"
+
+- name: Configuring RadiusDesk Freeradius Policy (RHEL/CentOS 6.x/7.x)
+  copy: 
+    dest={{ freeradius_sbin_dir }}
+    owner={{ freeradius_user }}
+    group={{ freeradius_group }}
+    mode=0664
+    src="policy.conf"
+
+- name: Configuring RadiusDesk Freeradius Dynamic Clients (RHEL/CentOS 6.x/7.x)
+  copy: 
+    dest="{{ freeradius_conf_dir }}/sites-enabled"
+    owner={{ freeradius_user }}
+    group={{ freeradius_group }}
+    mode=0644
+    src="dynamic-clients"
+
+- name: Ensuring RAW module has been Instantiated by Freeradius (RHEL/CentOS 6.x/7.x)
+  stat: 
+    path="{{ freeradius_conf_dir }}/modules/raw"
+  register: raw_file
+
+- name: Instantiating RAW module for Freeradius (RHEL/CentOS 6.x/7.x)
+  lineinfile: 
+    dest="{{ freeradius_conf_dir }}/modules/raw"
+    regexp='^'
+    line='raw {\n\n}'
+    state=present
+    create=yes
+  when: raw_file.stat.exists == False
+
+- name: Correcting radclient paths for radscenario.pl Script (RHEL/CentOS 6.x/7.x)
+  lineinfile: 
+    dest="{{ nginx_webroot }}/cake2/rd_cake/Setup/Scripts/radscenario.pl"
+    regexp='^my $radclient'
+    line='my $radclient = "{{ freeradius_bin_dir }}/radclient";'
+    state=present
+    mode=0777
+    create=True
+
+- name: Correcting RadiusDesk paths for Freeradius (RHEL/CentOS 6.x/7.x)
+  template:
+    dest="{{ nginx_webroot }}/cake2/rd_cake/Config/RadiusDesk.php"
+    group={{ web_group }}
+    owner={{ web_user }}
+    src=RadiusDesk.php.j2
+    validate='php -l %s'
+
+- name: Configuring radmin_wrapper.pl Script for RadiusDesk (RHEL/CentOS 6.x/7.x)
+  template: 
+    dest="{{ nginx_webroot }}/cake2/rd_cake/Setup/Scripts/radmin_wrapper.pl"
+    src="radius/radmin_wrapper.pl.j2"
+    mode=0777
+
+- name: Ensuring Webroot User can use sudo (RHEL/CentOS 6.x/7.x)
+  lineinfile:
+    dest: /etc/sudoers
+    state: present
+    regexp: '^root    ALL='
+    insertafter: '^root    ALL='
+    line: '{{ web_user }} ALL = NOPASSWD:{{ nginx_webroot }}/cake2/rd_cake/Setup/Scripts/radmin_wrapper.pl'
+    validate: 'visudo -cf %s'
+
+- name: Ensuring Freeradius is ready for use (RHEL/CentOS 6.x/7.x)
+  service: 
+    enabled=yes
+    name={{ freeradius_service_name }}
+    state=restarted

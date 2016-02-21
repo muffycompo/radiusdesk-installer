@@ -1,20 +1,31 @@
 #!/bin/bash
+# Bash Menu Script Example
+clear
+echo ""
+RD_TITLE="==== RADIUSDesk Installer 0.1.0 ===="
+TITLE_BYTES=${#rd_title}
+UNDERLINE_STRING=$(for ((i=1; i<=$TITLE_BYTES; i++));do printf "%s" "=";done;printf "\n")
 
-# Description: This project tries to simplify or ease the process of getting a working installation of RadiusDESK on a vanilla/minimal installation of RHEL/CentOS 6.X (32 bit/64 bit).
-# Author: Mfawa Alfred Onen
-# Link/URL: http://muffycompo.github.io/radiusdesk-installer
-# Date: March 14, 2014
-# Usage: ./rd-installer or ./rd-installer -v|--version
+ANSIBLE_EXECUTABLE=$(which ansible-playbook)
+RD_INSTALLER_PATH=$(pwd)
 
-# Include Menu
-source includes/menu.sh
-source includes/functions.sh
+# Display Installer Title
+echo $RD_TITLE
+echo $UNDERLINE_STRING
 
-# Show RADIUSdesk Installer Version when -v is passed to Installer
-show_version ${1}
+PS3='Select an Option: '
+options=("[I]nstall/Reconfigure RADIUSDesk" "[Q]uit")
+select opt in "${options[@]}"
+do
+    if [[ "$REPLY" == "1" || "$REPLY" == "I" || "$REPLY" == "i" ]]; then
+        echo "Installing/Reconfiguring RADIUSDesk"
+        echo ""
+        $ANSIBLE_EXECUTABLE -i $RD_INSTALLER_PATH/servers $RD_INSTALLER_PATH/rd-installer-ansible.yml
 
-RD_DISTRO=$(os_distro_type)
-
-installer_menu ${RD_DISTRO}
-
-# END
+    elif [[ "$REPLY" == "2" || "$REPLY" == "Q" || "$REPLY" == "q" ]]; then
+        echo "Quitting RADIUSDesk Installer"
+        break
+    else
+        echo "Invalid Selection...Press any key to try again!"
+    fi
+done
