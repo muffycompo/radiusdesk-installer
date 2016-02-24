@@ -10,8 +10,8 @@ RADIUSDesk Installer is an [Ansible](http://www.ansible.com) powered utility tha
    
    b) If you prefer to download the zip file `wget -cL https://github.com/muffycompo/radiusdesk-installer/archive/master.zip`. **Note:** just make sure you have **wget** and **unzip** installed using (`yum install -y wget unzip`) on RHEL/CentOS 6.x and (`apt-get install -y wget unzip`) on Ubuntu servers.
    
-   c) Ensure you have installed python as Ansible requires python to run.
-   **Note:** you can install python on RHEL/CentOS 6.x via yum (`yum install -y python`) or Ubuntu via apt (`apt-get install -y python`).
+   c) Ensure you have installed ansible and python for the installer to run.
+   **Note:** you can install python on RHEL/CentOS 6.x via yum (`yum install -y ansible python`) or Ubuntu via apt (`apt-get install -y ansible python`).
    
    d) SSH into the local/remote server atleast once to have SSH add an entry in its `known_hosts` file. i.e. `ssh localhost` or `ssh 192.168.23.101`
    
