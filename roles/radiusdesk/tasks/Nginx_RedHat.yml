@@ -57,29 +57,38 @@
 - name: Copying CakePHP Source to Webroot (RHEL/CentOS 6.x/7.x)
   shell: cp -a {{ temp_src_dir | quote }}/cake2 {{ nginx_webroot | quote }}/cake2
 
-- name: Downloading RadiusDesk CakePHP Source from Subversion (RHEL/CentOS 6.x/7.x)
-  subversion:
-    repo={{ rd_cake_svn_repo }}
-    dest={{ temp_src_dir }}/rd_cake
-    revision={{ rd_svn_revision }}
+# - name: Downloading RadiusDesk CakePHP Source from Subversion (Ubuntu)
+  # subversion:
+    # repo={{ rd_cake_svn_repo }}
+    # dest={{ temp_src_dir }}/rd_cake
+    # revision={{ rd_svn_revision }}
 
-- name: Copying RadiusDesk CakePHP App Source to Webroot (RHEL/CentOS 6.x/7.x)
+- name: Downloading RadiusDesk CakePHP Source from Subversion (Ubuntu)
+  shell: svn checkout -r {{ rd_svn_revision }} {{ rd_cake_svn_repo }} {{ temp_src_dir }}/rd_cake
+
+- name: Copying RadiusDesk CakePHP App Source to Webroot (Ubuntu)
   shell: cp -a {{ temp_src_dir | quote }}/rd_cake {{ nginx_webroot | quote }}/cake2/
 
-- name: Downloading RadiusDesk Viewer Source from Subversion (RHEL/CentOS 6.x/7.x)
-  subversion:
-    repo={{ rd_svn_repo }}
-    dest={{ temp_src_dir }}/rd
-    revision={{ rd_svn_revision }}
+# - name: Downloading RadiusDesk Viewer Source from Subversion (Ubuntu)
+  # subversion:
+    # repo={{ rd_svn_repo }}
+    # dest={{ temp_src_dir }}/rd
+    # revision={{ rd_svn_revision }}
 
-- name: Copying RadiusDesk Viewer Source to Webroot (RHEL/CentOS 6.x/7.x)
+- name: Downloading RadiusDesk Viewer Source from Subversion (Ubuntu)
+  shell: svn checkout -r {{ rd_svn_revision }} {{ rd_svn_repo }} {{ temp_src_dir }}/rd
+
+- name: Copying RadiusDesk Viewer Source to Webroot (Ubuntu)
   shell: cp -a {{ temp_src_dir | quote }}/rd {{ nginx_webroot | quote }}/
 
-- name: Downloading RadiusDesk Login Source from Subversion (RHEL/CentOS 6.x/7.x)
-  subversion:
-    repo={{ rd_login_svn_repo }}
-    dest={{ temp_src_dir }}/rd_login
-    revision={{ rd_svn_revision }}
+# - name: Downloading RadiusDesk Login Source from Subversion (Ubuntu)
+  # subversion:
+    # repo={{ rd_login_svn_repo }}
+    # dest={{ temp_src_dir }}/rd_login
+    # revision={{ rd_svn_revision }}
+
+- name: Downloading RadiusDesk Login Source from Subversion (Ubuntu)
+  shell: svn checkout -r {{ rd_svn_revision }} {{ rd_login_svn_repo }} {{ temp_src_dir }}/rd_login
 
 - name: Copying RadiusDesk Login Source webroot (RHEL/CentOS 6.x/7.x)
   shell: cp -a {{ temp_src_dir | quote }}/rd_login {{ nginx_webroot | quote }}/
