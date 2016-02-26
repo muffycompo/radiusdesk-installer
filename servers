@@ -1,5 +1,5 @@
 [default]
-localhost
+localhost ansible_connection=local ansible_ssh_user=root
 
 [prod32]
 ubuntu1004-32.maomuffy.com
