@@ -63,9 +63,6 @@ SSH into the local/remote managed node/server at least once to ensure it is adde
 
 3. Grab yourself a **cup of Coffee** as the installer provisions your server with RADIUSDesk and reboot the server to ensure everything is persistent on reboot **[Optional]**.
 
-## Video Walkthrough
-<iframe width="560" height="315" src="https://www.youtube.com/embed/VedzdhcBD5A" frameborder="0" allowfullscreen></iframe>
-
 ## Features
 1. A very customizable installer (Edit `roles/radiusdesk/vars/Debian.yml` or `roles/radiusdesk/vars/RedHat.yml` depending on your Operating System family like Debian, RedHat etc). **Note:** ensure you use a YAML linter to check your syntax anytime you make any change to the variable file(s).
 
