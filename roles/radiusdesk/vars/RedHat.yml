@@ -61,7 +61,7 @@ rd_cake_svn_repo: "http://svn.code.sf.net/p/radiusdesk/code/trunk/rd_cake"
 rd_login_svn_repo: "http://svn.code.sf.net/p/radiusdesk/code/trunk/rd_login"
 extjs_src_url: "https://sourceforge.net/p/radiusdesk/code/HEAD/tree/extjs/ext-6-sencha_cmd.tar.gz?format=raw"
 extjs_src_md5_sum: "e829741694be90a27d7f0c6a24dbfc8b"
-rd_svn_revision: 1620
+rd_svn_revision: 1633
 
 # Freeradius Packages (RHEL/CentOS 6.x/7.x)
 freeradius_pkgs:
