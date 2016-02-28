@@ -2,7 +2,7 @@
 <html lang="en-us">
   <head>
     <meta charset="UTF-8">
-    <title>RADIUSDesk Installer</title>
+    <title>RADIUSDesk Installer by muffycompo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
@@ -23,34 +23,83 @@
 <a id="radiusdesk-installer" class="anchor" href="#radiusdesk-installer" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>RADIUSDesk Installer</h1>
 
 <h2>
-<a id="overview" class="anchor" href="#overview" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Overview</h2>
+<a id="introduction" class="anchor" href="#introduction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Introduction</h2>
 
-<p>RADIUSDesk Installer is an <a href="http://www.ansible.com">Ansible</a> powered utility that attempts to simplify or ease the process of getting a working installation of <a href="http://www.radiusdesk.com">RADIUSDesk</a> on a vanilla/minimal installation of RHEL/CentOS 6.X/Ubuntu 14.04/15.04/15.10 servers. The Installer utilizes Ansible's powerful features like agentless modes, idempotent runs etc.</p>
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/VedzdhcBD5A" frameborder="0" allowfullscreen></iframe>
+<p>RADIUSDesk Installer is an <a href="http://www.ansible.com">Ansible</a> powered utility that attempts to simplify the process of getting a working installation of <a href="http://www.radiusdesk.com">RADIUSDesk</a> on a vanilla/minimal installation of RHEL/CentOS 6.X/Ubuntu 14.04/15.04/15.10 servers.</p>
 
 <h2>
-<a id="installation--usage" class="anchor" href="#installation--usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation &amp; Usage</h2>
+<a id="prerequisite" class="anchor" href="#prerequisite" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Prerequisite</h2>
+
+<h4>
+<a id="1-install-python-27" class="anchor" href="#1-install-python-27" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1] Install Python 2.7+</h4>
+
+<p>Because RADIUDesk Installer uses Ansible, you must ensure that python 2.7+ is installed on both the Control[the server you will be running RADIUSDesk Installer] and Managed [the server you will like to setup RADIUSDesk on] Node(s) to fulfill a requirement for Ansible. As of the time of this writing, Python 3 is not supported by Ansible so please take note. <a href="http://docs.ansible.com/ansible/intro_installation.html#managed-node-requirements">Managed Node Requirements</a></p>
+
+<p>To Install Python which should come by default in most Linux distributions, you can use your package manager:</p>
+
+<p><strong>RHEL/CentOS 6.x/7.x</strong></p>
+
+<p><code>yum install -y python</code></p>
+
+<p><strong>Ubuntu 14.x/15.x</strong></p>
+
+<p><code>apt-get install -y python</code></p>
+
+<h4>
+<a id="2-install-ansible-19" class="anchor" href="#2-install-ansible-19" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2] Install Ansible 1.9+</h4>
+
+<p>RADIUSDesk Installer utilizes the latest version of Ansible and for this you must ensure you have at least <strong>Ansible 1.9</strong> and above for the Installer to work as intended.</p>
+
+<p>To Install Ansible, use your package manager and if your distribution comes with an older version of Ansible check the following steps to install the latest Ansible package:</p>
+
+<p><strong>RHEL/CentOS 6.x/7.x</strong></p>
+
+<pre><code>yum install -y epel-release
+yum install -y ansible
+</code></pre>
+
+<p><strong>Note:</strong> To Manually install EPEL repositories, Visit the <a href="https://fedoraproject.org/wiki/EPEL">EPEL Wiki</a> </p>
+
+<p><strong>Ubuntu 14.x/15.x</strong></p>
+
+<pre><code>apt-get install -y software-properties-common python-software-properties
+apt-add-repository ppa:ansible/ansible
+apt-get update
+apt-get install -y ansible
+</code></pre>
+
+<h4>
+<a id="3-add-managed-nodes-to-ssh-known-hosts-list-of-the-conrol-node" class="anchor" href="#3-add-managed-nodes-to-ssh-known-hosts-list-of-the-conrol-node" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3] Add Managed Node(s) to SSH Known Hosts list of the Conrol Node</h4>
+
+<p>SSH into the local/remote managed node/server at least once to ensure it is added to the control node/server SSH <strong>known_host</strong> file.</p>
+
+<p><code>ssh root@localhost</code> or <code>ssh root@192.168.23.101</code></p>
+
+<h2>
+<a id="using-radiusdesk-installer" class="anchor" href="#using-radiusdesk-installer" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Using RADIUSDesk Installer</h2>
+
+<h4>
+<a id="clone-the-installer-from-github" class="anchor" href="#clone-the-installer-from-github" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Clone the Installer from <a href="https://github.com/muffycompo/radiusdesk-installer">GitHub</a>
+</h4>
+
+<p><code>git clone https://github.com/muffycompo/radiusdesk-installer</code></p>
+
+<p><strong>Note:</strong> If you don't have git installed, make sure you so before cloning the Installer. Use your package manager to install git; <code>yum install -y git</code> on RHEL/CentOS or <code>apt-get install -y git</code> on Ubuntu.</p>
+
+<h4>
+<a id="run-the-installer" class="anchor" href="#run-the-installer" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Run the Installer</h4>
 
 <ol>
-<li>
-<p>Clone or download the project.</p>
-
-<p>a) If you have git already installed, just use <code>git clone https://github.com/muffycompo/radiusdesk-installer.git</code>. <strong>Note:</strong> you can install git on RHEL/CentOS 6.x via yum (<code>yum install -y git</code>) or Ubuntu via apt (<code>apt-get install -y git</code>)</p>
-
-<p>b) If you prefer to download the zip file <code>wget -cL https://github.com/muffycompo/radiusdesk-installer/archive/master.zip</code>. <strong>Note:</strong> just make sure you have <strong>wget</strong> and <strong>unzip</strong> installed using (<code>yum install -y wget unzip</code>) on RHEL/CentOS 6.x and (<code>apt-get install -y wget unzip</code>) on Ubuntu servers.</p>
-
-<p>c) Ensure you have installed ansible and python for the installer to run.
-<strong>Note:</strong> you can install python on RHEL/CentOS 6.x via yum (<code>yum install -y ansible python</code>) or Ubuntu via apt (<code>apt-get install -y ansible python</code>).</p>
-
-<p>d) SSH into the local/remote server atleast once to have SSH add an entry in its <code>known_hosts</code> file. i.e. <code>ssh localhost</code> or <code>ssh 192.168.23.101</code></p>
-
-<p>e) Edit the <code>servers</code> if you want to customize your server groups. Reference: <code>http://docs.ansible.com/ansible/intro_inventory.html#hosts-and-groups</code></p>
-</li>
-<li><p>Run/execute the Installer as <strong>root</strong> or a user with sudo privileges <code>cd radiusdesk-installer; ./rd-installer</code> and select I or 1 to commence the installation of RADIUSDesk using default values.</p></li>
-<li><p>Grab yourself a <strong>cup of Coffee</strong> as the installer provisions your server with RADIUSDesk.</p></li>
-<li><p>When the installer is done installing and configuring your system, we recommend rebooting your machine/server to ensure everything is persistent on reboot.</p></li>
+<li><p>By default, the installer will setup RADIUSDesk on the server you are currently running the installer from i.e. <code>localhost</code>. To change that and use a remote server (on your network or in the cloud), edit the <strong><code>servers</code></strong> file in the installer's directory; <code>cd radiusdesk-installer; vi servers</code>. You can create a new host group as per <a href="http://docs.ansible.com/ansible/intro_inventory.html#hosts-and-groups">Ansible's guide</a> or modify the sample groups in the <strong><code>servers</code></strong> file. If you have modified the <strong><code>servers</code></strong> file and created a new group, also remember to edit the ** <code>rd-installer-ansible.yml</code> ** and ensure the hosts uses your newly created server group from the previous step.</p></li>
+<li><p>RADIUSDesk Installer requires root privileges to ensure it installs packages and configure your servers properly. Login as the <strong><code>root</code></strong> user or a user with sudo privileges. Run the installer and select ** I ** or ** 1 ** to start provisioning your server with RADIUSDesk.
+<code>cd radiusdesk-installer; ./rd-installer</code></p></li>
+<li><p>Grab yourself a <strong>cup of Coffee</strong> as the installer provisions your server with RADIUSDesk and reboot the server to ensure everything is persistent on reboot <strong>[Optional]</strong>.</p></li>
 </ol>
+
+<h2>
+<a id="video-walkthrough" class="anchor" href="#video-walkthrough" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Video Walkthrough</h2>
+
+
 
 <h2>
 <a id="features" class="anchor" href="#features" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Features</h2>
@@ -58,19 +107,25 @@
 <ol>
 <li><p>A very customizable installer (Edit <code>roles/radiusdesk/vars/Debian.yml</code> or <code>roles/radiusdesk/vars/RedHat.yml</code> depending on your Operating System family like Debian, RedHat etc). <strong>Note:</strong> ensure you use a YAML linter to check your syntax anytime you make any change to the variable file(s).</p></li>
 <li><p>Somewhat modularized, so you can always extend RADIUSDesk installer to support your environment</p></li>
-<li><p>Setup PPTPD (Optional)</p></li>
-<li><p>Setup Captive Portal with CoovaChilli (Optional)</p></li>
+<li><p>Support for PPTPD <strong>[Optional]</strong></p></li>
+<li><p>Support for CoovaChilli Captive portal <strong>[Optional]</strong></p></li>
+<li><p>Support for Dynamic Login Pages <strong>[Optional]</strong></p></li>
 </ol>
 
 <h2>
 <a id="compatibility" class="anchor" href="#compatibility" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Compatibility</h2>
 
-<p>The installer has been tested on the following Linux Operating Systems</p>
-
 <ol>
-<li>CentOS 6.5/6.7 (32/64 bit)</li>
-<li>Red Hat Enterprise Linux 6.5/6.7 (32/64 bit) </li>
-<li>Ubuntu 14.04/15.04/15.10 (32/64 bit) </li>
+<li> ** Ansible 1.9+ **</li>
+<li>
+<p>The installer has been tested on the following Linux Operating Systems:</p>
+
+<ul>
+<li>** RHEL/CentOS 6.5/6.7 (32/64 bit) **</li>
+<li>** Ubuntu 14.04/15.04/15.10 (32/64 bit) **<br>
+</li>
+</ul>
+</li>
 </ol>
 
 <h2>
@@ -106,8 +161,9 @@
 <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
 
       <footer class="site-footer">
-        <span class="site-footer-owner"><a href="https://github.com/muffycompo/radiusdesk-installer">RADIUSDesk Installer</a> is maintained by <a href="https://github.com/muffycompo">Mfawa Alfred Onen</a>.</span>
+        <span class="site-footer-owner"><a href="https://github.com/muffycompo/radiusdesk-installer">RADIUSDesk Installer</a> is maintained by <a href="https://github.com/muffycompo">muffycompo</a>.</span>
 
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
       </footer>
 
     </section>
