@@ -56,9 +56,9 @@ SSH into the local/remote managed node/server at least once to ensure it is adde
 **Note:** If you don't have git installed, make sure you so before cloning the Installer. Use your package manager to install git; `yum install -y git` on RHEL/CentOS or `apt-get install -y git` on Ubuntu.
 
 #### Run the Installer
-1.	By default, the installer will setup RADIUSDesk on the server you are currently running the installer from i.e. `localhost`. To change that and use a remote server (on your network or in the cloud), edit the **`servers`** file in the installer's directory; `cd radiusdesk-installer; vi servers`. You can create a new host group as per [Ansible's guide](http://docs.ansible.com/ansible/intro_inventory.html#hosts-and-groups) or modify the sample groups in the **`servers`** file. If you have modified the **`servers`** file and created a new group, also remember to edit the ** `rd-installer-ansible.yml` ** and ensure the hosts uses your newly created server group from the previous step.
+1.	By default, the installer will setup RADIUSDesk on the server you are currently running the installer from i.e. `localhost`. To change that and use a remote server (on your network or in the cloud), edit the **`servers`** file in the installer's directory; `cd radiusdesk-installer; vi servers`. You can create a new host group as per [Ansible's guide](http://docs.ansible.com/ansible/intro_inventory.html#hosts-and-groups) or modify the sample groups in the **`servers`** file. If you have modified the **`servers`** file and created a new group, also remember to edit the **`rd-installer-ansible.yml`** and ensure the hosts uses your newly created server group from the previous step.
 
-2.	RADIUSDesk Installer requires root privileges to ensure it installs packages and configure your servers properly. Login as the **`root`** user or a user with sudo privileges. Run the installer and select ** I ** or ** 1 ** to start provisioning your server with RADIUSDesk.
+2.	RADIUSDesk Installer requires root privileges to ensure it installs packages and configure your servers properly. Login as the **`root`** user or a user with sudo privileges. Run the installer and select **I** or **1** to start provisioning your server with RADIUSDesk.
 `cd radiusdesk-installer; ./rd-installer`
 
 3. Grab yourself a **cup of Coffee** as the installer provisions your server with RADIUSDesk and reboot the server to ensure everything is persistent on reboot **[Optional]**.
@@ -78,11 +78,11 @@ SSH into the local/remote managed node/server at least once to ensure it is adde
 5. Support for Dynamic Login Pages **[Optional]**
 
 ## Compatibility
-1.	** Ansible 1.9+ **
+1.	**Ansible 1.9+**
 2.	The installer has been tested on the following Linux Operating Systems:
 	
-    - ** RHEL/CentOS 6.5/6.7 (32/64 bit) **
-    - ** Ubuntu 14.04/15.04/15.10 (32/64 bit) **    
+    - **RHEL/CentOS 6.5/6.7 (32/64 bit)**
+    - **Ubuntu 14.04/15.04/15.10 (32/64 bit)**    
 
 ## Resources
 1. [RADIUSDesk Course/Tutorials](http://www.maomuffy.com/introduction-to-radiusdesk-with-rhelcentos-6-x-mini-course/) by [Mfawa Alfred Onen](http://ng.linkedin.com/in/mfawaalfredonen/)
