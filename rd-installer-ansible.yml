@@ -1,6 +1,7 @@
 ---
 - hosts: default
-  sudo: yes
+  become_user: root
+  become: yes
   gather_facts: yes
   roles:
    - radiusdesk
