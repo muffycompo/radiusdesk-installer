@@ -32,7 +32,7 @@ $config['pptp']['chap_secrets']                    = '{{ pptpd_client_dir }}/cha
 $config['dynamic']['start_ip']                     = '10.120.0.1'; //Make this a Class B subnet (64000) which will never include a value also specified for a FIXED client
 
 //Dictionary files to include for profiles...
-$config['freeradius']['path_to_dictionary_files']   = '{{ freeradius_conf_dir }}/';
+$config['freeradius']['path_to_dictionary_files']   = '{{ freeradius_shared_dir }}/';
 $config['freeradius']['main_dictionary_file']       = '{{ freeradius_conf_dir }}/dictionary';
 $config['freeradius']['radclient']                  = '{{ freeradius_bin_dir }}/radclient';
 

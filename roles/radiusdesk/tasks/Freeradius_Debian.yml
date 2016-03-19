@@ -42,7 +42,7 @@
   shell: 
     "mv {{ temp_src_dir | quote }}/raddb {{ freeradius_conf_dir | quote }} &&
     chown -R {{ freeradius_user | quote }}:{{ freeradius_group | quote }} {{ freeradius_conf_dir | quote }} &&
-    chmod -R 0664 {{ freeradius_conf_dir | quote }}"
+    chmod -R 0755 {{ freeradius_conf_dir | quote }}"
 
 - name: Configuring RadiusDesk Freeradius radiusd.conf (Ubuntu)
   template: 
