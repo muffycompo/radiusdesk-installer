@@ -52,7 +52,7 @@ rd_cake_svn_repo: "http://svn.code.sf.net/p/radiusdesk/code/trunk/rd_cake"
 rd_login_svn_repo: "http://svn.code.sf.net/p/radiusdesk/code/trunk/rd_login"
 extjs_src_url: "https://sourceforge.net/p/radiusdesk/code/HEAD/tree/extjs/ext-6-sencha_cmd.tar.gz?format=raw"
 extjs_src_md5_sum: "e829741694be90a27d7f0c6a24dbfc8b"
-rd_svn_revision: 1633
+rd_svn_revision: 1620
 
 # Freeradius Packages (Debian/Ubuntu)
 freeradius_pkgs:
@@ -74,6 +74,7 @@ freeradius_service_name: freeradius
 freeradius_user: freerad
 freeradius_group: freerad
 freeradius_log_dir: "/var/log/freeradius"
+freeradius_radclient: "/usr/bin/radclient"
 allow_vulnerable_openssl: yes
 
 # Radiusdesk Database (Debian/Ubuntu)
@@ -127,10 +128,12 @@ coovachilii_uam_port: 3990
 coovachilii_uam_secret: "greatsecret"
 coovachilii_radius_server1: "localhost"
 coovachilii_radius_server2: "localhost"
+coovachilli_radius_secret: "testing123"
 coovachilii_dns_server1: "208.67.222.222"
 coovachilii_dns_server2: "208.67.220.220"
 coovachilii_user: "chilli"
 coovachilii_group: "chilli"
+coovachilli_coaport: 3799
 
 # MAO Repository
 mao_apt_ppa_repo: "ppa:muffycompoqm/rd-installer"
@@ -138,3 +141,4 @@ mao_apt_repo_key: "http://apt.maomuffy.com/ubuntu/apt_keys/rd_installer_mao.asc"
 
 # NodeJS Repository
 node_apt_repo_key: "https://deb.nodesource.com/gpgkey/nodesource.gpg.key"
+

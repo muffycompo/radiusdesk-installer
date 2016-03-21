@@ -83,21 +83,18 @@
 
 - name: Instantiating RAW module for Freeradius (RHEL/CentOS 6.x/7.x)
   lineinfile: 
-    dest="{{ freeradius_conf_dir }}/modules/raw"
-    regexp='^'
-    line='raw {\n\n}'
-    state=present
-    create=yes
+    dest: "{{ freeradius_conf_dir }}/modules/raw"
+    regexp: '^'
+    line: "raw {\n\n}"
+    state: present
+    create: yes
   when: raw_file.stat.exists == False
 
 - name: Correcting radclient paths for radscenario.pl Script (RHEL/CentOS 6.x/7.x)
-  lineinfile: 
+  template: 
     dest="{{ nginx_webroot }}/cake2/rd_cake/Setup/Scripts/radscenario.pl"
-    regexp='^my $radclient'
-    line='my $radclient = "{{ freeradius_bin_dir }}/radclient";'
-    state=present
     mode=0777
-    create=True
+    src="radius/radscenario.pl.j2"
 
 - name: Correcting RadiusDesk paths for Freeradius (RHEL/CentOS 6.x/7.x)
   template:
@@ -127,3 +124,4 @@
     enabled=yes
     name={{ freeradius_service_name }}
     state=restarted
+
