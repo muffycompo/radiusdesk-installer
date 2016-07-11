@@ -3,6 +3,7 @@
   apt_key: 
     url={{ mao_apt_repo_key }}
     state=present
+    validate_certs=False
 
 - name: Adding RadiusDesk MAO Apt Main Repository (Ubuntu)
   apt_repository:
