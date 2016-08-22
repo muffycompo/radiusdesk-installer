@@ -64,14 +64,22 @@ extjs_src_md5_sum: "e829741694be90a27d7f0c6a24dbfc8b"
 rd_svn_revision: 1620
 
 # Freeradius Packages (RHEL/CentOS 6.x/7.x)
+# freeradius_pkgs:
+#  - freeradius-2.2.9-1rd*
+#  - freeradius-mysql-2.2.9-1rd*
+#  - freeradius-perl-2.2.9-1rd*
+#  - freeradius-python-2.2.9-1rd*
+#  - freeradius-ldap-2.2.9-1rd*
+#  - freeradius-utils-2.2.9-1rd*
+#  - freeradius-krb5-2.2.9-1rd*
 freeradius_pkgs:
- - freeradius-2.2.9-1rd*
- - freeradius-mysql-2.2.9-1rd*
- - freeradius-perl-2.2.9-1rd*
- - freeradius-python-2.2.9-1rd*
- - freeradius-ldap-2.2.9-1rd*
- - freeradius-utils-2.2.9-1rd*
- - freeradius-krb5-2.2.9-1rd*
+ - freeradius-3.0.11*
+ - freeradius-mysql-3.0.11*
+ - freeradius-perl-3.0.11*
+ - freeradius-python-3.0.11*
+ - freeradius-ldap-3.0.11*
+ - freeradius-utils-3.0.11*
+ - freeradius-krb5-3.0.11*
 
 # Freeradius (RHEL/CentOS 6.x/7.x)
 freeradius_conf_dir: "/etc/raddb"
@@ -84,6 +92,7 @@ freeradius_user: radiusd
 freeradius_group: radiusd
 freeradius_log_dir: "/var/log/radius"
 freeradius_radclient: "/usr/bin/radclient"
+freeradius_secret: "testing123"
 allow_vulnerable_openssl: yes
 
 # Radiusdesk Database (RHEL/CentOS 6.x/7.x)
@@ -134,7 +143,6 @@ coovachilii_uam_port: 3990
 coovachilii_uam_secret: "greatsecret"
 coovachilii_radius_server1: "localhost"
 coovachilii_radius_server2: "localhost"
-coovachilli_radius_secret: "testing123"
 coovachilii_dns_server1: "208.67.222.222"
 coovachilii_dns_server2: "208.67.220.220"
 coovachilii_user: "chilli"

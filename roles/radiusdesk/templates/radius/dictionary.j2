@@ -1,47 +1,53 @@
 #
-#	This is the master dictionary file, which references the
-#	pre-defined dictionary files included with the server.
+#	This is the local dictionary file which can be
+#	edited by local administrators.  It will be loaded
+#	AFTER the main dictionary files are loaded.
 #
-#	Any new/changed attributes MUST be placed in this file, as
-#	the pre-defined dictionaries SHOULD NOT be edited.
+#	As of version 3.0.2, FreeRADIUS will automatically
+#	load the main dictionary files from
 #
-#	$Id$
+#		${prefix}/share/freeradius/dictionary
+#
+#	It is no longer necessary for this file to $INCLUDE
+#	the main dictionaries.  However, if the $INCLUDE
+#	line is here, nothing bad will happen.
+#
+#	Any new/changed attributes MUST be placed in this file.
+#	The pre-defined dictionaries SHOULD NOT be edited.
+#
+#	See "man dictionary" for documentation on its format.
+#
+#	$Id: eed5d70f41b314f9ed3f006a22d9f9a2be2c9516 $
 #
 
 #
-#  The DHCP dictionary is used only when the server is built with
-#  "configure --with-dhcp".  It is not (and should not) be used in
-#  other situations.  If you are running just a RADIUS server, this
-#  line can be deleted.  If you are using DHCP, the following line
-#  should be uncommented.
+#	All local attributes and $INCLUDE's should go into
+#	this file.
 #
-#  Ideally, the "configure" process should automatically enable this
-#  dictionary, but we don't yet do that.
-#
-#$INCLUDE	/usr/local/dictionary.dhcp
 
-#
-#	The filename given here should be an absolute path. 
-#
-$INCLUDE	{{ freeradius_shared_dir }}/dictionary
-
-#
-#	Place additional attributes or $INCLUDEs here.  They will
-#	over-ride the definitions in the pre-defined dictionaries.
-#
-#	See the 'man' page for 'dictionary' for information on
-#	the format of the dictionary files.
-
-#
 #	If you want to add entries to the dictionary file,
 #	which are NOT going to be placed in a RADIUS packet,
-#	add them here.  The numbers you pick should be between
-#	3000 and 4000.
+#	add them to the 'dictionary.local' file.
+#
+#	The numbers you pick should be between 3000 and 4000.
+#	These attributes will NOT go into a RADIUS packet.
+#
+#	If you want that, you will need to use VSAs.  This means
+#	requesting allocation of a Private Enterprise Code from
+#	http://iana.org.  We STRONGLY suggest doing that only if
+#	you are a vendor of RADIUS equipment.
+#
+#	See RFC 6158 for more details.
+#	http://ietf.org/rfc/rfc6158.txt
 #
 
+#
+#	These attributes are examples
+#
 #ATTRIBUTE	My-Local-String		3000	string
 #ATTRIBUTE	My-Local-IPAddr		3001	ipaddr
 #ATTRIBUTE	My-Local-Integer	3002	integer
+
 
 #The following special attributes are used together with NAS device tags.
 #This is a work in progress and should be handled as such
@@ -101,9 +107,9 @@ ATTRIBUTE Rd-Tmp-Avail-Data     3117 string
 
 ATTRIBUTE Rd-Reset-Type-Time    3122 string
 ATTRIBUTE Rd-Cap-Type-Time		3123 string 
-ATTRIBUTE Rd-Total-Time		    3124 string
-ATTRIBUTE Rd-Used-Time			3125 string
-ATTRIBUTE Rd-Avail-Time		    3126 string
+ATTRIBUTE Rd-Total-Time		    3124 integer
+ATTRIBUTE Rd-Used-Time			3125 integer
+ATTRIBUTE Rd-Avail-Time		    3126 integer
 #We set this attribute during a Time counter check. This is to do a User -> Device time limitation
 #The user's limitations will be first checked; then we set this the same as Rd-Avail-Time
 #The counter checks for the presence of this attr and will not adjust it if it is already set.
@@ -143,6 +149,13 @@ ATTRIBUTE Rd-Reset-Hour-Time        3146 integer
 ATTRIBUTE Rd-Ssid-Check				3150 integer
 ATTRIBUTE Rd-Ssid-Value				3151 string
 
+ATTRIBUTE Rd-Dynamic-Client			3152 integer
+ATTRIBUTE Rd-Unknown-Added			3153 integer
+ATTRIBUTE Rd-Client-Active          3154 integer
+ATTRIBUTE Rd-Client-Updated         3155 integer
+
+#This is not required for FreeRADIUS3 anymore but it is required for RADIUSdesk
+$INCLUDE /usr/share/freeradius/dictionary
 
 $INCLUDE  {{ freeradius_conf_dir  }}/dictionary_overrides/dictionary.mikrotik
 $INCLUDE  {{ freeradius_conf_dir  }}/dictionary_overrides/dictionary.chillispot
