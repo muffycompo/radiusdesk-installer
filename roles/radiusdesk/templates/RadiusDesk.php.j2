@@ -47,7 +47,8 @@ $config['nas_types'][0]     = array('name' => 'Other',                  'id' => 
 $config['nas_types'][1]     = array('name' => 'CoovaChilli',            'id' => 'CoovaChilli',              'active' => true);
 $config['nas_types'][2]     = array('name' => 'CoovaChilli-Heartbeat',  'id' => 'CoovaChilli-Heartbeat',    'active' => true);
 $config['nas_types'][3]     = array('name' => 'Mikrotik',               'id' => 'Mikrotik',                 'active' => true);
-$config['nas_types'][3]     = array('name' => 'Mikrotik-Heartbeat',     'id' => 'Mikrotik-Heartbeat',       'active' => true);
+$config['nas_types'][4]     = array('name' => 'Mikrotik-Heartbeat',     'id' => 'Mikrotik-Heartbeat',       'active' => true);
+$config['nas_types'][5]     = array('name' => 'Telkom',                 'id' => 'Telkom',                   'active' => true);
 
 //Define Voucher format types
 $config['voucher_formats'][0]     = array('name' => 'Generic A4',               'id' => 'a4',               'active' => true);
@@ -76,40 +77,25 @@ $config['user_settings']['map']['zoom']     = 18;
 $config['user_settings']['map']['lng']      = -71.0955740216735;
 $config['user_settings']['map']['lat']      = 42.3379770178396;
 
-
-//====== Mobile devices that do not support Sencha Touch =====
-//ID your device by visiting: http://127.0.0.1/cake2/rd_cake/dynamic_details/id_me
-$config['DynamicLogin']['use_jquery']       = array(
-   //array('type' => 'contain',  'value' => 'Ubuntu'),
-   //array('type' => 'match',    'value' => 'Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.19 (KHTML, like Gecko) Ubuntu/10.04 Chromium/18.0.1025.151 Chrome/18.0.1025.151 Safari/535.19'),
-);
-
-//The location of the mobile and desktop login pages for CoovaChilli
-//$config['CoovaDynamicLogin']['mobile']      = '/rd_login_pages/mobile/CoovaChilli/index.html';
-
-$config['CoovaDynamicLogin']['mobile']          = '/rd_login_pages/mobile/CoovaChilli/build/production/CoovaChilli/index.html';
-$config['CoovaDynamicLogin']['jquery_mobile']   = '/rd_login_pages/jquery_mobile/CoovaChilli/index.html';
-
-//$config['CoovaDynamicLogin']['desktop']     = '/rd_login_pages/desktop/CoovaChilli/index.html';
-$config['CoovaDynamicLogin']['desktop']     = '/rd_login_pages/desktop/CoovaChilli/build/production/CoovaChilli/index.html';
-
-
-//The location of the mobile and desktop login pages for Mikrotik
-//$config['MikrotikDynamicLogin']['mobile']      = '/rd_login_pages/mobile/Mikrotik/index.html';
-
-$config['MikrotikDynamicLogin']['mobile']       = '/rd_login_pages/mobile/Mikrotik/build/production/Mikrotik/index.html';
-$config['MikrotikDynamicLogin']['jquery_mobile']= '/rd_login_pages/jquery_mobile/Mikrotik/index.html';
-
-
-//$config['MikrotikDynamicLogin']['desktop']     = '/rd_login_pages2/desktop/Mikrotik/index.html';
-$config['MikrotikDynamicLogin']['desktop']     = '/rd_login_pages/desktop/Mikrotik/build/production/Mikrotik/index.html';
+//Define default settings for users's Dynamic Clients map
+$config['user_settings']['dynamic_client_map']['type']     = "ROADMAP";
+$config['user_settings']['dynamic_client_map']['zoom']     = 18;
+$config['user_settings']['dynamic_client_map']['lng']      = -71.0955740216735;
+$config['user_settings']['dynamic_client_map']['lat']      = 42.3379770178396;
 
 
 //Set to true to allow  the user to remove their device out of the realm it has been assigned to
 $config['UserCanRemoveDevice']              = true;
 
 //SMTP configs are defined in the Config/email.php file. Here we specify which one to use application wide
-$config['EmailServer']						= 'default';
+$config['EmailServer']                      = 'default';
+
+
+//== 30/3/16 -> Some server wide configurations ==
+$config['server_settings']['user_stats_cut_off_days']   = 90; //3 months (make zero to have no cut off)
+$config['server_settings']['radacct_cut_off_days']      = 90; //3 months (make zero to have no cut off)
+ 
+//== End server wide configurations ==
 
 
 //========== WORK IN PROGRES =============
@@ -202,9 +188,9 @@ $config['paypal']['RDVoucher']['rd_v1']['12Hours'] = array(
 $config['premium_sms']['50MB'] = array(
                                     'precede'           => '',
                                     'profile_id'        => 9,
-									'profile'			=> 'Data-Standard-1G',
+                                    'profile'           => 'Data-Standard-1G',
                                     'realm_id'          => 34,
-									'realm'				=> 'Residence Inn',
+                                    'realm'             => 'Residence Inn',
                                     'sel_language'      => '4_4',
                                     'user_id'           => '44'
                                 );
@@ -269,15 +255,15 @@ $config['icnSubtract']  = 57520;
 $config['icnWatch']     = 57628;
 $config['icnStar']      = 57585;
 $config['icnGrid']      = 57600;
-$config['icnFacebook']	= 57558;
-$config['icnGoogle']	= 57614;
-$config['icnTwitter']	= 57574;
-$config['icnWifi']		= 57550;
-$config['icnIP']		= 57479;
+$config['icnFacebook']  = 57558;
+$config['icnGoogle']    = 57614;
+$config['icnTwitter']   = 57574;
+$config['icnWifi']      = 57550;
+$config['icnIP']        = 57479;
 $config['icnThumbUp']   = 57603;
-$config['icnThumbDown']	= 57602;
-$config['icnCPU']		= 57452;
-$config['icnNotify']	= 57624;
+$config['icnThumbDown'] = 57602;
+$config['icnCPU']       = 57452;
+$config['icnNotify']    = 57624;
 $config['icnCamera']    = 57399;
 $config['icnRedirect']  = 57372;
 */
@@ -337,16 +323,18 @@ $config['icnSubtract']  = 'xf068@'.$config['webFont'];
 $config['icnWatch']     = 'xf017@'.$config['webFont'];
 $config['icnStar']      = 'xf005@'.$config['webFont'];
 $config['icnGrid']      = 'xf00a@'.$config['webFont'];
-$config['icnFacebook']	= 'xf09a@'.$config['webFont'];
-$config['icnGoogle']	= 'xf1a0@'.$config['webFont'];
-$config['icnTwitter']	= 'xf099@'.$config['webFont'];
-$config['icnWifi']		= 'xf012@'.$config['webFont'];
-$config['icnIP']		= 'xf1c0@'.$config['webFont'];
+$config['icnFacebook']  = 'xf09a@'.$config['webFont'];
+$config['icnGoogle']    = 'xf1a0@'.$config['webFont'];
+$config['icnTwitter']   = 'xf099@'.$config['webFont'];
+$config['icnWifi']      = 'xf012@'.$config['webFont'];
+$config['icnIP']        = 'xf1c0@'.$config['webFont'];
 $config['icnThumbUp']   = 'xf087@'.$config['webFont'];
-$config['icnThumbDown']	= 'xf088@'.$config['webFont'];
-$config['icnCPU']		= 'xf085@'.$config['webFont'];
+$config['icnThumbDown'] = 'xf088@'.$config['webFont'];
+$config['icnCPU']       = 'xf085@'.$config['webFont'];
 $config['icnCamera']    = 'xf030@'.$config['webFont'];
 $config['icnRedirect']  = 'xf074@'.$config['webFont'];
+$config['icnDynamicNas']= 'xf239@'.$config['webFont'];
+$config['icnCloud']     = 'xf0c2@'.$config['webFont'];
 
 
 //=== EXPERIMENTAL STUFF =====
