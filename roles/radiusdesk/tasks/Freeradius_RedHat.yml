@@ -34,7 +34,7 @@
 
 - name: Configuring Freeradius Configuration Directory (RHEL/CentOS 6.x/7.x)
   shell: 
-    "mv {{ temp_src_dir | quote }}/freeradius {{ freeradius_conf_dir | quote }}/raddb &&
+    "mv {{ temp_src_dir | quote }}/freeradius {{ freeradius_conf_dir | quote }} &&
     chown -R {{ freeradius_user | quote }}:{{ freeradius_group | quote }} {{ freeradius_conf_dir | quote }} &&
     chmod -R 0755 {{ freeradius_conf_dir | quote }}"
 

@@ -320,7 +320,7 @@ log {
 	#  The attribute that the value is assigned to is unimportant,
 	#  and should be a "throw-away" attribute with no side effects.
 	#
-	#requests = ${logdir}/radiusd-%{%{Virtual-Server}:-DEFAULT}-%Y%m%d.log
+	#requests = {% raw %}${logdir}/radiusd-%{%{Virtual-Server}:-DEFAULT}-%Y%m%d.log{% endraw %}
 
 	#
 	#  Which syslog facility to use, if ${destination} == "syslog"
@@ -499,11 +499,9 @@ security {
 	#
 	status_server = yes
 	{% if allow_vulnerable_openssl or allow_vulnerable_openssl == 'yes' %}
-	# allow_vulnerable_openssl = yes
-	allow_vulnerable_openssl = 'CVE-2014-0160'
+	allow_vulnerable_openssl = yes
 	{% else %}
-    # allow_vulnerable_openssl = yes
-	# allow_vulnerable_openssl = 'CVE-2014-0160'
+    allow_vulnerable_openssl = no
 	{% endif %}
 
 }
