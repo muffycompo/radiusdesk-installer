@@ -9,7 +9,7 @@
     name={{ item }}
     state=present
   with_items: "{{ freeradius_pkgs }}"
-  ignore_errors: yes
+  # ignore_errors: yes
 
 - name: Checking if we already have Freeradius Configuration Directory Backup (RHEL/CentOS 6.x/7.x)
   stat:
