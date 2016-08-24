@@ -50,12 +50,12 @@
 #	if / else policies.  See "man unlang" for details.
 #
 
-#prefix = {{ freeradius_prefix_path }}
-#exec_prefix = ${prefix}
+prefix = {{ freeradius_prefix_path }}
+exec_prefix = {{ freeradius_prefix_path }}
 sysconfdir = /etc
 localstatedir = /var
-sbindir = {{ freeradius_sbin_dir }}
-logdir = {{ freeradius_log_dir }}
+sbindir = /usr/sbin
+logdir = ${localstatedir}/log/radius
 raddbdir = ${sysconfdir}/raddb
 radacctdir = ${logdir}/radacct
 
@@ -105,7 +105,11 @@ db_dir = ${raddbdir}
 #	make
 #	make install
 #
+{% if ansible_architecture == 'x86_64' %}
+libdir = /usr/lib64/freeradius
+{% else %}
 libdir = /usr/lib/freeradius
+{% endif %}
 
 #  pidfile: Where to place the PID of the RADIUS server.
 #
@@ -498,12 +502,20 @@ security {
 	#  See also raddb/sites-available/status
 	#
 	status_server = yes
-	{% if allow_vulnerable_openssl or allow_vulnerable_openssl == 'yes' %}
-	allow_vulnerable_openssl = yes
-	{% else %}
-    allow_vulnerable_openssl = no
-	{% endif %}
 
+	#
+	#  allow_vulnerable_openssl: Allow the server to start with
+	#  versions of OpenSSL known to have critical vulnerabilities.
+	#
+	#  This check is based on the version number reported by libssl
+	#  and may not reflect patches applied to libssl by
+	#  distribution maintainers.
+	#
+{% if allow_vulnerable_openssl or allow_vulnerable_openssl == 'yes' %}
+	allow_vulnerable_openssl = yes
+{% else %}
+	allow_vulnerable_openssl = no
+{% endif %}
 }
 
 # PROXY CONFIGURATION

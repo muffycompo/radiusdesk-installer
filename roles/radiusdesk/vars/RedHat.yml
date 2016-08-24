@@ -84,7 +84,7 @@ freeradius_pkgs:
 
 # Freeradius (RHEL/CentOS 6.x/7.x)
 freeradius_conf_dir: "/etc/raddb"
-freeradius_prefix_path: ""
+freeradius_prefix_path: "/usr"
 freeradius_sbin_dir: "/usr/sbin"
 freeradius_bin_dir: "/usr/bin"
 freeradius_shared_dir: "/usr/share/freeradius"
