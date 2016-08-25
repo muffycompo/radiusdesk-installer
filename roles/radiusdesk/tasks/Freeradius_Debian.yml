@@ -1,51 +1,51 @@
 ---
-- name: Adding RadiusDesk MAO Apt Repository Key (Ubuntu)
+- name: Adding RadiusDesk MAO Apt Repository Key (Ubuntu 14.x/15.x/16.x)
   apt_key: 
     url={{ mao_apt_repo_key }}
     state=present
     validate_certs=False
 
-- name: Adding RadiusDesk MAO Apt Main Repository (Ubuntu)
+- name: Adding RadiusDesk MAO Apt Main Repository (Ubuntu 14.x/15.x/16.x)
   apt_repository:
     repo="{{ mao_apt_ppa_repo }}"
     state=present
 
-- name: Installing Freeradius for RadiusDesk (Ubuntu)
+- name: Installing Freeradius for RadiusDesk (Ubuntu 14.x/15.x/16.x)
   apt:
     name={{ item }}
     state=present
     update_cache=yes
   with_items: "{{ freeradius_pkgs }}"
-  ignore_errors: yes
+  # ignore_errors: yes
 
-- name: Checking if we already have Freeradius Configuration Directory Backup (Ubuntu)
+- name: Checking if we already have Freeradius Configuration Directory Backup (Ubuntu 14.x/15.x/16.x)
   stat:
     path="{{ freeradius_conf_dir | quote }}_orig"
   register: fr_bk
 
-- name: Renaming Freeradius Configuration Directory (Ubuntu)
+- name: Renaming Freeradius Configuration Directory (Ubuntu 14.x/15.x/16.x)
   shell: cp -afR {{ freeradius_conf_dir | quote }} {{ freeradius_conf_dir | quote }}_orig
   when: fr_bk.stat.exists == False
 
-- name: Removing Old Freeradius Configuration Directory (Ubuntu)
+- name: Removing Old Freeradius Configuration Directory (Ubuntu 14.x/15.x/16.x)
   shell: rm -rf {{ freeradius_conf_dir | quote }}
 
-- name: Extracting RadiusDesk Freeradius Configuration (Ubuntu)
+- name: Extracting RadiusDesk Freeradius Configuration (Ubuntu 14.x/15.x/16.x)
   unarchive:
-    src="{{ nginx_webroot }}/cake2/rd_cake/Setup/Radius/raddb_rd.tar.gz"
+    src="{{ nginx_webroot }}/cake2/rd_cake/Setup/Radius/freeradius-3-radiusdesk.tar.gz"
     dest={{ temp_src_dir }}/
     owner={{ freeradius_user }}
     group={{ freeradius_group }}
     mode=0664
     copy=no
 
-- name: Configuring Freeradius Configuration Directory (Ubuntu)
+- name: Configuring Freeradius Configuration Directory (Ubuntu 14.x/15.x/16.x)
   shell: 
-    "mv {{ temp_src_dir | quote }}/raddb {{ freeradius_conf_dir | quote }} &&
+    "mv {{ temp_src_dir | quote }}/freeradius {{ freeradius_conf_dir | quote }} &&
     chown -R {{ freeradius_user | quote }}:{{ freeradius_group | quote }} {{ freeradius_conf_dir | quote }} &&
     chmod -R 0755 {{ freeradius_conf_dir | quote }}"
 
-- name: Configuring RadiusDesk Freeradius radiusd.conf (Ubuntu)
+- name: Configuring RadiusDesk Freeradius radiusd.conf (Ubuntu 14.x/15.x/16.x)
   template: 
     dest={{ freeradius_conf_dir }}/radiusd.conf
     owner={{ freeradius_user }}
@@ -53,7 +53,7 @@
     mode=0664
     src="radius/radiusd.conf.j2"
 
-- name: Configuring RadiusDesk Freeradius Dictionary (Ubuntu)
+- name: Configuring RadiusDesk Freeradius Dictionary (Ubuntu 14.x/15.x/16.x)
   template: 
     dest={{ freeradius_conf_dir }}/dictionary
     owner={{ freeradius_user }}
@@ -61,49 +61,27 @@
     mode=0664
     src="radius/dictionary.j2"
 
-- name: Configuring RadiusDesk Freeradius Checkrad Script (Ubuntu)
+- name: Configuring RadiusDesk Freeradius Checkrad Script (Ubuntu 14.x/15.x/16.x)
   template: 
     dest={{ freeradius_sbin_dir }}/checkrad
     mode=0777
     src="radius/checkrad.j2"
 
-- name: Configuring RadiusDesk Freeradius Policy (Ubuntu)
-  copy: 
-    dest={{ freeradius_sbin_dir }}
-    owner={{ freeradius_user }}
-    group={{ freeradius_group }}
-    mode=0664
-    src="policy.conf"
-
-- name: Configuring RadiusDesk Freeradius Dynamic Clients (Ubuntu)
-  copy: 
-    dest="{{ freeradius_conf_dir }}/sites-enabled"
+- name: Configuring RadiusDesk Freeradius Dynamic Clients (Ubuntu 14.x/15.x/16.x)
+  template: 
+    dest="{{ freeradius_conf_dir }}/sites-enabled/dynamic-clients"
     owner={{ freeradius_user }}
     group={{ freeradius_group }}
     mode=0644
-    src="dynamic-clients"
-
-- name: Ensuring RAW module has been Instantiated by Freeradius (Ubuntu)
-  stat: 
-    path="{{ freeradius_conf_dir }}/modules/raw"
-  register: raw_file
-
-- name: Instantiating RAW module for Freeradius (Ubuntu)
-  lineinfile: 
-    dest: "{{ freeradius_conf_dir }}/modules/raw"
-    regexp: '^'
-    line: "raw {\n\n}"
-    state: present
-    create: yes
-  when: raw_file.stat.exists == False
-
-- name: Correcting radclient paths for radscenario.pl Script (RHEL/CentOS 6.x/7.x)
+    src="radius/dynamic-clients.j2"
+    
+- name: Correcting radclient paths for radscenario.pl Script (Ubuntu 14.x/15.x/16.x)
   template: 
     dest="{{ nginx_webroot }}/cake2/rd_cake/Setup/Scripts/radscenario.pl"
     mode=0777
     src="radius/radscenario.pl.j2"
 
-- name: Correcting RadiusDesk paths for Freeradius (Ubuntu)
+- name: Correcting RadiusDesk paths for Freeradius (Ubuntu 14.x/15.x/16.x)
   template:
     dest="{{ nginx_webroot }}/cake2/rd_cake/Config/RadiusDesk.php"
     group={{ web_group }}
@@ -111,13 +89,29 @@
     src=RadiusDesk.php.j2
     validate='php -l %s'
 
-- name: Configuring radmin_wrapper.pl Script for RadiusDesk (Ubuntu)
+- name: Correcting MESHDesk paths for Freeradius (Ubuntu 14.x/15.x/16.x)
+  template:
+    dest="{{ nginx_webroot }}/cake2/rd_cake/Config/MESHdesk.php"
+    group={{ web_group }}
+    owner={{ web_user }}
+    src=MESHdesk.php.j2
+    validate='php -l %s'
+
+- name: Correcting APProfiles paths for Freeradius (Ubuntu 14.x/15.x/16.x)
+  template:
+    dest="{{ nginx_webroot }}/cake2/rd_cake/Config/ApProfiles.php"
+    group={{ web_group }}
+    owner={{ web_user }}
+    src=ApProfiles.php.j2
+    validate='php -l %s'
+
+- name: Configuring radmin_wrapper.pl Script for RadiusDesk (Ubuntu 14.x/15.x/16.x)
   template: 
     dest="{{ nginx_webroot }}/cake2/rd_cake/Setup/Scripts/radmin_wrapper.pl"
     src="radius/radmin_wrapper.pl.j2"
     mode=0777
 
-- name: Ensuring Webroot User can use sudo (Ubuntu)
+- name: Ensuring Webroot User can use sudo (Ubuntu 14.x/15.x/16.x)
   lineinfile:
     dest: /etc/sudoers
     state: present
@@ -126,7 +120,7 @@
     line: '{{ web_user }} ALL = NOPASSWD:{{ nginx_webroot }}/cake2/rd_cake/Setup/Scripts/radmin_wrapper.pl'
     validate: 'visudo -cf %s'
 
-- name: Ensuring Freeradius is ready for use (Ubuntu)
+- name: Ensuring Freeradius is ready for use (Ubuntu 14.x/15.x/16.x)
   service: 
     enabled=yes
     name={{ freeradius_service_name }}

@@ -1,62 +1,62 @@
 ---
-- name: Installing CoovaChilli for RadiusDesk (Ubuntu)
+- name: Installing CoovaChilli for RadiusDesk (Ubuntu 14.x/15.x/16.x)
   apt:
     name="coova-chilli=1.3.3-rd*"
     state=present
 
-- name: Enabling CoovaChilli Daemon for RadiusDesk (Ubuntu)
+- name: Enabling CoovaChilli Daemon for RadiusDesk (Ubuntu 14.x/15.x/16.x)
   lineinfile:
     dest="{{ coovachilli_default_conf }}"
     line="START_CHILLI=1"
     regexp="^START_CHILLI"
     state=present
 
-- name: Disabling CoovaChilli Default Splash Page for RadiusDesk (Ubuntu)
+- name: Disabling CoovaChilli Default Splash Page for RadiusDesk (Ubuntu 14.x/15.x/16.x)
   lineinfile:
     dest: "{{ coovachilli_conf_dir }}/defaults"
     line: "#HS_UAMHOMEPAGE=http://\\$HS_UAMLISTEN:\\$HS_UAMPORT/www/coova.html"
     regexp: "^HS_UAMHOMEPAGE"
     state: present
 
-- name: Disabling CoovaChilli Default HS_UAMALLOW for RadiusDesk (Ubuntu)
+- name: Disabling CoovaChilli Default HS_UAMALLOW for RadiusDesk (Ubuntu 14.x/15.x/16.x)
   lineinfile:
     dest: "{{ coovachilli_conf_dir }}/defaults"
     line: "#HS_UAMALLOW=www.coova.org"
     regexp: "^HS_UAMALLOW"
     state: present
 
-- name: Configuring CoovaChilli for RadiusDesk (Ubuntu)
+- name: Configuring CoovaChilli for RadiusDesk (Ubuntu 14.x/15.x/16.x)
   template:
     dest="{{ coovachilli_conf_dir }}/config"
     group={{ coovachilii_group }}
     src="coova/chilli.config.j2"
 
-- name: Configuring UAM Service for RadiusDesk Login (Ubuntu)
+- name: Configuring UAM Service for RadiusDesk Login (Ubuntu 14.x/15.x/16.x)
   template:
     dest="{{ nginx_webroot }}/rd_login/services/uam.php"
     owner={{ web_user }}
     group={{ web_group }}
     src="uam.php.j2"
 
-- name: Configuring CoovaChilli Start Up IPTables rules (Ubuntu)
+- name: Configuring CoovaChilli Start Up IPTables rules (Ubuntu 14.x/15.x/16.x)
   template:
     dest="/etc/chilli/ipup.sh"
     mode=777
     src="coova/ipup.sh.j2"
 
-- name: Configuring CoovaChilli Shutdown IPTables rules (Ubuntu)
+- name: Configuring CoovaChilli Shutdown IPTables rules (Ubuntu 14.x/15.x/16.x)
   template:
     dest="/etc/chilli/ipdown.sh"
     mode=777
     src="coova/ipdown.sh.j2"
 
-- name: Installing CoovaChilli Start Up Service (Ubuntu)
+- name: Installing CoovaChilli Start Up Service (Ubuntu 14.x/15.x/16.x)
   template:
     dest="/etc/init.d/chilli"
     mode=755
     src="coova/chilli.init.{{ ansible_os_family }}.j2"
 
-- name: Ensuring CoovaChilli is Properly Configured (Ubuntu)
+- name: Ensuring CoovaChilli is Properly Configured (Ubuntu 14.x/15.x/16.x)
   shell: update-rc.d chilli defaults
   notify:
     - Restart MySQL

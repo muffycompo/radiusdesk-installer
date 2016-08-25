@@ -52,16 +52,16 @@ rd_cake_svn_repo: "http://svn.code.sf.net/p/radiusdesk/code/trunk/rd_cake"
 rd_login_svn_repo: "http://svn.code.sf.net/p/radiusdesk/code/trunk/rd_login"
 extjs_src_url: "https://sourceforge.net/p/radiusdesk/code/HEAD/tree/extjs/ext-6-sencha_cmd.tar.gz?format=raw"
 extjs_src_md5_sum: "e829741694be90a27d7f0c6a24dbfc8b"
-rd_svn_revision: 1620
+rd_svn_revision: 1871
 
 # Freeradius Packages (Debian/Ubuntu)
 freeradius_pkgs:
- - "freeradius=2.2.9-rd*"
- - "freeradius-utils=2.2.9-rd*"
- - "freeradius-mysql=2.2.9-rd*"
- - "freeradius-ldap=2.2.9-rd*"
- - "freeradius-krb5=2.2.9-rd*"
- - "freeradius-common=2.2.9-rd*"
+ - "freeradius=3.0.11-ppa3*"
+ - "freeradius-utils=3.0.11-ppa3*"
+ - "freeradius-mysql=3.0.11-ppa3*"
+ - "freeradius-ldap=3.0.11-ppa3*"
+ - "freeradius-krb5=3.0.11-ppa3*"
+ - "freeradius-common=3.0.11-ppa3*"
  - libnet-telnet-perl
 
 # Freeradius (Debian/Ubuntu)
@@ -136,7 +136,7 @@ coovachilii_group: "chilli"
 coovachilli_coaport: 3799
 
 # MAO Repository
-mao_apt_ppa_repo: "ppa:muffycompoqm/rd-installer"
+mao_apt_ppa_repo: "ppa:muffycompoqm/rd-installer-fr3"
 mao_apt_repo_key: "http://apt.maomuffy.com/ubuntu/apt_keys/rd_installer_mao.asc"
 
 # NodeJS Repository
