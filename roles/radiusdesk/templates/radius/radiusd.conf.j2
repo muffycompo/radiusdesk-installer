@@ -105,7 +105,7 @@ db_dir = ${raddbdir}
 #	make
 #	make install
 #
-{% if ansible_architecture == 'x86_64' %}
+{% if ansible_architecture == 'x86_64' and ansible_os_family == 'RedHat' %}
 libdir = /usr/lib64/freeradius
 {% else %}
 libdir = /usr/lib/freeradius

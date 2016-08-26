@@ -1,26 +1,26 @@
 ---
-- name: Ensuring Apache is not installed (RHEL/CentOS 6.x/7.x)
+- name: Ensuring Apache is not installed (RHEL/CentOS 6+)
   yum:
     name={{ apache_pkg_name }}
     state=absent
 
-- name: Checking for EPEL Repository (RHEL/CentOS 6.x/7.x)
+- name: Checking for EPEL Repository (RHEL/CentOS 6+)
   stat:
     path="/etc/yum.repos.d/epel.repo"
   register: epel_repo
 
-- name: Installing EPEL Repo for RadiusDesk (RHEL/CentOS 6.x/7.x)
+- name: Installing EPEL Repo for RadiusDesk (RHEL/CentOS 6+)
   yum:
     name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-{{ ansible_distribution_major_version }}.noarch.rpm"
     state: installed
   when: epel_repo.stat.exists == False
 
-- name: Installing Nginx (RHEL/CentOS 6.x/7.x)
+- name: Installing Nginx (RHEL/CentOS 6+)
   yum:
     name={{ nginx_pkg_name }}
     state=installed
 
-- name: Installing RadiusDesk packages (RHEL/CentOS 6.x/7.x)
+- name: Installing RadiusDesk packages (RHEL/CentOS 6+)
   yum:
     name={{ item }}
     state=installed
@@ -29,17 +29,17 @@
     - Start Nginx
     - Start PHP-FPM
 
-- name: Configuring PHP-FPM to use UNIX sockets (RHEL/CentOS 6.x/7.x)
+- name: Configuring PHP-FPM to use UNIX sockets (RHEL/CentOS 6+)
   template:
     src="nginx/php_fpm.www.conf.j2"
     dest={{ php_fpm_config }}
 
-- name: Configuring Nginx to use UNIX sockets (RHEL/CentOS 6.x/7.x)
+- name: Configuring Nginx to use UNIX sockets (RHEL/CentOS 6+)
   template:
     src="nginx/nginx.default.conf.j2"
     dest={{ nginx_default_config }}
 
-- name: Configuring Nginx for RadiusDesk Web Compression (RHEL/CentOS 6.x/7.x)
+- name: Configuring Nginx for RadiusDesk Web Compression (RHEL/CentOS 6+)
   template:
     src="nginx/nginx.conf.j2"
     dest={{ nginx_config }}
@@ -47,14 +47,14 @@
     - Restart Nginx
     - Restart PHP-FPM
 
-- name: Downloading CakePHP Source from Github (RHEL/CentOS 6.x/7.x)
+- name: Downloading CakePHP Source from Github (RHEL/CentOS 6+)
   git: 
     dest={{ temp_src_dir }}/cake2
     repo={{ cakephp_git_repo }}
     update=no
     version=2.7.9
 
-- name: Copying CakePHP Source to Webroot (RHEL/CentOS 6.x/7.x)
+- name: Copying CakePHP Source to Webroot (RHEL/CentOS 6+)
   shell: cp -a {{ temp_src_dir | quote }}/cake2 {{ nginx_webroot | quote }}/cake2
 
 # - name: Downloading RadiusDesk CakePHP Source from Subversion (Ubuntu)
@@ -90,26 +90,26 @@
 - name: Downloading RadiusDesk Login Source from Subversion (Ubuntu)
   shell: svn checkout -r {{ rd_svn_revision }} {{ rd_login_svn_repo }} {{ temp_src_dir }}/rd_login
 
-- name: Copying RadiusDesk Login Source webroot (RHEL/CentOS 6.x/7.x)
+- name: Copying RadiusDesk Login Source webroot (RHEL/CentOS 6+)
   shell: cp -a {{ temp_src_dir | quote }}/rd_login {{ nginx_webroot | quote }}/
 
-- name: Configuring UAM Service for RadiusDesk Login (RHEL/CentOS 6.x/7.x)
+- name: Configuring UAM Service for RadiusDesk Login (RHEL/CentOS 6+)
   template:
     dest="{{ nginx_webroot }}/rd_login/services/uam.php"
     src="uam.php.j2"
 
-- name: Checking if we already downloaded ExtJS 6 sources (RHEL/CentOS 6.x/7.x)
+- name: Checking if we already downloaded ExtJS 6 sources (RHEL/CentOS 6+)
   stat:
     path="{{ temp_src_dir }}/ext-6-sencha_cmd.tar.gz"
   register: extjs_src
 
-- name: Downloading ExtJS 6 sources from Subversion (RHEL/CentOS 6.x/7.x)
+- name: Downloading ExtJS 6 sources from Subversion (RHEL/CentOS 6+)
   get_url:
     url={{ extjs_src_url }}
     dest="{{ temp_src_dir }}/ext-6-sencha_cmd.tar.gz"
   when: "extjs_src.stat.exists == False or extjs_src.stat.md5 != '{{ extjs_src_md5_sum }}'"
 
-- name: Extracting ExtJS 6 archive for RadiusDesk Viewer (RHEL/CentOS 6.x/7.x)
+- name: Extracting ExtJS 6 archive for RadiusDesk Viewer (RHEL/CentOS 6+)
   unarchive:
     src="{{ temp_src_dir }}/ext-6-sencha_cmd.tar.gz"
     dest={{ nginx_webroot }}/rd/
@@ -119,7 +119,7 @@
     copy=no
   # when: "extjs_src.stat.exists == True"
 
-- name: Correcting Webroot ownership and permissions (RHEL/CentOS 6.x/7.x)
+- name: Correcting Webroot ownership and permissions (RHEL/CentOS 6+)
   file:
     path={{ nginx_webroot }}
     owner={{ web_user }}
@@ -134,32 +134,32 @@
     line='date.timezone = {{ php_timezone }}'
     regexp='^;date.timezone'
 
-- name: Ensuring Nginx is Started (RHEL/CentOS 6.x/7.x)
+- name: Ensuring Nginx is Started (RHEL/CentOS 6+)
   service:
     name={{ nginx_service_name }}
     state=started
 
-- name: Ensuring PHP-FPM is Started (RHEL/CentOS 6.x/7.x)
+- name: Ensuring PHP-FPM is Started (RHEL/CentOS 6+)
   service:
     name={{ php_fpm_service_name }}
     state=started
 
-- name: Configuring RadiusDesk Cron Jobs (RHEL/CentOS 6.x/7.x)
+- name: Configuring RadiusDesk Cron Jobs (RHEL/CentOS 6+)
   template:
     src="cron/cron.j2"
     dest="/etc/cron.d/rd"
 
-- name: Ensuring MySQL is Started (RHEL/CentOS 6.x/7.x)
+- name: Ensuring MySQL is Started (RHEL/CentOS 6+)
   service:
     name={{ mysql_service_name }}
     state=started
 
-- name: Ensuring MySQL Root password has been set (RHEL/CentOS 6.x/7.x)
+- name: Ensuring MySQL Root password has been set (RHEL/CentOS 6+)
   stat:
     path={{ mysql_my_cnf }}
   register: mysql_conf
 
-- name: Changing MySQL Root password (RHEL/CentOS 6.x/7.x)
+- name: Changing MySQL Root password (RHEL/CentOS 6+)
   mysql_user:
     name=root
     host={{ item }}
@@ -170,13 +170,13 @@
     - Restart MySQL
   when: mysql_conf.stat.exists == False
 
-- name: Adding .my.cnf for MySQL root Password Idempotency (RHEL/CentOS 6.x/7.x)
+- name: Adding .my.cnf for MySQL root Password Idempotency (RHEL/CentOS 6+)
   template:
     src="my.cnf.j2"
     dest={{ mysql_my_cnf }}
   when: mysql_conf.stat.exists == False
 
-- name: Remove Anonymous MySQL Users (RHEL/CentOS 6.x/7.x)
+- name: Remove Anonymous MySQL Users (RHEL/CentOS 6+)
   mysql_user:
     name=''
     host={{ item }}
@@ -185,14 +185,14 @@
     login_password={{ mysql_root_password }}
   with_items: "{{ mysql_db_hosts }}"
 
-- name: Creating RadiusDesk Database (RHEL/CentOS 6.x/7.x)
+- name: Creating RadiusDesk Database (RHEL/CentOS 6+)
   mysql_db:
     name={{ rd_db_name }}
     state=present
     login_user=root
     login_password={{ mysql_root_password }}
 
-- name: Creating RadiusDesk Database User (RHEL/CentOS 6.x/7.x)
+- name: Creating RadiusDesk Database User (RHEL/CentOS 6+)
   mysql_user:
     "name={{ rd_db_user }}
     password={{ rd_db_password }}
@@ -203,7 +203,7 @@
     host={{ item }}"
   with_items: "{{ mysql_db_hosts }}"
 
-- name: Importing RadiusDesk Database (RHEL/CentOS 6.x/7.x)
+- name: Importing RadiusDesk Database (RHEL/CentOS 6+)
   mysql_db:
     state=import
     name={{ rd_db_name }}

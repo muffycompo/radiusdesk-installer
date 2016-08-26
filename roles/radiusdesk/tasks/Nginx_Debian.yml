@@ -1,16 +1,16 @@
 ---
-- name: Ensuring Apache is not installed (Ubuntu 14.x/15.x/16.x)
+- name: Ensuring Apache is not installed (Ubuntu 14+)
   apt:
     name={{ apache_pkg_name }}
     state=absent
 
-- name: Installing Nginx (Ubuntu 14.x/15.x/16.x)
+- name: Installing Nginx (Ubuntu 14+)
   apt:
     name={{ nginx_pkg_name }}
     state=installed
     update_cache=yes
 
-- name: Installing RadiusDesk packages (Ubuntu 14.x/15.x/16.x)
+- name: Installing RadiusDesk packages (Ubuntu 14+)
   apt:
     name={{ item }}
     state=installed
@@ -20,17 +20,17 @@
     - Start Nginx
     - Start PHP-FPM
 
-- name: Configuring PHP-FPM to use UNIX sockets (Ubuntu 14.x/15.x/16.x)
+- name: Configuring PHP-FPM to use UNIX sockets (Ubuntu 14+)
   template:
     src="nginx/php_fpm.www.conf.j2"
     dest={{ php_fpm_config }}
 
-- name: Configuring Nginx to use UNIX sockets (Ubuntu 14.x/15.x/16.x)
+- name: Configuring Nginx to use UNIX sockets (Ubuntu 14+)
   template:
     src="nginx/nginx.default.conf.j2"
     dest={{ nginx_default_config }}
 
-- name: Configuring Nginx for RadiusDesk Web Compression (Ubuntu 14.x/15.x/16.x)
+- name: Configuring Nginx for RadiusDesk Web Compression (Ubuntu 14+)
   template:
     src="nginx/nginx.conf.j2"
     dest={{ nginx_config }}
@@ -38,69 +38,69 @@
     - Restart Nginx
     - Restart PHP-FPM
 
-- name: Downloading CakePHP Source from Github (Ubuntu 14.x/15.x/16.x)
+- name: Downloading CakePHP Source from Github (Ubuntu 14+)
   git: 
     dest={{ temp_src_dir }}/cake2
     repo={{ cakephp_git_repo }}
     update=no
     version=2.7.9
 
-- name: Copying CakePHP Source to Webroot (Ubuntu 14.x/15.x/16.x)
+- name: Copying CakePHP Source to Webroot (Ubuntu 14+)
   shell: cp -a {{ temp_src_dir | quote }}/cake2 {{ nginx_webroot | quote }}/cake2
 
-# - name: Downloading RadiusDesk CakePHP Source from Subversion (Ubuntu 14.x/15.x/16.x)
+# - name: Downloading RadiusDesk CakePHP Source from Subversion (Ubuntu 14+)
   # subversion:
     # repo={{ rd_cake_svn_repo }}
     # dest={{ temp_src_dir }}/rd_cake
     # revision={{ rd_svn_revision }}
 
-- name: Downloading RadiusDesk CakePHP Source from Subversion (Ubuntu 14.x/15.x/16.x)
+- name: Downloading RadiusDesk CakePHP Source from Subversion (Ubuntu 14+)
   shell: svn checkout -r {{ rd_svn_revision }} {{ rd_cake_svn_repo }} {{ temp_src_dir }}/rd_cake
 
-- name: Copying RadiusDesk CakePHP App Source to Webroot (Ubuntu 14.x/15.x/16.x)
+- name: Copying RadiusDesk CakePHP App Source to Webroot (Ubuntu 14+)
   shell: cp -a {{ temp_src_dir | quote }}/rd_cake {{ nginx_webroot | quote }}/cake2/
 
-# - name: Downloading RadiusDesk Viewer Source from Subversion (Ubuntu 14.x/15.x/16.x)
+# - name: Downloading RadiusDesk Viewer Source from Subversion (Ubuntu 14+)
   # subversion:
     # repo={{ rd_svn_repo }}
     # dest={{ temp_src_dir }}/rd
     # revision={{ rd_svn_revision }}
 
-- name: Downloading RadiusDesk Viewer Source from Subversion (Ubuntu 14.x/15.x/16.x)
+- name: Downloading RadiusDesk Viewer Source from Subversion (Ubuntu 14+)
   shell: svn checkout -r {{ rd_svn_revision }} {{ rd_svn_repo }} {{ temp_src_dir }}/rd
 
-- name: Copying RadiusDesk Viewer Source to Webroot (Ubuntu 14.x/15.x/16.x)
+- name: Copying RadiusDesk Viewer Source to Webroot (Ubuntu 14+)
   shell: cp -a {{ temp_src_dir | quote }}/rd {{ nginx_webroot | quote }}/
 
-# - name: Downloading RadiusDesk Login Source from Subversion (Ubuntu 14.x/15.x/16.x)
+# - name: Downloading RadiusDesk Login Source from Subversion (Ubuntu 14+)
   # subversion:
     # repo={{ rd_login_svn_repo }}
     # dest={{ temp_src_dir }}/rd_login
     # revision={{ rd_svn_revision }}
 
-- name: Downloading RadiusDesk Login Source from Subversion (Ubuntu 14.x/15.x/16.x)
+- name: Downloading RadiusDesk Login Source from Subversion (Ubuntu 14+)
   shell: svn checkout -r {{ rd_svn_revision }} {{ rd_login_svn_repo }} {{ temp_src_dir }}/rd_login
 
-- name: Copying RadiusDesk Login Source webroot (Ubuntu 14.x/15.x/16.x)
+- name: Copying RadiusDesk Login Source webroot (Ubuntu 14+)
   shell: cp -a {{ temp_src_dir | quote }}/rd_login {{ nginx_webroot | quote }}/
 
-- name: Configuring UAM Service for RadiusDesk Login (Ubuntu 14.x/15.x/16.x)
+- name: Configuring UAM Service for RadiusDesk Login (Ubuntu 14+)
   template:
     dest="{{ nginx_webroot }}/rd_login/services/uam.php"
     src="uam.php.j2"
 
-- name: Checking if we already downloaded ExtJS 6 sources (Ubuntu 14.x/15.x/16.x)
+- name: Checking if we already downloaded ExtJS 6 sources (Ubuntu 14+)
   stat:
     path="{{ temp_src_dir }}/ext-6-sencha_cmd.tar.gz"
   register: extjs_src
 
-- name: Downloading ExtJS 6 sources from Subversion (Ubuntu 14.x/15.x/16.x)
+- name: Downloading ExtJS 6 sources from Subversion (Ubuntu 14+)
   get_url:
     url={{ extjs_src_url }}
     dest="{{ temp_src_dir }}/ext-6-sencha_cmd.tar.gz"
   when: "extjs_src.stat.exists == False or extjs_src.stat.md5 != '{{ extjs_src_md5_sum }}'"
 
-- name: Extracting ExtJS 6 archive for RadiusDesk Viewer (Ubuntu 14.x/15.x/16.x)
+- name: Extracting ExtJS 6 archive for RadiusDesk Viewer (Ubuntu 14+)
   unarchive:
     src="{{ temp_src_dir }}/ext-6-sencha_cmd.tar.gz"
     dest={{ nginx_webroot }}/rd/
@@ -110,7 +110,7 @@
     copy=no
   # when: "extjs_src.stat.exists == True"
 
-- name: Correcting Webroot ownership and permissions (Ubuntu 14.x/15.x/16.x)
+- name: Correcting Webroot ownership and permissions (Ubuntu 14+)
   file:
     path={{ nginx_webroot }}
     owner={{ web_user }}
@@ -125,32 +125,32 @@
     line='date.timezone = {{ php_timezone }}'
     regexp='^;date.timezone'
 
-- name: Ensuring Nginx is Started (Ubuntu 14.x/15.x/16.x)
+- name: Ensuring Nginx is Started (Ubuntu 14+)
   service:
     name={{ nginx_service_name }}
     state=started
 
-- name: Ensuring PHP-FPM is Started (Ubuntu 14.x/15.x/16.x)
+- name: Ensuring PHP-FPM is Started (Ubuntu 14+)
   service:
     name={{ php_fpm_service_name }}
     state=started
 
-- name: Configuring RadiusDesk Cron Jobs (Ubuntu 14.x/15.x/16.x)
+- name: Configuring RadiusDesk Cron Jobs (Ubuntu 14+)
   template:
     src="cron/cron.j2"
     dest="/etc/cron.d/rd"
 
-- name: Ensuring MySQL is Started (Ubuntu 14.x/15.x/16.x)
+- name: Ensuring MySQL is Started (Ubuntu 14+)
   service:
     name={{ mysql_service_name }}
     state=started
 
-- name: Ensuring MySQL Root password has been set (Ubuntu 14.x/15.x/16.x)
+- name: Ensuring MySQL Root password has been set (Ubuntu 14+)
   stat:
     path={{ mysql_my_cnf }}
   register: mysql_conf
 
-- name: Changing MySQL Root password (Ubuntu 14.x/15.x/16.x)
+- name: Changing MySQL Root password (Ubuntu 14+)
   mysql_user:
     name=root
     host={{ item }}
@@ -161,13 +161,13 @@
     - Restart MySQL
   when: mysql_conf.stat.exists == False
 
-- name: Adding .my.cnf for MySQL root Password Idempotency (Ubuntu 14.x/15.x/16.x)
+- name: Adding .my.cnf for MySQL root Password Idempotency (Ubuntu 14+)
   template:
     src="my.cnf.j2"
     dest={{ mysql_my_cnf }}
   when: mysql_conf.stat.exists == False
 
-- name: Remove Anonymous MySQL Users (Ubuntu 14.x/15.x/16.x)
+- name: Remove Anonymous MySQL Users (Ubuntu 14+)
   mysql_user:
     name=''
     host={{ item }}
@@ -176,14 +176,14 @@
     login_password={{ mysql_root_password }}
   with_items: "{{ mysql_db_hosts }}"
 
-- name: Creating RadiusDesk Database (Ubuntu 14.x/15.x/16.x)
+- name: Creating RadiusDesk Database (Ubuntu 14+)
   mysql_db:
     name={{ rd_db_name }}
     state=present
     login_user=root
     login_password={{ mysql_root_password }}
 
-- name: Creating RadiusDesk Database User (Ubuntu 14.x/15.x/16.x)
+- name: Creating RadiusDesk Database User (Ubuntu 14+)
   mysql_user:
     "name={{ rd_db_user }}
     password={{ rd_db_password }}
@@ -194,7 +194,7 @@
     host={{ item }}"
   with_items: "{{ mysql_db_hosts }}"
 
-- name: Importing RadiusDesk Database (Ubuntu 14.x/15.x/16.x)
+- name: Importing RadiusDesk Database (Ubuntu 14+)
   mysql_db:
     state=import
     name={{ rd_db_name }}

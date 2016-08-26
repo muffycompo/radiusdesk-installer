@@ -1,28 +1,28 @@
 ---
-- name: Adding Nodesource Nodejs Apt Key for RadiusDesk (Ubuntu 14.x/15.x/16.x)
+- name: Adding Nodesource Nodejs Apt Key for RadiusDesk (Ubuntu 14+)
   apt_key:
     id=68576280
     url={{ node_apt_repo_key }}
     state=present
 
-- name: Adding Nodejs Main Repository for RadiusDesk (Ubuntu 14.x/15.x/16.x)
+- name: Adding Nodejs Main Repository for RadiusDesk (Ubuntu 14+)
   apt_repository:
     repo: "deb https://deb.nodesource.com/node_0.12 {{ ansible_distribution_release }} main"
     state: present
 
-- name: Adding Nodejs Source Repository for RadiusDesk (Ubuntu 14.x/15.x/16.x)
+- name: Adding Nodejs Source Repository for RadiusDesk (Ubuntu 14+)
   apt_repository:
     repo: "deb-src https://deb.nodesource.com/node_0.12 {{ ansible_distribution_release }} main"
     state: present
 
-- name: Installing Nodejs for RadiusDesk (Ubuntu 14.x/15.x/16.x)
+- name: Installing Nodejs for RadiusDesk (Ubuntu 14+)
   apt:
     name={{ item }}
     state=present
     update_cache=yes
   with_items: "{{ nodejs_pkgs }}"
 
-- name: "Installing Nodejs modules (tail,forever,mysql,connect) for RadiusDesk (Ubuntu 14.x/15.x/16.x)"
+- name: "Installing Nodejs modules (tail,forever,mysql,connect) for RadiusDesk (Ubuntu 14+)"
   npm:
     name={{ item }}
     state=present
@@ -30,7 +30,7 @@
     production=yes
   with_items: "{{ nodejs_npm_modules }}"
 
-- name: "Installing Nodejs modules (socket.io) for RadiusDesk (Ubuntu 14.x/15.x/16.x)"
+- name: "Installing Nodejs modules (socket.io) for RadiusDesk (Ubuntu 14+)"
   npm:
     name="socket.io"
     state=present
@@ -38,7 +38,7 @@
     production=yes
     version="0.9.*"
 
-- name: Configuring Nodejs Freeradius Logfile Viewer for RadiusDesk (Ubuntu 14.x/15.x/16.x)
+- name: Configuring Nodejs Freeradius Logfile Viewer for RadiusDesk (Ubuntu 14+)
   template: 
     dest="{{ nginx_webroot }}/cake2/rd_cake/Setup/Node.js/Logfile.node.js"
     owner={{ web_user }}
@@ -46,13 +46,13 @@
     mode=0644
     src="nodejs/Logfile.node.js.j2"
 
-- name: Configuring Nodejs Socket.io Startup Script for RadiusDesk (Ubuntu 14.x/15.x/16.x)
+- name: Configuring Nodejs Socket.io Startup Script for RadiusDesk (Ubuntu 14+)
   template: 
     dest="/etc/init.d/nodejs-socket-io"
     mode=0755
     src="nodejs/nodejs-socket-io.j2"
 
-- name: Installing Nodejs Socket.io Service (Ubuntu 14.x/15.x/16.x)
+- name: Installing Nodejs Socket.io Service (Ubuntu 14+)
   shell: update-rc.d {{ nodejs_socketio_service_name }} defaults
   notify:
     - Restart Nodejs Socketio

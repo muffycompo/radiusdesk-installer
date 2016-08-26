@@ -1,54 +1,54 @@
 ---
-- name: Installing CoovaChilli for RadiusDesk (RHEL/CentOS 6.x/7.x)
+- name: Installing CoovaChilli for RadiusDesk (RHEL/CentOS 6+)
   yum:
     name="coova-chilli-1.3.1.3-1rd*"
     state=present
 
-- name: Disabling CoovaChilli Default Splash Page for RadiusDesk (RHEL/CentOS 6.x/7.x)
+- name: Disabling CoovaChilli Default Splash Page for RadiusDesk (RHEL/CentOS 6+)
   lineinfile:
     dest: "{{ coovachilli_conf_dir }}/defaults"
     line: "#HS_UAMHOMEPAGE=http://\\$HS_UAMLISTEN:\\$HS_UAMPORT/www/coova.html"
     regexp: "^HS_UAMHOMEPAGE"
     state: present
 
-- name: Disabling CoovaChilli Default HS_UAMALLOW for RadiusDesk (RHEL/CentOS 6.x/7.x)
+- name: Disabling CoovaChilli Default HS_UAMALLOW for RadiusDesk (RHEL/CentOS 6+)
   lineinfile:
     dest: "{{ coovachilli_conf_dir }}/defaults"
     line: "#HS_UAMALLOW=www.coova.org"
     regexp: "^HS_UAMALLOW"
     state: present
 
-- name: Configuring CoovaChilli for RadiusDesk (RHEL/CentOS 6.x/7.x)
+- name: Configuring CoovaChilli for RadiusDesk (RHEL/CentOS 6+)
   template:
     dest="{{ coovachilli_conf_dir }}/config"
     src="coova/chilli.config.j2"
 
-- name: Configuring UAM Service for RadiusDesk Login (RHEL/CentOS 6.x/7.x)
+- name: Configuring UAM Service for RadiusDesk Login (RHEL/CentOS 6+)
   template:
     dest="{{ nginx_webroot }}/rd_login/services/uam.php"
     owner={{ web_user }}
     group={{ web_group }}
     src="uam.php.j2"
 
-- name: Configuring CoovaChilli Start Up IPTables rules (RHEL/CentOS 6.x/7.x)
+- name: Configuring CoovaChilli Start Up IPTables rules (RHEL/CentOS 6+)
   template:
     dest="/etc/chilli/ipup.sh"
     mode=777
     src="coova/ipup.sh.j2"
 
-- name: Configuring CoovaChilli Shutdown IPTables rules (RHEL/CentOS 6.x/7.x)
+- name: Configuring CoovaChilli Shutdown IPTables rules (RHEL/CentOS 6+)
   template:
     dest="/etc/chilli/ipdown.sh"
     mode=777
     src="coova/ipdown.sh.j2"
 
-- name: Installing CoovaChilli Start Up Service (RHEL/CentOS 6.x/7.x)
+- name: Installing CoovaChilli Start Up Service (RHEL/CentOS 6+)
   template:
     dest="/etc/init.d/chilli"
     mode=755
     src="coova/chilli.init.{{ ansible_os_family }}.j2"
 
-- name: Ensuring CoovaChilli is Properly Configured (RHEL/CentOS 6.x/7.x)
+- name: Ensuring CoovaChilli is Properly Configured (RHEL/CentOS 6+)
   shell: chkconfig --add {{ coovachilli_service_name }}
   notify:
     - Restart MySQL
