@@ -10,6 +10,22 @@
     state=installed
     update_cache=yes
 
+- name: Installing PHP5 packages (Ubuntu 14+)
+  apt:
+    name={{ item }}
+    state=installed
+    update_cache=yes
+  with_items: "{{ rd_php5_pkgs }}"
+  when: "ansible_distribution_version < '16'"
+
+- name: Installing PHP7 packages (Ubuntu 14+)
+  apt:
+    name={{ item }}
+    state=installed
+    update_cache=yes
+  with_items: "{{ rd_php7_pkgs }}"
+  when: "ansible_distribution_version >= '16'"
+
 - name: Installing RadiusDesk packages (Ubuntu 14+)
   apt:
     name={{ item }}

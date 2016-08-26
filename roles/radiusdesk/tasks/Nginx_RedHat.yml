@@ -20,6 +20,13 @@
     name={{ nginx_pkg_name }}
     state=installed
 
+- name: Installing PHP packages (RHEL/CentOS 6+)
+  yum:
+    name={{ item }}
+    state=installed
+    update_cache=yes
+  with_items: "{{ rd_php5_pkgs }}"
+
 - name: Installing RadiusDesk packages (RHEL/CentOS 6+)
   yum:
     name={{ item }}
