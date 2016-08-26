@@ -28,7 +28,6 @@ rd_php5_pkgs:
 rd_php7_pkgs:
  - php7.0-fpm
  - php7.0-mysql
- - php7.0-xcache
  - php7.0-cli
  - php7.0-gd
  - php7.0-curl
