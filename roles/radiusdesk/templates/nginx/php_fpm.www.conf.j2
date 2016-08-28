@@ -4,7 +4,6 @@ listen =  {{ php7_fpm_socket }}
 {% else %}
 listen =  {{ php_fpm_socket }}
 {% endif %}
-#listen.allowed_clients = 127.0.0.1
 listen.owner = {{ web_user }}
 listen.group = {{ web_group }}
 listen.mode = 0666
