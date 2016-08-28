@@ -41,13 +41,22 @@ nginx_default_config: "/etc/nginx/sites-enabled/default"
 nginx_worker_processes: 4
 nginx_user: www-data
 
-# PHP-FPM (Ubuntu 14+)
+# General PHP (Ubuntu 14+)
+php_session_save_path: "/tmp"
+php_timezone: "Africa/Lagos"
+
+# PHP5-FPM (Ubuntu 14+)
 php_fpm_service_name: php5-fpm
 php_fpm_config: "/etc/php5/fpm/pool.d/www.conf"
 php_fpm_socket: "/var/run/php5-fpm.sock"
-php_session_save_path: "/tmp"
 php_config_file: "/etc/php5/cli/php.ini"
-php_timezone: "Africa/Lagos"
+
+
+# PHP7-FPM (Ubuntu 14+)
+php7_fpm_service_name: php7.0-fpm
+php7_fpm_config: "/etc/php/7.0/fpm/pool.d/www.conf"
+php7_fpm_socket: "/var/run/php/php7.0-fpm.sock"
+php7_config_file: "/etc/php/7.0/fpm/cli/php.ini"
 
 # Web server (Ubuntu 14+)
 web_user: www-data

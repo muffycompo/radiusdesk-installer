@@ -36,10 +36,17 @@
     - Start Nginx
     - Start PHP-FPM
 
-- name: Configuring PHP-FPM to use UNIX sockets (Ubuntu 14+)
+- name: Configuring PHP5-FPM to use UNIX sockets (Ubuntu 14+)
   template:
     src="nginx/php_fpm.www.conf.j2"
     dest={{ php_fpm_config }}
+  when: "ansible_distribution_version < '16'"
+
+- name: Configuring PHP7-FPM to use UNIX sockets (Ubuntu 14+)
+  template:
+    src="nginx/php_fpm.www.conf.j2"
+    dest={{ php7_fpm_config }}
+  when: "ansible_distribution_version >= '16'"
 
 - name: Configuring Nginx to use UNIX sockets (Ubuntu 14+)
   template:
@@ -135,11 +142,19 @@
     state=directory
     recurse=yes
 
-- name: Fix PHP Default Timezone
+- name: Fix PHP5 Default Timezone
   lineinfile: 
     dest="{{ php_config_file }}"
     line='date.timezone = {{ php_timezone }}'
     regexp='^;date.timezone'
+  when: "ansible_distribution_version < '16'"
+
+- name: Fix PHP7 Default Timezone
+  lineinfile: 
+    dest="{{ php7_config_file }}"
+    line='date.timezone = {{ php_timezone }}'
+    regexp='^;date.timezone'
+  when: "ansible_distribution_version >= '16'"
 
 - name: Ensuring Nginx is Started (Ubuntu 14+)
   service:
