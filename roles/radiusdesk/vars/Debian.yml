@@ -56,7 +56,7 @@ php_config_file: "/etc/php5/cli/php.ini"
 php7_fpm_service_name: php7.0-fpm
 php7_fpm_config: "/etc/php/7.0/fpm/pool.d/www.conf"
 php7_fpm_socket: "/var/run/php/php7.0-fpm.sock"
-php7_config_file: "/etc/php/7.0/fpm/cli/php.ini"
+php7_config_file: "/etc/php/7.0/cli/php.ini"
 
 # Web server (Ubuntu 14+)
 web_user: www-data
