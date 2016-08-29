@@ -16,7 +16,7 @@
     name={{ php_fpm_service_name }}
     state=started
     enabled=yes
-  when: "ansible_distribution_version < '16' and (ansible_os_family == 'Debian' or ansible_os_family == 'RedHat'"
+  when: "ansible_distribution_version < '16' and (ansible_os_family == 'Debian' or ansible_os_family == 'RedHat')"
 
 - name: Start PHP-FPM
   service:
@@ -31,7 +31,7 @@
     state=restarted
     enabled=yes
   when: "ansible_distribution_version < '16' and (ansible_os_family == 'Debian' or ansible_os_family == 'RedHat'"
-  
+
 - name: Restart PHP-FPM
   service:
     name={{ php7_fpm_service_name }}
