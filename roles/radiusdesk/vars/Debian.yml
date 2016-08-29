@@ -75,13 +75,18 @@ extjs_src_md5_sum: "e829741694be90a27d7f0c6a24dbfc8b"
 rd_svn_revision: 1871
 
 # Freeradius Packages (Ubuntu 14+)
+# freeradius_pkgs:
+#  - "freeradius=3.0.11-ppa3*"
+#  - "freeradius-utils=3.0.11-ppa3*"
+#  - "freeradius-mysql=3.0.11-ppa3*"
+#  - "freeradius-ldap=3.0.11-ppa3*"
+#  - "freeradius-krb5=3.0.11-ppa3*"
+#  - "freeradius-common=3.0.11-ppa3*"
+#  - libnet-telnet-perl
+
 freeradius_pkgs:
  - "freeradius=3.0.11-ppa3*"
- - "freeradius-utils=3.0.11-ppa3*"
  - "freeradius-mysql=3.0.11-ppa3*"
- - "freeradius-ldap=3.0.11-ppa3*"
- - "freeradius-krb5=3.0.11-ppa3*"
- - "freeradius-common=3.0.11-ppa3*"
  - libnet-telnet-perl
 
 # Freeradius (Ubuntu 14+)

@@ -2,7 +2,8 @@
 # Bash Menu Script Example
 clear
 echo ""
-RD_TITLE="==== RADIUSDesk Installer 0.1.0 ===="
+RD_VERSION="1.2.0"
+RD_TITLE="==== RADIUSDesk Installer $RD_VERSION ===="
 TITLE_BYTES=${#rd_title}
 UNDERLINE_STRING=$(for ((i=1; i<=$TITLE_BYTES; i++));do printf "%s" "=";done;printf "\n")
 
