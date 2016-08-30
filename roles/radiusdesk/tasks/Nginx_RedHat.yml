@@ -1,4 +1,7 @@
 ---
+- name: Ensuring SELinux is in Permissive Mode (RHEL/CentOS 6+)
+  shell: setenforce 0
+
 - name: Ensuring Apache is not installed (RHEL/CentOS 6+)
   yum:
     name={{ apache_pkg_name }}
