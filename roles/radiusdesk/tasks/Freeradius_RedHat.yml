@@ -104,7 +104,15 @@
     src="radius/radmin_wrapper.pl.j2"
     mode=0777
 
-- name: Ensuring Webroot User can use sudo (RHEL/CentOS 6+)
+- name: Disabling sudoers Requiretty Option (RHEL/CentOS 6+)
+  lineinfile:
+    dest: /etc/sudoers
+    state: present
+    regexp: '^Defaults    requiretty'
+    line: '#Defaults    requiretty'
+    validate: 'visudo -cf %s'
+
+- name: Adding Webroot User to sudoers (RHEL/CentOS 6+)
   lineinfile:
     dest: /etc/sudoers
     state: present
