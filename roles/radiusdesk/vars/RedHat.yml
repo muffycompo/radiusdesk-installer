@@ -5,9 +5,10 @@ apache_pkg_name: httpd
 # RadiusDesk Packages (RHEL/CentOS 6+)
 rd_pkgs:
  - mysql-server
+ - mysql
  - subversion
  - git
- - vixie-cron
+ - cronie
  - mailx
  - python
  - MySQL-python
