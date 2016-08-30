@@ -1,6 +1,9 @@
 ---
 - name: Ensuring SELinux is in Permissive Mode (RHEL/CentOS 6+)
-  shell: setenforce 0
+  lineinfile: 
+    dest=/etc/sysconfig/selinux 
+    regexp='^SELINUX=' 
+    line='SELINUX=disabled'
 
 - name: Ensuring Apache is not installed (RHEL/CentOS 6+)
   yum:
