@@ -63,8 +63,8 @@
     name={{ item }}
     state=restarted
   with_items:
-    - {{ nginx_pkg_name }}
-    - {{ php_fpm_service_name }}
+    - "{{ nginx_pkg_name }}"
+    - "{{ php_fpm_service_name }}"
   when: "ansible_distribution_version < '16'"
 
 - name: Restarting RadiusDesk services for PHP7 (Ubuntu 14+)
@@ -72,8 +72,8 @@
     name={{ item }}
     state=restarted
   with_items:
-    - {{ nginx_pkg_name }}
-    - {{ php7_fpm_service_name }}
+    - "{{ nginx_pkg_name }}"
+    - "{{ php7_fpm_service_name }}"
   when: "ansible_distribution_version >= '16'"
 
 - name: Downloading CakePHP Source from Github (Ubuntu 14+)
