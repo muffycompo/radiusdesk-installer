@@ -15,6 +15,12 @@
     state: installed
   when: epel_repo.stat.exists == False
 
+- name: Installing MySQL 5 Repo for RadiusDesk (RHEL/CentOS 6+)
+  yum:
+    name: "http://repo.mysql.com/mysql-community-release-el{{ ansible_distribution_major_version }}-5.noarch.rpm"
+    state: installed
+  when: ansible_distribution_major_version >= '7'
+
 - name: Installing Nginx (RHEL/CentOS 6+)
   yum:
     name={{ nginx_pkg_name }}
@@ -64,37 +70,25 @@
 - name: Copying CakePHP Source to Webroot (RHEL/CentOS 6+)
   shell: cp -a {{ temp_src_dir | quote }}/cake2 {{ nginx_webroot | quote }}/cake2
 
-# - name: Downloading RadiusDesk CakePHP Source from Subversion (Ubuntu)
-  # subversion:
-    # repo={{ rd_cake_svn_repo }}
-    # dest={{ temp_src_dir }}/rd_cake
-    # revision={{ rd_svn_revision }}
-
-- name: Downloading RadiusDesk CakePHP Source from Subversion (Ubuntu)
+- name: Downloading RadiusDesk CakePHP Source from Subversion (RHEL/CentOS 6+)
   shell: svn checkout -r {{ rd_svn_revision }} {{ rd_cake_svn_repo }} {{ temp_src_dir }}/rd_cake
 
-- name: Copying RadiusDesk CakePHP App Source to Webroot (Ubuntu)
+- name: Copying RadiusDesk CakePHP App Source to Webroot (RHEL/CentOS 6+)
   shell: cp -a {{ temp_src_dir | quote }}/rd_cake {{ nginx_webroot | quote }}/cake2/
 
-# - name: Downloading RadiusDesk Viewer Source from Subversion (Ubuntu)
-  # subversion:
-    # repo={{ rd_svn_repo }}
-    # dest={{ temp_src_dir }}/rd
-    # revision={{ rd_svn_revision }}
-
-- name: Downloading RadiusDesk Viewer Source from Subversion (Ubuntu)
+- name: Downloading RadiusDesk Viewer Source from Subversion (RHEL/CentOS 6+)
   shell: svn checkout -r {{ rd_svn_revision }} {{ rd_svn_repo }} {{ temp_src_dir }}/rd
 
-- name: Copying RadiusDesk Viewer Source to Webroot (Ubuntu)
+- name: Copying RadiusDesk Viewer Source to Webroot (RHEL/CentOS 6+)
   shell: cp -a {{ temp_src_dir | quote }}/rd {{ nginx_webroot | quote }}/
 
-# - name: Downloading RadiusDesk Login Source from Subversion (Ubuntu)
+# - name: Downloading RadiusDesk Login Source from Subversion (RHEL/CentOS 6+)
   # subversion:
     # repo={{ rd_login_svn_repo }}
     # dest={{ temp_src_dir }}/rd_login
     # revision={{ rd_svn_revision }}
 
-- name: Downloading RadiusDesk Login Source from Subversion (Ubuntu)
+- name: Downloading RadiusDesk Login Source from Subversion (RHEL/CentOS 6+)
   shell: svn checkout -r {{ rd_svn_revision }} {{ rd_login_svn_repo }} {{ temp_src_dir }}/rd_login
 
 - name: Copying RadiusDesk Login Source webroot (RHEL/CentOS 6+)

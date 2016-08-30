@@ -71,14 +71,6 @@ extjs_src_md5_sum: "e829741694be90a27d7f0c6a24dbfc8b"
 rd_svn_revision: 1871
 
 # Freeradius Packages (RHEL/CentOS 6+)
-# freeradius_pkgs:
-#  - freeradius-2.2.9-1rd*
-#  - freeradius-mysql-2.2.9-1rd*
-#  - freeradius-perl-2.2.9-1rd*
-#  - freeradius-python-2.2.9-1rd*
-#  - freeradius-ldap-2.2.9-1rd*
-#  - freeradius-utils-2.2.9-1rd*
-#  - freeradius-krb5-2.2.9-1rd*
 freeradius_pkgs:
  - freeradius-3.0.11*
  - freeradius-mysql-3.0.11*
