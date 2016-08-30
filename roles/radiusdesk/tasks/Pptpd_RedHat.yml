@@ -24,9 +24,3 @@
     "
   notify:
     - Restart Pptpd
-
-- debug: msg="{{ item.rdmsg }}"
-  with_items:
-    - { rdmsg: 'RADIUSDesk Admin Portal: http://{{ ansible_default_ipv4.address }}/rd/build/production/Rd/index.html' }
-    - { rdmsg: 'RADIUSDesk Admin Username: root' }
-    - { rdmsg: 'RADIUSDesk Admin Password: admin' }
