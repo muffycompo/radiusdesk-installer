@@ -52,4 +52,6 @@
   include: "Coovachilli_RedHat.yml"
   when: enable_coovachilli_support and ansible_os_family == 'RedHat' and ansible_distribution_version >= '6'
 
+- meta: flush_handlers
+
 - debug: msg="Admin Portal => http://{{ ansible_default_ipv4.address }}/rd/build/production/Rd/index.html"
