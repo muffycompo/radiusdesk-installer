@@ -1,11 +1,11 @@
-RADIUSDesk Installer
-====================
+RADIUSDesk Installer 1.2.0
+===========================
 ## Introduction
-RADIUSDesk Installer is an [Ansible](http://www.ansible.com) powered utility that attempts to simplify the process of getting a working installation of [RADIUSDesk](http://www.radiusdesk.com) on a vanilla/minimal installation of RHEL/CentOS 6.X/Ubuntu 14.04/15.04/15.10 servers.
+RADIUSDesk Installer is an [Ansible](http://www.ansible.com) powered utility that attempts to simplify the process of getting a working installation of [RADIUSDesk](http://www.radiusdesk.com) on a vanilla/minimal installation of RHEL/CentOS 6.x/7.x/Ubuntu 14.04/15.04/15.10 servers.
 
 ## Prerequisite
-#### 1] Install Python 2.7+
-Because RADIUDesk Installer uses Ansible, you must ensure that python 2.7+ is installed on both the Control[the server you will be running RADIUSDesk Installer] and Managed [the server you will like to setup RADIUSDesk on] Node(s) to fulfill a requirement for Ansible. As of the time of this writing, Python 3 is not supported by Ansible so please take note. [Managed Node Requirements](http://docs.ansible.com/ansible/intro_installation.html#managed-node-requirements)
+#### 1] Install Python
+As of the time of this writing, Python 3 is not supported by Ansible so please take note. [Managed Node Requirements](http://docs.ansible.com/ansible/intro_installation.html#managed-node-requirements)
 
 To Install Python which should come by default in most Linux distributions, you can use your package manager:
 
@@ -29,15 +29,11 @@ yum install -y epel-release
 yum install -y ansible
 ```
 
-
-
 **Note:** To Manually install EPEL repositories, Visit the [EPEL Wiki](https://fedoraproject.org/wiki/EPEL) 
-
 
 **Ubuntu 14.x/15.x**
 
 ```
-apt-get install -y software-properties-common python-software-properties
 apt-add-repository ppa:ansible/ansible
 apt-get update
 apt-get install -y ansible
@@ -53,7 +49,7 @@ SSH into the local/remote managed node/server at least once to ensure it is adde
 
 `git clone https://github.com/muffycompo/radiusdesk-installer`
 
-**Note:** If you don't have git installed, make sure you so before cloning the Installer. Use your package manager to install git; `yum install -y git` on RHEL/CentOS or `apt-get install -y git` on Ubuntu.
+**Note:** If you don't have git installed, make sure you do so before cloning the Installer. Use your package manager to install git; `yum install -y git` on RHEL/CentOS or `apt-get install -y git` on Ubuntu.
 
 #### Run the Installer
 1.	By default, the installer will setup RADIUSDesk on the server you are currently running the installer from i.e. `localhost`. To change that and use a remote server (on your network or in the cloud), edit the **`servers`** file in the installer's directory; `cd radiusdesk-installer; vi servers`. You can create a new host group as per [Ansible's guide](http://docs.ansible.com/ansible/intro_inventory.html#hosts-and-groups) or modify the sample groups in the **`servers`** file. If you have modified the **`servers`** file and created a new group, also remember to edit the **`rd-installer-ansible.yml`** and ensure the hosts uses your newly created server group from the previous step.
@@ -61,12 +57,12 @@ SSH into the local/remote managed node/server at least once to ensure it is adde
 2.	RADIUSDesk Installer requires root privileges to ensure it installs packages and configure your servers properly. Login as the **`root`** user or a user with sudo privileges. Run the installer and select **I** or **1** to start provisioning your server with RADIUSDesk.
 `cd radiusdesk-installer; ./rd-installer`
 
-3. Grab yourself a **cup of Coffee** as the installer provisions your server with RADIUSDesk and reboot the server to ensure everything is persistent on reboot **[Optional]**.
+3. Grab yourself a **Cup of Coffee** as the installer provisions your server with RADIUSDesk and reboot the server to ensure everything is persistent on reboot **[Optional]**.
 
 ## Features
-1. A very customizable installer (Edit `roles/radiusdesk/vars/Debian.yml` or `roles/radiusdesk/vars/RedHat.yml` depending on your Operating System family like Debian, RedHat etc). **Note:** ensure you use a YAML linter to check your syntax anytime you make any change to the variable file(s).
+1. RADIUSDesk installer is Customizable (Edit `roles/radiusdesk/vars/Debian.yml` or `roles/radiusdesk/vars/RedHat.yml` depending on your Operating System family like Debian, RedHat etc). **Note:** ensure you use a YAML linter to check your syntax anytime you make any change to the variable file(s).
 
-2. Somewhat modularized, so you can always extend RADIUSDesk installer to support your environment
+2. Somewhat modularized, so you can always extend RADIUSDesk installer to support your ever growing environments.
 
 3. Support for PPTPD **[Optional]**
 
@@ -75,20 +71,20 @@ SSH into the local/remote managed node/server at least once to ensure it is adde
 5. Support for Dynamic Login Pages **[Optional]**
 
 ## Compatibility
-1.	**Ansible 1.9+**
-2.	The installer has been tested on the following Linux Operating Systems:
+1.	RADIUSDesk Installer is Compatible with Ansible 1.9+
+2.	RADIUSDesk Installer has been tested on the following Linux Distros:
 	
-    - **RHEL/CentOS 6.5/6.7 (32/64 bit)**
-    - **Ubuntu 14.04/15.04/15.10 (32/64 bit)**    
+    - **RHEL/CentOS 6.x/7.x**
+    - **Ubuntu 14.x/15.x**    
 
 ## Resources
-1. [RADIUSDesk Course/Tutorials](http://www.maomuffy.com/introduction-to-radiusdesk-with-rhelcentos-6-x-mini-course/) by [Mfawa Alfred Onen](http://ng.linkedin.com/in/mfawaalfredonen/)
+1. [RADIUSDesk Mini Course (Old)](http://www.maomuffy.com/introduction-to-radiusdesk-with-rhelcentos-6-x-mini-course/) by [Mfawa Alfred Onen](http://ng.linkedin.com/in/mfawaalfredonen/)
 2. [RADIUSDesk Project](http://www.radiusdesk.com) by [Dirk van der Walt](http://www.linkedin.com/pub/dirk-van-der-walt/11/b64/79a)
 3. [RADIUSDesk Installer Videos](http://www.maomuffy.com/radiusdesk-installer-project/)
 
 ## Contributions
 1. Anyone is welcome to contribute by sending a pull request with your desired feature tested and implemented.
-2. If you have tested the installer in a Linux Distribution that is not in the compatibility list, kindly contact send an email to muffycompoqm[at]gmail[dot]com.
+2. If you have tested the installer in a Linux Distribution that is not in the compatibility list, kindly send an email to muffycompoqm[at]gmail[dot]com.
 
 ## Copyright and License
 
