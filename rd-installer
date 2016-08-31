@@ -22,7 +22,7 @@ do
         echo "Installing/Reconfiguring RADIUSDesk"
         echo ""
         $ANSIBLE_EXECUTABLE -i $RD_INSTALLER_PATH/servers $RD_INSTALLER_PATH/rd-installer-ansible.yml
-
+        break
     elif [[ "$REPLY" == "2" || "$REPLY" == "Q" || "$REPLY" == "q" ]]; then
         echo "Quitting RADIUSDesk Installer"
         break
