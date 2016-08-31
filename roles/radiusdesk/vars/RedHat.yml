@@ -53,6 +53,12 @@ php_session_save_path: "/var/lib/php/session"
 php_config_file: "/etc/php.ini"
 php_timezone: "Africa/Lagos"
 
+# PHP7-FPM (RHEL/CentOS 6+)
+php7_fpm_service_name: null
+php7_fpm_config: null
+php7_fpm_socket: null
+php7_config_file: null
+
 # Web server (RHEL/CentOS 6+)
 web_user: apache
 web_group: apache
