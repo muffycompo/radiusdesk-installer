@@ -4,6 +4,7 @@
     id=68576280
     url={{ node_apt_repo_key }}
     state=present
+    validate_certs=False
 
 - name: Adding Nodejs Main Repository for RadiusDesk (Ubuntu 14+)
   apt_repository:
