@@ -127,6 +127,30 @@ apt-get install -y ansible
 </ol>
 
 <h2>
+<a id="known_issues" class="anchor" href="#known_issues" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Known Issues</h2>
+
+<ol>
+  <li>RADIUSDesk Installer successfully complete its run on Ubuntu 16.x but fails to start Freeradius (under investigation from upstream RADIUSDesk)</li>
+</ol>
+
+<h2>
+<a id="faq" class="anchor" href="#faq" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>F.A.Q</h2>
+
+<ol>
+  <li>
+  Why do I get an SSL3 handshake error when running RADIUSDesk Installer on Ubuntu 14.x?
+  <ul>
+    <li>Ubuntu 14.x comes with python 2.7.6 and will need to be upgraded to 2.7.9+ as follows:<br>
+    <pre><code>sudo apt-add-repository ppa:fkrull/deadsnakes-python2.7
+    sudo apt-get update
+    sudo apt-get upgrade
+    </code></pre>
+</li>
+  </ul>
+  </li>
+</ol>
+
+<h2>
 <a id="resources" class="anchor" href="#resources" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Resources</h2>
 
 <ol>
