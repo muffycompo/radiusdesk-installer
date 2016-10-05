@@ -77,6 +77,20 @@ SSH into the local/remote managed node/server at least once to ensure it is adde
     - **RHEL/CentOS 6.x/7.x**
     - **Ubuntu 14.x/15.x**    
 
+## Known Issues
+1. RADIUSDesk Installer successfully complete its run on Ubuntu 16.x but fails to start Freeradius (under investigation from upstream RADIUSDesk)
+
+## F.A.Q
+1. Why do I get an SSL3 handshake error when running RADIUSDesk Installer on Ubuntu 14.x?
+    - Ubuntu 14.x comes with python 2.7.6 and will need to be upgraded as follows:
+    ```
+    sudo apt-add-repository ppa:fkrull/deadsnakes-python2.7
+    sudo apt-get update
+    sudo apt-get upgrade
+    ```
+2. Why does RADIUSDesk Installer fail to start MySQL and FreeRADIUS on CentOS by showing a connection error?
+    - Usually, this is caused by having SELinux enabled or iptables running the default rules. Make sure SELinux is set to Permissive (`setenforce 0`) or disabled (`vi /etc/sysconfig/selinux`)
+
 ## Resources
 1. [RADIUSDesk Mini Course (Old)](http://www.maomuffy.com/introduction-to-radiusdesk-with-rhelcentos-6-x-mini-course/) by [Mfawa Alfred Onen](http://ng.linkedin.com/in/mfawaalfredonen/)
 2. [RADIUSDesk Project](http://www.radiusdesk.com) by [Dirk van der Walt](http://www.linkedin.com/pub/dirk-van-der-walt/11/b64/79a)
