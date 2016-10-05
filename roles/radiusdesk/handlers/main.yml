@@ -53,7 +53,7 @@
     state=restarted
     enabled=yes
 
-- name: Restart Pptpd
+- name: Restart PPTPD
   service:
     name={{ pptpd_service_name }}
     state=restarted

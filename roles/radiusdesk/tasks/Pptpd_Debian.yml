@@ -23,4 +23,4 @@
     chmod 0664 {{ pptpd_client_dir }}/chap-secrets
     "
   notify:
-    - Restart Pptpd
+    - Restart PPTPD
