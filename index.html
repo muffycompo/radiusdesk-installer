@@ -141,11 +141,17 @@ apt-get install -y ansible
   Why do I get an SSL3 handshake error when running RADIUSDesk Installer on Ubuntu 14.x?
   <ul>
     <li>Ubuntu 14.x comes with python 2.7.6 and will need to be upgraded to 2.7.9+ as follows:<br>
-    <pre><code>sudo apt-add-repository ppa:fkrull/deadsnakes-python2.7
-    sudo apt-get update
-    sudo apt-get upgrade
-    </code></pre>
+<pre><code>
+sudo apt-add-repository ppa:fkrull/deadsnakes-python2.7
+sudo apt-get update
+sudo apt-get upgrade
+</code></pre>
 </li>
+  </ul>
+  </li>
+  <li>Why does RADIUSDesk Installer fail to start MySQL and FreeRADIUS on CentOS by showing a connection error?
+  <ul>
+    <li>Usually, this is caused by having SELinux enabled or iptables running the default rules. Make sure SELinux is set to Permissive (<code>setenforce 0</code>) or disabled (<code>vi /etc/sysconfig/selinux</code>)</li>
   </ul>
   </li>
 </ol>
