@@ -82,7 +82,7 @@ SSH into the local/remote managed node/server at least once to ensure it is adde
 
 ## F.A.Q
 1. Why do I get an SSL3 handshake error when running RADIUSDesk Installer on Ubuntu 14.x?
-    - Ubuntu 14.x comes with python 2.7.6 and will need to be upgraded as follows:
+    - Ubuntu 14.x comes with python 2.7.6 and will need to be upgraded to 2.7.9+ as follows:
     ```
     sudo apt-add-repository ppa:fkrull/deadsnakes-python2.7
     sudo apt-get update
