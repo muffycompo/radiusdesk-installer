@@ -12,7 +12,7 @@
   <body>
     <section class="page-header">
       <h1 class="project-name">RADIUSDesk Installer 1.2.0</h1>
-      <h2 class="project-tagline">This project tries to simplify or ease the process of getting a working installation of RADIUSDesk on a vanilla/minimal installation of RHEL/CentOS 6.x/7.x and Ubuntu 14.x/15.x servers.</h2>
+      <h2 class="project-tagline">This project tries to simplify or ease the process of getting a working installation of RADIUSDesk on a vanilla/minimal installation of RHEL/CentOS 6.x/7.x and Ubuntu 14.x/15.x/16.x servers.</h2>
       <a href="https://github.com/muffycompo/radiusdesk-installer" class="btn">View on GitHub</a>
       <a href="https://github.com/muffycompo/radiusdesk-installer/zipball/master" class="btn">Download .zip</a>
       <a href="https://github.com/muffycompo/radiusdesk-installer/tarball/master" class="btn">Download .tar.gz</a>
@@ -25,7 +25,7 @@
 <h2>
 <a id="introduction" class="anchor" href="#introduction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Introduction</h2>
 
-<p>RADIUSDesk Installer is an <a href="http://www.ansible.com">Ansible</a> powered utility that attempts to simplify the process of getting a working installation of <a href="http://www.radiusdesk.com">RADIUSDesk</a> on a vanilla/minimal installation of RHEL/CentOS 6.x/7.x and Ubuntu 14.x/15.x servers.</p>
+<p>RADIUSDesk Installer is an <a href="http://www.ansible.com">Ansible</a> powered utility that attempts to simplify the process of getting a working installation of <a href="http://www.radiusdesk.com">RADIUSDesk</a> on a vanilla/minimal installation of RHEL/CentOS 6.x/7.x and Ubuntu 14.x/15.x/16.x servers.</p>
 
 <h2>
 <a id="prerequisite" class="anchor" href="#prerequisite" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Prerequisite</h2>
@@ -41,7 +41,7 @@
 
 <p><code>yum install -y python</code></p>
 
-<p><strong>Ubuntu 14.x/15.x</strong></p>
+<p><strong>Ubuntu 14.x/15.x/16.x</strong></p>
 
 <p><code>apt-get install -y python</code></p>
 
@@ -60,7 +60,7 @@ yum install -y ansible
 
 <p><strong>Note:</strong> To Manually install EPEL repositories, Visit the <a href="https://fedoraproject.org/wiki/EPEL">EPEL Wiki</a> </p>
 
-<p><strong>Ubuntu 14.x/15.x</strong></p>
+<p><strong>Ubuntu 14.x/15.x/16.x</strong></p>
 
 <pre><code>apt-add-repository ppa:ansible/ansible
 apt-get update
@@ -121,16 +121,9 @@ apt-get install -y ansible
 
 <ul>
 <li><strong>RHEL/CentOS 6.x/7.x</strong></li>
-<li><strong>Ubuntu 14.x/15.x</strong><br>
+<li><strong>Ubuntu 14.x/15.x/16.x</strong><br>
 </ul>
 </li>
-</ol>
-
-<h2>
-<a id="known_issues" class="anchor" href="#known_issues" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Known Issues</h2>
-
-<ol>
-  <li>RADIUSDesk Installer successfully complete its run on Ubuntu 16.x but fails to start Freeradius (under investigation from upstream RADIUSDesk)</li>
 </ol>
 
 <h2>
