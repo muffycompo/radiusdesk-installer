@@ -59,8 +59,21 @@
     dest="/etc/init.d/nodejs-socket-io"
     mode=0755
     src="nodejs/nodejs-socket-io.j2"
+  when: "ansible_distribution_version < '16'"
+
+- name: Configuring Nodejs Socket.io Startup Script for RadiusDesk (Ubuntu 16+ Only)
+  template: 
+    dest="/lib/systemd/system/nodejs-socket-io.service"
+    mode=0755
+    src="nodejs/nodejs-socket-io-service.j2"
+  when: "ansible_distribution_version >= '16'"
 
 - name: Installing Nodejs Socket.io Service (Ubuntu 14+)
   shell: update-rc.d {{ nodejs_socketio_service_name }} defaults
   notify:
     - Restart Nodejs Socketio
+  when: "ansible_distribution_version < '16'"
+
+- name: Enabling Nodejs Socket.io Service (Ubuntu 16+ Only)
+  shell: "ln -s /usr/bin/nodejs /usr/bin/node && systemctl enable nodejs-socket-io && systemctl start nodejs-socket-io"
+  when: "ansible_distribution_version >= '16'"

@@ -126,6 +126,7 @@ nodejs_npm_modules:
  - forever
 
 nodejs_socketio_service_name: "nodejs-socket-io"
+nodejs_socketio_app_path: "/usr/lib/nodejs:/usr/lib/node_modules:/usr/share/javascript/"
 
 # PPTPD
 enable_pptpd_support: yes
