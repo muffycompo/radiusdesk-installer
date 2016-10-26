@@ -1,7 +1,7 @@
 RADIUSDesk Installer 1.2.0
 ===========================
 ## Introduction
-RADIUSDesk Installer is an [Ansible](http://www.ansible.com) powered utility that attempts to simplify the process of getting a working installation of [RADIUSDesk](http://www.radiusdesk.com) on a vanilla/minimal installation of RHEL/CentOS 6.x/7.x/Ubuntu 14.04/15.04/15.10 servers.
+RADIUSDesk Installer is an [Ansible](http://www.ansible.com) powered utility that attempts to simplify the process of getting a working installation of [RADIUSDesk](http://www.radiusdesk.com) on a vanilla/minimal installation of RHEL/CentOS 6.x/7.x, Ubuntu 14.04/15.04/15.10/16.04/16.10 servers.
 
 ## Prerequisite
 #### 1] Install Python
@@ -13,7 +13,7 @@ To Install Python which should come by default in most Linux distributions, you 
 
 `yum install -y python`
 
-**Ubuntu 14.x/15.x**
+**Ubuntu 14.x/15.x/16.x**
 
 `apt-get install -y python`
 
@@ -31,7 +31,7 @@ yum install -y ansible
 
 **Note:** To Manually install EPEL repositories, Visit the [EPEL Wiki](https://fedoraproject.org/wiki/EPEL) 
 
-**Ubuntu 14.x/15.x**
+**Ubuntu 14.x/15.x/16.x**
 
 ```
 apt-add-repository ppa:ansible/ansible
@@ -75,10 +75,7 @@ SSH into the local/remote managed node/server at least once to ensure it is adde
 2.	RADIUSDesk Installer has been tested on the following Linux Distros:
 	
     - **RHEL/CentOS 6.x/7.x**
-    - **Ubuntu 14.x/15.x**    
-
-## Known Issues
-1. RADIUSDesk Installer successfully complete its run on Ubuntu 16.x but fails to start Freeradius (under investigation from upstream RADIUSDesk)
+    - **Ubuntu 14.x/15.x/16.x**    
 
 ## F.A.Q
 1. Why do I get an SSL3 handshake error when running RADIUSDesk Installer on Ubuntu 14.x?
