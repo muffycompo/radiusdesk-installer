@@ -30,11 +30,24 @@
   apt:
     name={{ item }}
     state=installed
+    force=yes
     update_cache=yes
   with_items: "{{ rd_pkgs }}"
   notify:
     - Start Nginx
     - Start PHP-FPM
+  when: "ansible_distribution_version < '16'"
+
+- name: Installing RadiusDesk packages (Ubuntu 16+)
+  apt:
+    name={{ item }}
+    state=installed
+    update_cache=yes
+  with_items: "{{ rd_pkgs }}"
+  notify:
+    - Start Nginx
+    - Start PHP7-FPM
+  when: "ansible_distribution_version >= '16'"
 
 - name: Configuring PHP5-FPM to use UNIX sockets (Ubuntu 14+)
   template:

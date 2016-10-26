@@ -8,12 +8,12 @@
 
 - name: Adding Nodejs Main Repository for RadiusDesk (Ubuntu 14+)
   apt_repository:
-    repo: "deb https://deb.nodesource.com/node_0.12 {{ ansible_distribution_release }} main"
+    repo: "deb https://deb.nodesource.com/node_6.x {{ ansible_distribution_release }} main"
     state: present
 
 - name: Adding Nodejs Source Repository for RadiusDesk (Ubuntu 14+)
   apt_repository:
-    repo: "deb-src https://deb.nodesource.com/node_0.12 {{ ansible_distribution_release }} main"
+    repo: "deb-src https://deb.nodesource.com/node_6.x {{ ansible_distribution_release }} main"
     state: present
 
 - name: Installing Nodejs for RadiusDesk (Ubuntu 14+)
@@ -22,13 +22,6 @@
     state=present
     update_cache=yes
   with_items: "{{ nodejs_pkgs }}"
-
-- name: Installing NPM for RadiusDesk (Ubuntu 16+ Only)
-  apt:
-    name="npm"
-    state=present
-    update_cache=yes
-  when: ansible_distribution_version >= '16'
 
 - name: "Installing Nodejs modules (tail,forever,mysql,connect) for RadiusDesk (Ubuntu 14+)"
   npm:
@@ -59,8 +52,29 @@
     dest="/etc/init.d/nodejs-socket-io"
     mode=0755
     src="nodejs/nodejs-socket-io.j2"
+  when: "ansible_distribution_version < '16'"
+
+- name: Configuring Nodejs Socket.io Startup Script for RadiusDesk (Ubuntu 16+ Only)
+  template: 
+    dest="/lib/systemd/system/nodejs-socket-io.service"
+    mode=0755
+    src="nodejs/nodejs-socket-io-service.j2"
+  when: "ansible_distribution_version >= '16'"
 
 - name: Installing Nodejs Socket.io Service (Ubuntu 14+)
   shell: update-rc.d {{ nodejs_socketio_service_name }} defaults
   notify:
     - Restart Nodejs Socketio
+  when: "ansible_distribution_version < '16'"
+
+- name: Installing Nodejs Socket.io Service (Ubuntu 16+ Only)
+  file:
+    path=/usr/bin/node
+    src=/usr/bin/nodejs
+    force=yes
+    state=link
+  when: "ansible_distribution_version >= '16'"
+
+- name: Reloading Nodejs Socket.io Daemon (Ubuntu 16+ Only)
+  shell: "systemctl daemon-reload && systemctl enable {{ nodejs_socketio_service_name }} && systemctl start {{ nodejs_socketio_service_name }}"
+  when: "ansible_distribution_version >= '16'"

@@ -63,7 +63,7 @@
 #
 NAME="Node.js SocketIO"
 NODE_BIN_DIR="/usr/bin"
-NODE_PATH=/usr/lib/nodejs:/usr/lib/node_modules:/usr/share/javascript
+NODE_PATH="{{ nodejs_socketio_app_path }}"
 APPLICATION_DIRECTORY="{{ nginx_webroot }}/cake2/rd_cake/Setup/Node.js"
 APPLICATION_START="Logfile.node.js"
 PIDFILE="/var/run/nodejs-socket-io.pid"
