@@ -23,6 +23,13 @@
     update_cache=yes
   with_items: "{{ nodejs_pkgs }}"
 
+- name: Installing NPM for RadiusDesk (Ubuntu 16+ Only)
+  apt:
+    name="npm"
+    state=present
+    update_cache=yes
+  when: ansible_distribution_version >= '16'
+
 - name: "Installing Nodejs modules (tail,forever,mysql,connect) for RadiusDesk (Ubuntu 14+)"
   npm:
     name={{ item }}

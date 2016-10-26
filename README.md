@@ -1,7 +1,7 @@
 RADIUSDesk Installer 1.2.0
 ===========================
 ## Introduction
-RADIUSDesk Installer is an [Ansible](http://www.ansible.com) powered utility that attempts to simplify the process of getting a working installation of [RADIUSDesk](http://www.radiusdesk.com) on a vanilla/minimal installation of RHEL/CentOS 6.x/7.x, Ubuntu 14.04/15.04/15.10/16.04/16.10 servers.
+RADIUSDesk Installer is an [Ansible](http://www.ansible.com) powered utility that attempts to simplify the process of getting a working installation of [RADIUSDesk](http://www.radiusdesk.com) on a vanilla/minimal installation of RHEL/CentOS 6.x/7.x and Ubuntu 14.x/15.x/16.x servers.
 
 ## Prerequisite
 #### 1] Install Python
