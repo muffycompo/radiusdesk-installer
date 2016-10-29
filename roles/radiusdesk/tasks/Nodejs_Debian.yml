@@ -8,12 +8,12 @@
 
 - name: Adding Nodejs Main Repository for RadiusDesk (Ubuntu 14+)
   apt_repository:
-    repo: "deb https://deb.nodesource.com/node_0.12 {{ ansible_distribution_release }} main"
+    repo: "deb https://deb.nodesource.com/node_6.x {{ ansible_distribution_release }} main"
     state: present
 
 - name: Adding Nodejs Source Repository for RadiusDesk (Ubuntu 14+)
   apt_repository:
-    repo: "deb-src https://deb.nodesource.com/node_0.12 {{ ansible_distribution_release }} main"
+    repo: "deb-src https://deb.nodesource.com/node_6.x {{ ansible_distribution_release }} main"
     state: present
 
 - name: Installing Nodejs for RadiusDesk (Ubuntu 14+)
