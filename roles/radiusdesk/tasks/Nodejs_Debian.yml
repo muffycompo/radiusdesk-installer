@@ -67,6 +67,12 @@
     - Restart Nodejs Socketio
   when: "ansible_distribution_version < '16'"
 
-- name: Enabling Nodejs Socket.io Service (Ubuntu 16+ Only)
-  shell: "ln -s /usr/bin/nodejs /usr/bin/node && systemctl enable nodejs-socket-io && systemctl start nodejs-socket-io"
+- name: Installing Nodejs Socket.io Service (Ubuntu 16+ Only)
+  file:
+    path=/usr/bin/node
+    src=/usr/bin/nodejs
+    force=yes
+    state=link
+  notify:
+    - Restart Nodejs Socketio
   when: "ansible_distribution_version >= '16'"
