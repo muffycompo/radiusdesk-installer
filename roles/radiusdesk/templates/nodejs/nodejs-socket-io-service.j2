@@ -4,7 +4,7 @@ After=syslog.target network.target
 
 [Service]
 Type=forking
-ExecStart=/bin/bash -c "NODE_PATH={{ nodejs_socketio_app_path }};export NODE_PATH=$NODE_PATH;/usr/local/bin/forever --pidFile '/var/run/nodejs-socket-io.pid' --sourceDir '{{ nginx_webroot }}/cake2/rd_cake/Setup/Node.js' -a -l '/var/log/nodejs-socket-io.log' --minUptime 5000 --spinSleepTime 2000 start 'Logfile.node.js'"
+ExecStart=/bin/bash -c "NODE_PATH={{ nodejs_socketio_app_path }};export NODE_PATH=$NODE_PATH;forever --pidFile '/var/run/nodejs-socket-io.pid' --sourceDir '{{ nginx_webroot }}/cake2/rd_cake/Setup/Node.js' -a -l '/var/log/nodejs-socket-io.log' --minUptime 5000 --spinSleepTime 2000 start 'Logfile.node.js'"
 
 [Install]
 WantedBy=multi-user.target
