@@ -30,6 +30,7 @@
   apt:
     name={{ item }}
     state=installed
+    force=yes
     update_cache=yes
   with_items: "{{ rd_pkgs }}"
   notify:
