@@ -1,4 +1,10 @@
 ---
+- name: Updating JSON-C Library for RadiusDesk (RHEL/CentOS 6+)
+  yum:
+    name="json-c"
+    enablerepo=maomuffy
+    state=latest
+
 - name: Installing CoovaChilli for RadiusDesk (RHEL/CentOS 6+)
   yum:
     name="coova-chilli-1.3.1.3-1rd*"
