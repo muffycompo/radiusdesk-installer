@@ -1,9 +1,19 @@
 ---
-- name: Updating JSON-C Library for RadiusDesk (RHEL/CentOS 6+)
+- name: Updating JSON-C Library for RadiusDesk (RHEL/CentOS 7+ Only)
+  shell: yum --enablerepo=maomuffy update -y json-c
+  when: ansible_distribution_major_version >= '7'
+
+- name: Ensuring FirwallD is not installed for CoovaChilli (RHEL/CentOS 7+ Only)
   yum:
-    name="json-c"
-    enablerepo=maomuffy
-    state=latest
+    name=firewalld
+    state=absent
+  when: ansible_distribution_major_version >= '7'
+
+- name: Ensuring IPTables is installed for CoovaChilli (RHEL/CentOS 7+ Only)
+  yum:
+    name="iptables-services"
+    state=present
+  when: ansible_distribution_major_version >= '7'
 
 - name: Installing CoovaChilli for RadiusDesk (RHEL/CentOS 6+)
   yum:
