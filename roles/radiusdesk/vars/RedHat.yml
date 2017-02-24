@@ -68,9 +68,9 @@ temp_src_dir: "/tmp/rd_sources"
 
 # Radiusdesk Sources Repo Paths (RHEL/CentOS 6+)
 cakephp_git_repo: "https://github.com/cakephp/cakephp.git"
-rd_svn_repo: "http://svn.code.sf.net/p/radiusdesk/code/trunk/rd"
-rd_cake_svn_repo: "http://svn.code.sf.net/p/radiusdesk/code/trunk/rd_cake"
-rd_login_svn_repo: "http://svn.code.sf.net/p/radiusdesk/code/trunk/rd_login"
+rd_svn_repo: "https://svn.code.sf.net/p/radiusdesk/code/trunk/rd"
+rd_cake_svn_repo: "https://svn.code.sf.net/p/radiusdesk/code/trunk/rd_cake"
+rd_login_svn_repo: "https://svn.code.sf.net/p/radiusdesk/code/trunk/rd_login"
 extjs_src_url: "https://sourceforge.net/p/radiusdesk/code/HEAD/tree/extjs/ext-6-sencha_cmd.tar.gz?format=raw"
 extjs_src_md5_sum: "e829741694be90a27d7f0c6a24dbfc8b"
 rd_svn_revision: 1951
