@@ -1,6 +1,12 @@
 ---
 - name: Ensuring AppArmor is disabled (Ubuntu 14+)
   shell: "service apparmor stop && update-rc.d -f apparmor remove"
+
+- name: Bootstraping Download Directory for RADIUSDesk Sources (Ubuntu 14+)
+  file:
+    path={{ temp_src_dir }}
+    state=directory
+    mode=0777
   
 - name: Ensuring Apache is not installed (Ubuntu 14+)
   apt:
