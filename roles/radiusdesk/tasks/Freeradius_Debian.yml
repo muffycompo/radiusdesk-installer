@@ -16,7 +16,6 @@
     state=present
     update_cache=yes
   with_items: "{{ freeradius_pkgs }}"
-  # ignore_errors: yes
 
 - name: Checking if we already have Freeradius Configuration Directory Backup (Ubuntu 14+)
   stat:

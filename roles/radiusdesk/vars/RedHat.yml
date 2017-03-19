@@ -32,6 +32,9 @@ rd_php5_pkgs:
  - php-cli
  - php-mysql
  - php-xcache
+ - php-intl
+ - php-xml
+ - php-mbstring
 
 # RadiusDesk PHP7 Packages (RHEL/CentOS 6+)
 rd_php7_pkgs: null
@@ -70,9 +73,12 @@ temp_src_dir: "/tmp/rd_sources"
 cakephp_git_repo: "https://github.com/cakephp/cakephp.git"
 rd_svn_repo: "http://svn.code.sf.net/p/radiusdesk/code/trunk/rd"
 rd_cake_svn_repo: "http://svn.code.sf.net/p/radiusdesk/code/trunk/rd_cake"
+rd_cake3_svn_repo: "http://svn.code.sf.net/p/radiusdesk/code/trunk/cake3"
 rd_login_svn_repo: "http://svn.code.sf.net/p/radiusdesk/code/trunk/rd_login"
 extjs_src_url: "https://sourceforge.net/p/radiusdesk/code/HEAD/tree/extjs/ext-6-sencha_cmd.tar.gz?format=raw"
+extjs_62_src_url: "http://svn.code.sf.net/p/radiusdesk/code/extjs/ext-6-2-sencha_cmd.tar.gz"
 extjs_src_md5_sum: "e829741694be90a27d7f0c6a24dbfc8b"
+extjs_62_src_md5_sum: "012c607cfb30b0e83da385d02d69c99c"
 rd_svn_revision: 1951
 
 # Freeradius Packages (RHEL/CentOS 6+)

@@ -82,17 +82,17 @@
 - name: Copying RadiusDesk CakePHP App Source to Webroot (RHEL/CentOS 6+)
   shell: cp -a {{ temp_src_dir | quote }}/rd_cake {{ nginx_webroot | quote }}/cake2/
 
+- name: Downloading RadiusDesk CakePHP 3 Source from Subversion (Ubuntu 14+)
+  shell: svn checkout -r {{ rd_svn_revision }} {{ rd_cake3_svn_repo }} {{ temp_src_dir }}/cake3
+
+- name: Copying RadiusDesk CakePHP 3 Source to Webroot (Ubuntu 14+)
+  shell: cp -a {{ temp_src_dir | quote }}/cake3 {{ nginx_webroot | quote }}/cake3
+
 - name: Downloading RadiusDesk Viewer Source from Subversion (RHEL/CentOS 6+)
   shell: svn checkout -r {{ rd_svn_revision }} {{ rd_svn_repo }} {{ temp_src_dir }}/rd
 
 - name: Copying RadiusDesk Viewer Source to Webroot (RHEL/CentOS 6+)
   shell: cp -a {{ temp_src_dir | quote }}/rd {{ nginx_webroot | quote }}/
-
-# - name: Downloading RadiusDesk Login Source from Subversion (RHEL/CentOS 6+)
-  # subversion:
-    # repo={{ rd_login_svn_repo }}
-    # dest={{ temp_src_dir }}/rd_login
-    # revision={{ rd_svn_revision }}
 
 - name: Downloading RadiusDesk Login Source from Subversion (RHEL/CentOS 6+)
   shell: svn checkout -r {{ rd_svn_revision }} {{ rd_login_svn_repo }} {{ temp_src_dir }}/rd_login
@@ -105,26 +105,26 @@
     dest="{{ nginx_webroot }}/rd_login/services/uam.php"
     src="uam.php.j2"
 
-- name: Checking if we already downloaded ExtJS 6 sources (RHEL/CentOS 6+)
+- name: Checking if we already downloaded ExtJS 6.2 sources (Ubuntu 14+)
   stat:
-    path="{{ temp_src_dir }}/ext-6-sencha_cmd.tar.gz"
+    path="{{ temp_src_dir }}/ext-6-2-sencha_cmd.tar.gz"
   register: extjs_src
 
-- name: Downloading ExtJS 6 sources from Subversion (RHEL/CentOS 6+)
+- name: Downloading ExtJS 6.2 sources from Subversion (Ubuntu 14+)
   get_url:
-    url={{ extjs_src_url }}
-    dest="{{ temp_src_dir }}/ext-6-sencha_cmd.tar.gz"
-  when: "extjs_src.stat.exists == False or extjs_src.stat.md5 != '{{ extjs_src_md5_sum }}'"
+    url={{ extjs_62_src_url }}
+    dest="{{ temp_src_dir }}/ext-6-2-sencha_cmd.tar.gz"
+    validate_certs=no
+  when: "extjs_src.stat.exists == False or extjs_src.stat.md5 != '{{ extjs_62_src_md5_sum }}'"
 
-- name: Extracting ExtJS 6 archive for RadiusDesk Viewer (RHEL/CentOS 6+)
+- name: Extracting ExtJS 6.2 archive for RadiusDesk Viewer (Ubuntu 14+)
   unarchive:
-    src="{{ temp_src_dir }}/ext-6-sencha_cmd.tar.gz"
+    src="{{ temp_src_dir }}/ext-6-2-sencha_cmd.tar.gz"
     dest={{ nginx_webroot }}/rd/
     owner={{ web_user }}
     group={{ web_group }}
     mode=0664
     copy=no
-  # when: "extjs_src.stat.exists == True"
 
 - name: Correcting Webroot ownership and permissions (RHEL/CentOS 6+)
   file:
@@ -214,7 +214,7 @@
   mysql_db:
     state=import
     name={{ rd_db_name }}
-    target={{ nginx_webroot }}/cake2/rd_cake/Setup/Db/rd.sql
+    target={{ nginx_webroot }}/cake3/rd_cake/setup/db/rd.sql
     login_user=root
     login_password={{ mysql_root_password }}
 
