@@ -5,6 +5,12 @@
     regexp='^SELINUX=' 
     line='SELINUX=disabled'
 
+- name: Bootstraping Download Directory for RADIUSDesk Sources (Ubuntu 14+)
+  file:
+    path={{ temp_src_dir }}
+    state=directory
+    mode=0777
+ 
 - name: Ensuring Apache is not installed (RHEL/CentOS 6+)
   yum:
     name={{ apache_pkg_name }}
@@ -21,7 +27,13 @@
     state: installed
   when: epel_repo.stat.exists == False
 
-- name: Installing MySQL 5 Repo for RadiusDesk (RHEL/CentOS 6+)
+- name: Installing MySQL 5 Repo for RadiusDesk (RHEL/CentOS 6)
+  yum:
+    name: "http://repo.mysql.com/mysql-community-release-el{{ ansible_distribution_major_version }}-7.noarch.rpm"
+    state: installed
+  when: ansible_distribution_major_version <= '6'
+
+- name: Installing MySQL 5 Repo for RadiusDesk (RHEL/CentOS 7+)
   yum:
     name: "http://repo.mysql.com/mysql-community-release-el{{ ansible_distribution_major_version }}-5.noarch.rpm"
     state: installed
@@ -155,6 +167,12 @@
   template:
     src="cron/cron.j2"
     dest="/etc/cron.d/rd"
+
+- name: Disabling MySQL 5.6+ Strict Mode (RHEL/CentOS 6+)
+  lineinfile:
+    dest: /etc/my.cnf
+    regexp: '^sql_mode='
+    line: 'sql_mode=IGNORE_SPACE,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION'
 
 - name: Ensuring MySQL is Started (RHEL/CentOS 6+)
   service:

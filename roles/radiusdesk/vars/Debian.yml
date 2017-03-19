@@ -24,7 +24,6 @@ rd_php5_pkgs:
  - php5-gd
  - php5-curl
  - php5-intl
- - php5-xml
  - php5-mbstring
 
 # RadiusDesk PHP7 Packages (Ubuntu 14+)
