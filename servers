@@ -1,8 +1,5 @@
 [default]
 localhost ansible_connection=local ansible_ssh_user=root
 
-[prod32]
-ubuntu1004-32.maomuffy.com
-
-[prod64]
-ubuntu1004-64.maomuffy.com
+[staging]
+rd-installer-staging.example.com
