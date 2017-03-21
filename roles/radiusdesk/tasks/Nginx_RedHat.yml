@@ -16,28 +16,20 @@
     name={{ apache_pkg_name }}
     state=absent
 
-- name: Checking for EPEL Repository (RHEL/CentOS 6+)
-  stat:
-    path="/etc/yum.repos.d/epel.repo"
-  register: epel_repo
-
 - name: Installing EPEL Repo for RadiusDesk (RHEL/CentOS 6+)
   yum:
     name: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-{{ ansible_distribution_major_version }}.noarch.rpm"
     state: installed
-  when: epel_repo.stat.exists == False
 
-- name: Installing MySQL 5 Repo for RadiusDesk (RHEL/CentOS 6)
+- name: Installing REMI Repo for RadiusDesk (RHEL/CentOS 6+)
   yum:
-    name: "http://repo.mysql.com/mysql-community-release-el{{ ansible_distribution_major_version }}-7.noarch.rpm"
+    name: "http://rpms.famillecollet.com/enterprise/remi-release-{{ ansible_distribution_major_version }}.rpm"
     state: installed
-  when: ansible_distribution_major_version <= '6'
 
-- name: Installing MySQL 5 Repo for RadiusDesk (RHEL/CentOS 7+)
+- name: Installing MySQL Community Repo for RadiusDesk (RHEL/CentOS 6+)
   yum:
-    name: "http://repo.mysql.com/mysql-community-release-el{{ ansible_distribution_major_version }}-5.noarch.rpm"
+    name: "http://repo.mysql.com/mysql-community-release-el{{ ansible_distribution_major_version }}.rpm"
     state: installed
-  when: ansible_distribution_major_version >= '7'
 
 - name: Installing Nginx (RHEL/CentOS 6+)
   yum:
@@ -47,8 +39,9 @@
 - name: Installing PHP packages (RHEL/CentOS 6+)
   yum:
     name={{ item }}
-    state=installed
+    state=latest
     update_cache=yes
+    enablerepo="remi,remi-php56"
   with_items: "{{ rd_php5_pkgs }}"
 
 - name: Installing RadiusDesk packages (RHEL/CentOS 6+)
