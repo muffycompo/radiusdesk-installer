@@ -2,7 +2,6 @@
 - name: Checking for Supported OS
   fail:
     msg="{{ ansible_distribution }} {{ ansible_distribution_version }} is not supported by RADIUSDesk Installer"
-  #when: ((ansible_os_family == 'Debian' and (ansible_distribution_version != '15.04' or ansible_distribution_version != '16.10' or ansible_distribution_version < '14.04' or (ansible_distribution_version < '16.04' and ansible_distribution_version > '15.04'))) or (ansible_os_family == 'RedHat' and ansible_distribution_version < '6.7'))
   when: (ansible_distribution != 'Ubuntu' and (ansible_distribution_release != 'vivid' or ansible_distribution_release != 'trusty' or ansible_distribution_release != 'yakkety' or ansible_distribution_release != 'xenial')) or (ansible_os_family == 'RedHat' and ansible_distribution_version < '6.7')
 
 - name: Adding RadiusDesk Variables (Ubuntu 14+)
