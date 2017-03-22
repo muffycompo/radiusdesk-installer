@@ -49,13 +49,13 @@ server {
     }
 
 	## RD-Installer Specific tweaks - Mfawa Alfred Onen
-	location ~* ^.+\.(jpg|jpeg|gif|png|ico|js|css)$ { 
-		rewrite ^/cake2/rd_cake/webroot/(.*)$ /cake2/rd_cake/webroot/$1 break; 
-		rewrite ^/cake2/rd_cake/(.*)$ /cake2/rd_cake/webroot/$1 break; 
-		access_log off; 
-		expires max; 
-		add_header Cache-Control public; 
-	} 
+    location ~ ^/cake2/.+\.(jpg|jpeg|gif|png|ico|js|css)$ {
+        rewrite ^/cake2/rd_cake/webroot/(.*)$ /cake2/rd_cake/webroot/$1 break;
+        rewrite ^/cake2/rd_cake/(.*)$ /cake2/rd_cake/webroot/$1 break;
+        access_log off;
+        expires max;
+        add_header Cache-Control public;
+    } 
 
 	location /cake2/rd_cake { 
 		 rewrite ^/cake2/rd_cake/(.*)$ /cake2/rd_cake/webroot/$1 break; 
