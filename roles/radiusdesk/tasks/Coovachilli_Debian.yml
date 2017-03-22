@@ -1,8 +1,16 @@
 ---
 - name: Installing CoovaChilli for RadiusDesk (Ubuntu 14+)
   apt:
-    name="coova-chilli=1.3.3-rd*"
+    name="coova-chilli=1.4.0-rd*"
     state=present
+
+- name: Enabling IP Forwarding (NAT) for CoovaChilli (Ubuntu 14+)
+  sysctl:
+    name=net.ipv4.ip_forward
+    value=1
+    sysctl_set=yes
+    state=present
+    reload=yes
 
 - name: Enabling CoovaChilli Daemon for RadiusDesk (Ubuntu 14+)
   lineinfile:
@@ -38,7 +46,7 @@
     group={{ web_group }}
     src="uam.php.j2"
 
-- name: Configuring CoovaChilli Start Up IPTables rules (Ubuntu 14+)
+- name: Configuring CoovaChilli Start-Up IPTables rules (Ubuntu 14+)
   template:
     dest="/etc/chilli/ipup.sh"
     mode=777
@@ -57,7 +65,7 @@
     src="coova/chilli.init.{{ ansible_os_family }}.j2"
 
 - name: Ensuring CoovaChilli is Properly Configured (Ubuntu 14+)
-  shell: update-rc.d chilli defaults
+  shell: update-rc.d {{ coovachilli_service_name }} defaults
   notify:
     - Restart MySQL
     - Restart Freeradius

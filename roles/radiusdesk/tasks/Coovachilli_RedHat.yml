@@ -17,8 +17,16 @@
 
 - name: Installing CoovaChilli for RadiusDesk (RHEL/CentOS 6+)
   yum:
-    name="coova-chilli-1.3.1.3-1rd*"
+    name="coova-chilli-1.4.0*"
     state=present
+
+- name: Enabling IP Forwarding (NAT) for CoovaChilli (RHEL/CentOS 6+)
+  sysctl:
+    name=net.ipv4.ip_forward
+    value=1
+    sysctl_set=yes
+    state=present
+    reload=yes
 
 - name: Disabling CoovaChilli Default Splash Page for RadiusDesk (RHEL/CentOS 6+)
   lineinfile:
@@ -46,7 +54,7 @@
     group={{ web_group }}
     src="uam.php.j2"
 
-- name: Configuring CoovaChilli Start Up IPTables rules (RHEL/CentOS 6+)
+- name: Configuring CoovaChilli Start-Up IPTables rules (RHEL/CentOS 6+)
   template:
     dest="/etc/chilli/ipup.sh"
     mode=777
