@@ -17,7 +17,7 @@
 
 - name: Installing CoovaChilli for RadiusDesk (RHEL/CentOS 6+)
   yum:
-    name="coova-chilli-1.4.0*"
+    name="coova-chilli-1.3.1.3-1rd*"
     state=present
 
 - name: Enabling IP Forwarding (NAT) for CoovaChilli (RHEL/CentOS 6+)
