@@ -60,13 +60,7 @@
     enabled=yes
 
 - name: Start Coovachilli
-  service:
-    name={{ coovachilli_service_name }}
-    state=started
-    enabled=yes
+  shell: "/etc/init.d/chilli restart"
 
 - name: Restart Coovachilli
-  service:
-    name={{ coovachilli_service_name }}
-    state=restarted
-    enabled=yes
+  shell: "/etc/init.d/chilli restart"

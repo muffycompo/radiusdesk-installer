@@ -69,4 +69,4 @@
   notify:
     - Restart MySQL
     - Restart Freeradius
-    - Restart Coovachilli
+    - Start Coovachilli
