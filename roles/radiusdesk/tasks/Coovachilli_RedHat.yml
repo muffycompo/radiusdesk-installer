@@ -28,6 +28,7 @@
   yum:
     name="coova-chilli-1.4.0*"
     state=present
+    disable_gpg_check=yes
 
 - name: Enabling IP Forwarding (NAT) for CoovaChilli (RHEL/CentOS 6+)
   sysctl:
