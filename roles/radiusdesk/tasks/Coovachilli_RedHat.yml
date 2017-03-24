@@ -3,14 +3,7 @@
   yum:
     name=json-c
     state=latest
-  when: ansible_distribution_major_version < '7'
-
-- name: Installing Updated JSON-C Library for RadiusDesk (RHEL/CentOS 7+ Only)
-  yum:
-    name=json-c
-    enablerepo=maomuffy
-    state=latest
-  when: ansible_distribution_major_version >= '7'
+    disablerepo=maomuffy
 
 - name: Ensuring FirwallD is not installed for CoovaChilli (RHEL/CentOS 7+ Only)
   yum:
