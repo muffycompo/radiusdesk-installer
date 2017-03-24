@@ -1,9 +1,12 @@
 ---
-- name: Ensuring SELinux is in Permissive Mode (RHEL/CentOS 6+)
-  lineinfile: 
-    dest=/etc/sysconfig/selinux 
-    regexp='^SELINUX=' 
-    line='SELINUX=disabled'
+- name: Installing System Packages (RHEL/CentOS 6+)
+  yum: 
+    name=libselinux-python 
+    state=installed
+
+- name: Disabling SELinux (RHEL/CentOS 6+)
+  selinux:
+    state=disabled 
 
 - name: Bootstraping Download Directory for RADIUSDesk Sources (Ubuntu 14+)
   file:
