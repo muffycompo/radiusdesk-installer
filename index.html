@@ -98,7 +98,7 @@ apt-get install -y ansible
 <h4>
 <a id="installing-coovachilli-optional" class="anchor" href="#installing-coovachilli-optional" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installing CoovaChilli [Optional]</h4>
 
-<p>RADIUSDesk Installer now has support for <a href="https://coova.github.io/">CoovaChilli</a> installation. By default, CoovaChilli is not installed with RADIUSDesk as it is an optional component but to install CoovaChilli using RADIUSDesk Installer, edit <strong><code>roles/radiusdesk/vars/[OS_Family].yml</code></strong> where [OS_Family] can be <strong>Debian</strong> or <strong>RedHat</strong> if you are using Ubuntu or RHEL/CentOS repectively. Change <code>enable_coovachilli_support: no</code> to <code>enable_coovachilli_support: yes</code> and make sure <code>coovachilii_lan_if</code> and coovachilii_wan_if</p> match your interface names for <strong>LAN</strong> and <strong>WAN</strong> respectively. Once you are done making the changes, go ahead and run the Installer as describe above and you should have CoovaChilli setup for you.</p>
+<p>RADIUSDesk Installer now has support for <a href="https://coova.github.io/">CoovaChilli</a> installation. Select option 2 from the Installer menu and enter the LAN, WAN and UAM Secret respectively to Install CoovaChilli together with RADIUSDesk.</p>
 
 <h4>
 <a id="rd-note" class="anchor" href="#rd-note" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Note</h4>
