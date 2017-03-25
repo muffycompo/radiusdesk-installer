@@ -11,8 +11,8 @@
   </head>
   <body>
     <section class="page-header">
-      <h1 class="project-name">RADIUSDesk Installer 1.2.0</h1>
-      <h2 class="project-tagline">This project tries to simplify or ease the process of getting a working installation of RADIUSDesk on a vanilla/minimal installation of RHEL/CentOS 6.x/7.x and Ubuntu 14.x/15.x/16.x servers.</h2>
+      <h1 class="project-name">RADIUSDesk Installer 1.2.1</h1>
+      <h2 class="project-tagline">RADIUSDesk Installer is an Ansible powered utility that attempts to simplify the process of getting a working installation of RADIUSDesk on a vanilla/minimal installation of RHEL/CentOS 6.7/7.x and Ubuntu 14.04/15.10/16.04/16.10 servers.</h2>
       <a href="https://github.com/muffycompo/radiusdesk-installer" class="btn">View on GitHub</a>
       <a href="https://github.com/muffycompo/radiusdesk-installer/zipball/master" class="btn">Download .zip</a>
       <a href="https://github.com/muffycompo/radiusdesk-installer/tarball/master" class="btn">Download .tar.gz</a>
@@ -25,7 +25,7 @@
 <h2>
 <a id="introduction" class="anchor" href="#introduction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Introduction</h2>
 
-<p>RADIUSDesk Installer is an <a href="http://www.ansible.com">Ansible</a> powered utility that attempts to simplify the process of getting a working installation of <a href="http://www.radiusdesk.com">RADIUSDesk</a> on a vanilla/minimal installation of RHEL/CentOS 6.x/7.x and Ubuntu 14.x/15.x/16.x servers.</p>
+<p>RADIUSDesk Installer is an <a href="http://www.ansible.com">Ansible</a> powered utility that attempts to simplify the process of getting a working installation of <a href="http://www.radiusdesk.com">RADIUSDesk</a> on a vanilla/minimal installation of RHEL/CentOS 6.x/7.x and Ubuntu 14.04/15.10/16.04/16.10 servers.</p>
 
 <h2>
 <a id="prerequisite" class="anchor" href="#prerequisite" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Prerequisite</h2>
@@ -37,11 +37,11 @@
 
 <p>To Install Python which should come by default in most Linux distributions, you can use your package manager:</p>
 
-<p><strong>RHEL/CentOS 6.x/7.x</strong></p>
+<p><strong>RHEL/CentOS 6.7/7.x</strong></p>
 
 <p><code>yum install -y python</code></p>
 
-<p><strong>Ubuntu 14.x/15.x/16.x</strong></p>
+<p><strong>Ubuntu 14.04/15.10/16.04/16.10</strong></p>
 
 <p><code>apt-get install -y python</code></p>
 
@@ -52,7 +52,7 @@
 
 <p>To Install Ansible, use your package manager and if your distribution comes with an older version of Ansible check the following steps to install the latest Ansible package:</p>
 
-<p><strong>RHEL/CentOS 6.x/7.x</strong></p>
+<p><strong>RHEL/CentOS 6.7/7.x</strong></p>
 
 <pre><code>yum install -y epel-release
 yum install -y ansible
@@ -60,7 +60,7 @@ yum install -y ansible
 
 <p><strong>Note:</strong> To Manually install EPEL repositories, Visit the <a href="https://fedoraproject.org/wiki/EPEL">EPEL Wiki</a> </p>
 
-<p><strong>Ubuntu 14.x/15.x/16.x</strong></p>
+<p><strong>Ubuntu 14.04/15.10/16.04/16.10</strong></p>
 
 <pre><code>apt-add-repository ppa:ansible/ansible
 apt-get update
@@ -95,6 +95,16 @@ apt-get install -y ansible
 <li><p>Grab yourself a <strong>cup of Coffee</strong> as the installer provisions your server with RADIUSDesk and reboot the server to ensure everything is persistent on reboot <strong>[Optional]</strong>.</p></li>
 </ol>
 
+<h4>
+<a id="installing-coovachilli-optional" class="anchor" href="#installing-coovachilli-optional" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installing CoovaChilli [Optional]</h4>
+
+<p>RADIUSDesk Installer now has support for <a href="https://coova.github.io/">CoovaChilli</a> installation. By default, CoovaChilli is not installed with RADIUSDesk as it is an optional component but to install CoovaChilli using RADIUSDesk Installer, edit <strong><code>roles/radiusdesk/vars/[OS_Family].yml</code></strong> where [OS_Family] can be <strong>Debian</strong> or <strong>RedHat</strong> if you are using Ubuntu or RHEL/CentOS repectively. Change <code>enable_coovachilli_support: no</code> to <code>enable_coovachilli_support: yes</code> and make sure <code>coovachilii_lan_if</code> and coovachilii_wan_if</p> match your interface names for <strong>LAN</strong> and <strong>WAN</strong> respectively. Once you are done making the changes, go ahead and run the Installer as describe above and you should have CoovaChilli setup for you.</p>
+
+<h4>
+<a id="rd-note" class="anchor" href="#rd-note" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Note</h4>
+
+<p>Ensure you use a <a href="http://www.yamllint.com/">YAML linter</a> to check your syntax anytime you make any change to the variable file(s).</p>
+
 <h2>
 <a id="video-walkthrough" class="anchor" href="#video-walkthrough" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Video Walkthrough</h2>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/VedzdhcBD5A" frameborder="0" allowfullscreen></iframe>
@@ -106,7 +116,6 @@ apt-get install -y ansible
 <ol>
 <li><p>RADIUSDesk installer is Customizable (Edit <code>roles/radiusdesk/vars/Debian.yml</code> or <code>roles/radiusdesk/vars/RedHat.yml</code> depending on your Operating System family like Debian, RedHat etc). <strong>Note:</strong> ensure you use a YAML linter to check your syntax anytime you make any change to the variable file(s).</p></li>
 <li><p>Somewhat modularized, so you can always extend RADIUSDesk installer to support your ever growing environment</p></li>
-<li><p>Support for PPTPD <strong>[Optional]</strong></p></li>
 <li><p>Support for CoovaChilli Captive portal <strong>[Optional]</strong></p></li>
 <li><p>Support for Dynamic Login Pages <strong>[Optional]</strong></p></li>
 </ol>
@@ -120,8 +129,8 @@ apt-get install -y ansible
 <p>RADIUSDesk Installer has been tested on the following Linux Distros:</p>
 
 <ul>
-<li><strong>RHEL/CentOS 6.x/7.x</strong></li>
-<li><strong>Ubuntu 14.x/15.x/16.x</strong><br>
+<li><strong>RHEL/CentOS 6.7/7.x</strong></li>
+<li><strong>Ubuntu 14.04/15.10/16.04/16.10</strong><br>
 </ul>
 </li>
 </ol>
@@ -153,7 +162,7 @@ sudo apt-get upgrade
 
 <ol>
 <li>
-<a href="http://www.maomuffy.com/introduction-to-radiusdesk-with-rhelcentos-6-x-mini-course/">RADIUSDesk Mini Course (Old)</a> by <a href="http://ng.linkedin.com/in/mfawaalfredonen/">Mfawa Alfred Onen</a>
+<a href="http://www.maomuffy.com/introduction-to-radiusdesk-with-rhelcentos-6-x-mini-course/">RADIUSDesk Mini Course (Old)</a> by <a href="http://maomuffy.com">Mfawa Alfred Onen</a>
 </li>
 <li>
 <a href="http://www.radiusdesk.com">RADIUSDesk Project</a> by <a href="http://www.linkedin.com/pub/dirk-van-der-walt/11/b64/79a">Dirk van der Walt</a>
