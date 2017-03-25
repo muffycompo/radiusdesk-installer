@@ -14,16 +14,29 @@ RD_INSTALLER_PATH=$(pwd)
 echo $RD_TITLE
 echo $UNDERLINE_STRING
 
-PS3='Select an Option: '
-options=("[I]nstall/Reconfigure RADIUSDesk" "[Q]uit")
+PS3='Select an Option or [q] to Quit: '
+options=("[I]nstall RADIUSDesk" "Install RADIUSDesk + [C]oovaChilli")
 select opt in "${options[@]}"
 do
     if [[ "$REPLY" == "1" || "$REPLY" == "I" || "$REPLY" == "i" ]]; then
-        echo "Installing/Reconfiguring RADIUSDesk"
+        echo "Installing RADIUSDesk"
         echo ""
         $ANSIBLE_EXECUTABLE -i $RD_INSTALLER_PATH/servers $RD_INSTALLER_PATH/rd-installer-ansible.yml
         break
-    elif [[ "$REPLY" == "2" || "$REPLY" == "Q" || "$REPLY" == "q" ]]; then
+    elif [[ "$REPLY" == "2" || "$REPLY" == "C" || "$REPLY" == "c" ]]; then
+        echo "Installing RADIUSDesk + CoovaChilli"
+        echo ""
+        read -p "CoovaChilli LAN Interface (default: eth0): " CC_LAN_IF
+        read -p "CoovaChilli WAN Interface (default: eth1): " CC_WAN_IF
+        read -sp "CoovaChilli UAM Secret (default: greatsecret): " CC_UAM_SECRET
+        CC_LAN_IF="${CC_LAN_IF:=eth0}"
+        CC_WAN_IF="${CC_WAN_IF:=eth1}"
+        CC_UAM_SECRET="${CC_UAM_SECRET:=greatsecret}"
+        echo ""
+        echo "$CC_LAN_IF - $CC_WAN_IF - $CC_UAM_SECRET"
+        $ANSIBLE_EXECUTABLE -i $RD_INSTALLER_PATH/servers $RD_INSTALLER_PATH/rd-installer-ansible.yml --extra-vars "enable_coovachilli_support=yes coovachilii_lan_if=$CC_LAN_IF coovachilii_wan_if=$CC_WAN_IF coovachilii_uam_secret=$CC_UAM_SECRET"
+        break
+    elif [[ "$REPLY" == "3" || "$REPLY" == "Q" || "$REPLY" == "q" ]]; then
         echo "Quitting RADIUSDesk Installer"
         break
     else

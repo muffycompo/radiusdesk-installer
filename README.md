@@ -60,7 +60,7 @@ SSH into the local/remote managed node/server at least once to ensure it is adde
 3. Grab yourself a **Cup of Coffee** as the installer provisions your server with RADIUSDesk and reboot the server to ensure everything is persistent on reboot **[Optional]**.
 
 #### Installing CoovaChilli [Optional]
-RADIUSDesk Installer now has support for [CoovaChilli](https://coova.github.io/) installation. By default, CoovaChilli is not installed with RADIUSDesk as it is an optional component but to install CoovaChilli using RADIUSDesk Installer, edit **`roles/radiusdesk/vars/[OS_Family].yml`** where [OS_Family] can be **Debian** or **RedHat** if you are using Ubuntu or RHEL/CentOS repectively. Change `enable_coovachilli_support: no` to `enable_coovachilli_support: yes` and make sure `coovachilii_lan_if` and `coovachilii_wan_if` match your interface names for **LAN** and **WAN** respectively. Once you are done making the changes, go ahead and run the Installer as describe above and you should have CoovaChilli setup for you.
+RADIUSDesk Installer now has support for [CoovaChilli](https://coova.github.io/) installation. Select option 2 from the Installer menu and enter the LAN, WAN and UAM Secret respectively to Install CoovaChilli together with RADIUSDesk.
 
 #### Note
 Ensure you use a [YAML linter](http://www.yamllint.com/) to check your syntax anytime you make any change to the variable file(s).
