@@ -54,4 +54,4 @@
 
 - meta: flush_handlers
 
-- debug: msg="Admin Portal => http://{{ ansible_default_ipv4.address }}/rd/build/production/Rd/index.html"
+- debug: msg="Admin Portal => http://{{ ansible_default_ipv4.address }}/rd"

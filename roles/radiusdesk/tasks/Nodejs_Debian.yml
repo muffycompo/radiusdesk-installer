@@ -1,10 +1,6 @@
 ---
 - name: Adding Nodesource Nodejs Apt Key for RadiusDesk (Ubuntu 14+)
-  apt_key:
-    id=68576280
-    url={{ node_apt_repo_key }}
-    state=present
-    validate_certs=False
+  shell: "wget --quiet -O - https://deb.nodesource.com/gpgkey/nodesource.gpg.key | sudo apt-key add -"
 
 - name: Adding Nodejs Main Repository for RadiusDesk (Ubuntu 14+)
   apt_repository:
@@ -67,7 +63,7 @@
     - Restart Nodejs Socketio
   when: "ansible_distribution_version < '16'"
 
-- name: Installing Nodejs Socket.io Service (Ubuntu 16+ Only)
+- name: Installing Nodejs Socket.io Service (Ubuntu 16+)
   file:
     path=/usr/bin/node
     src=/usr/bin/nodejs
@@ -75,6 +71,6 @@
     state=link
   when: "ansible_distribution_version >= '16'"
 
-- name: Reloading Nodejs Socket.io Daemon (Ubuntu 16+ Only)
+- name: Reloading Nodejs Socket.io Daemon (Ubuntu 16+)
   shell: "systemctl daemon-reload && systemctl enable {{ nodejs_socketio_service_name }} && systemctl start {{ nodejs_socketio_service_name }}"
   when: "ansible_distribution_version >= '16'"

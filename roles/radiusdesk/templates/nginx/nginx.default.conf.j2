@@ -61,6 +61,12 @@ server {
 		 rewrite ^/cake2/rd_cake/(.*)$ /cake2/rd_cake/webroot/$1 break; 
 		 try_files $uri $uri/ /cake2/rd_cake/webroot/index.php?q=$uri&$args; 
 	} 
+
+    location /cake3/rd_cake {
+       rewrite ^/cake3/rd_cake(.+)$ /cake3/rd_cake/webroot$1 break;
+       try_files $uri $uri/ /cake3/rd_cake/index.php$is_args$args;
+    }
+
     # deny access to .htaccess files, if Apache's document root
     # concurs with nginx's one
     #
