@@ -1,7 +1,7 @@
-RADIUSDesk Installer 1.2.0
+RADIUSDesk Installer 1.2.1
 ===========================
 ## Introduction
-RADIUSDesk Installer is an [Ansible](http://www.ansible.com) powered utility that attempts to simplify the process of getting a working installation of [RADIUSDesk](http://www.radiusdesk.com) on a vanilla/minimal installation of RHEL/CentOS 6.x/7.x and Ubuntu 14.x/15.x/16.x servers.
+RADIUSDesk Installer is an [Ansible](http://www.ansible.com) powered utility that attempts to simplify the process of getting a working installation of [RADIUSDesk](http://www.radiusdesk.com) on a vanilla/minimal installation of RHEL/CentOS 6.7/7.x and Ubuntu 14.04/15.10/16.04/16.10 servers.
 
 ## Prerequisite
 #### 1] Install Python
@@ -9,11 +9,11 @@ As of the time of this writing, Python 3 is not supported by Ansible so please t
 
 To Install Python which should come by default in most Linux distributions, you can use your package manager:
 
-**RHEL/CentOS 6.x/7.x**
+**RHEL/CentOS 6.7/7.x**
 
 `yum install -y python`
 
-**Ubuntu 14.x/15.x/16.x**
+**Ubuntu 14.04/15.10/16.04/16.10**
 
 `apt-get install -y python`
 
@@ -22,7 +22,7 @@ RADIUSDesk Installer utilizes the latest version of Ansible and for this you mus
 
 To Install Ansible, use your package manager and if your distribution comes with an older version of Ansible check the following steps to install the latest Ansible package:
 
-**RHEL/CentOS 6.x/7.x**
+**RHEL/CentOS 6.7/7.x**
 
 ```
 yum install -y epel-release
@@ -31,7 +31,7 @@ yum install -y ansible
 
 **Note:** To Manually install EPEL repositories, Visit the [EPEL Wiki](https://fedoraproject.org/wiki/EPEL) 
 
-**Ubuntu 14.x/15.x/16.x**
+**Ubuntu 14.04/15.10/16.04/16.10**
 
 ```
 apt-add-repository ppa:ansible/ansible
@@ -59,23 +59,25 @@ SSH into the local/remote managed node/server at least once to ensure it is adde
 
 3. Grab yourself a **Cup of Coffee** as the installer provisions your server with RADIUSDesk and reboot the server to ensure everything is persistent on reboot **[Optional]**.
 
+#### Installing CoovaChilli [Optional]
+RADIUSDesk Installer now has support for [CoovaChilli](https://coova.github.io/) installation. By default, CoovaChilli is not installed with RADIUSDesk as it is an optional component but to install CoovaChilli using RADIUSDesk Installer, edit **`roles/radiusdesk/vars/[OS_Family].yml`** where [OS_Family] can be **Debian** or **RedHat** if you are using Ubuntu or RHEL/CentOS repectively. Change `enable_coovachilli_support: no` to `enable_coovachilli_support: yes` and make sure `coovachilii_lan_if` and `coovachilii_wan_if` match your interface names for **LAN** and **WAN** respectively. Once you are done making the changes, go ahead and run the Installer as describe above and you should have CoovaChilli setup for you.
+
+#### Note
+Ensure you use a [YAML linter](http://www.yamllint.com/) to check your syntax anytime you make any change to the variable file(s).
+
 ## Features
-1. RADIUSDesk installer is Customizable (Edit `roles/radiusdesk/vars/Debian.yml` or `roles/radiusdesk/vars/RedHat.yml` depending on your Operating System family like Debian, RedHat etc). **Note:** ensure you use a YAML linter to check your syntax anytime you make any change to the variable file(s).
+1. RADIUSDesk installer is somewhat modularized, so you can always extend RADIUSDesk installer to support your ever growing environments.
 
-2. Somewhat modularized, so you can always extend RADIUSDesk installer to support your ever growing environments.
+2. Support for CoovaChilli Captive portal **[Optional]**
 
-3. Support for PPTPD **[Optional]**
-
-4. Support for CoovaChilli Captive portal **[Optional]**
-
-5. Support for Dynamic Login Pages **[Optional]**
+3. Support for Dynamic Login Pages **[Optional]**
 
 ## Compatibility
 1.	RADIUSDesk Installer is Compatible with Ansible 1.9+
 2.	RADIUSDesk Installer has been tested on the following Linux Distros:
 	
-    - **RHEL/CentOS 6.x/7.x**
-    - **Ubuntu 14.x/15.x/16.x**    
+    - **RHEL/CentOS 6.7/7.x**
+    - **Ubuntu 14.04/15.10/16.04/16.10**    
 
 ## F.A.Q
 1. Why do I get an SSL3 handshake error when running RADIUSDesk Installer on Ubuntu 14.x?
@@ -89,20 +91,10 @@ SSH into the local/remote managed node/server at least once to ensure it is adde
     - Usually, this is caused by having SELinux enabled or iptables running the default rules. Make sure SELinux is set to Permissive (`setenforce 0`) or disabled (`vi /etc/sysconfig/selinux`)
 
 ## Resources
-1. [RADIUSDesk Mini Course (Old)](http://www.maomuffy.com/introduction-to-radiusdesk-with-rhelcentos-6-x-mini-course/) by [Mfawa Alfred Onen](http://ng.linkedin.com/in/mfawaalfredonen/)
+1. [RADIUSDesk Mini Course (Old)](http://www.maomuffy.com/introduction-to-radiusdesk-with-rhelcentos-6-x-mini-course/) by [Mfawa Alfred Onen](http://maomuffy.com)
 2. [RADIUSDesk Project](http://www.radiusdesk.com) by [Dirk van der Walt](http://www.linkedin.com/pub/dirk-van-der-walt/11/b64/79a)
 3. [RADIUSDesk Installer Videos](http://www.maomuffy.com/radiusdesk-installer-project/)
 
 ## Contributions
 1. Anyone is welcome to contribute by sending a pull request with your desired feature tested and implemented.
 2. If you have tested the installer in a Linux Distribution that is not in the compatibility list, kindly send an email to muffycompoqm[at]gmail[dot]com.
-
-## Copyright and License
-
-Copyright (c) 2016 Mfawa Alfred Onen
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
