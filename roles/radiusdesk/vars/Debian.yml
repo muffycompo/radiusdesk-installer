@@ -151,19 +151,19 @@ enable_coovachilli_support: no
 coovachilli_service_name: chilli
 coovachilli_conf_dir: "/etc/chilli"
 coovachilli_default_conf: "/etc/default/chilli"
-coovachilii_lan_if: "eth2"
-coovachilii_wan_if: "eth1"
-coovachilii_server_ip: "172.16.1.1"
-coovachilii_network_addr: "172.16.1.0"
-coovachilii_network_subnet: "255.255.0.0"
-coovachilii_uam_port: 3990
-coovachilii_uam_secret: "greatsecret"
-coovachilii_radius_server1: "localhost"
-coovachilii_radius_server2: "localhost"
-coovachilii_dns_server1: "208.67.222.222"
-coovachilii_dns_server2: "208.67.220.220"
-coovachilii_user: "chilli"
-coovachilii_group: "chilli"
+coovachilli_lan_if: "eth2"
+coovachilli_wan_if: "eth1"
+coovachilli_server_ip: "172.16.1.1"
+coovachilli_network_addr: "172.16.1.0"
+coovachilli_network_subnet: "255.255.0.0"
+coovachilli_uam_port: 3990
+coovachilli_uam_secret: "greatsecret"
+coovachilli_radius_server1: "localhost"
+coovachilli_radius_server2: "localhost"
+coovachilli_dns_server1: "208.67.222.222"
+coovachilli_dns_server2: "208.67.220.220"
+coovachilli_user: "chilli"
+coovachilli_group: "chilli"
 coovachilli_coaport: 3799
 
 # MAO Repository
