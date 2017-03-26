@@ -34,7 +34,7 @@ do
         CC_UAM_SECRET="${CC_UAM_SECRET:=greatsecret}"
         echo ""
         echo "$CC_LAN_IF - $CC_WAN_IF - $CC_UAM_SECRET"
-        $ANSIBLE_EXECUTABLE -i $RD_INSTALLER_PATH/servers $RD_INSTALLER_PATH/rd-installer-ansible.yml --extra-vars "enable_coovachilli_support=yes coovachilii_lan_if=$CC_LAN_IF coovachilii_wan_if=$CC_WAN_IF coovachilii_uam_secret=$CC_UAM_SECRET"
+        $ANSIBLE_EXECUTABLE -i $RD_INSTALLER_PATH/servers $RD_INSTALLER_PATH/rd-installer-ansible.yml --extra-vars "enable_coovachilli_support=yes coovachilli_lan_if=$CC_LAN_IF coovachilli_wan_if=$CC_WAN_IF coovachilli_uam_secret=$CC_UAM_SECRET"
         break
     elif [[ "$REPLY" == "3" || "$REPLY" == "Q" || "$REPLY" == "q" ]]; then
         echo "Quitting RADIUSDesk Installer"
