@@ -2,7 +2,7 @@
 - name: Checking for Supported Ubuntu Release
   fail:
     msg="{{ ansible_distribution }} {{ ansible_distribution_version }} is not supported by RADIUSDesk Installer"
-  when: ansible_distribution != 'Ubuntu' or ansible_distribution_release != 'vivid' or ansible_distribution_release != 'trusty' or ansible_distribution_release != 'yakkety' or ansible_distribution_release != 'xenial'
+  when: ansible_os_family == 'Debian' and (ansible_distribution != 'Ubuntu' or ansible_distribution_release != 'vivid' or ansible_distribution_release != 'trusty' or ansible_distribution_release != 'yakkety' or ansible_distribution_release != 'xenial')
 
 - name: Checking for Supported RHEL/CentOS Release
   fail:
