@@ -110,7 +110,7 @@ my @scenario_string = ("auth User-Name=$username User-Password=$password Called-
 
 if($disconn_flag){
 
-    system("echo \"User-Name = $username\" | radclient {{ coovachilii_radius_server1 }}:{{ coovachilli_coaport }} 40 {{ freeradius_secret }}");
+    system("echo \"User-Name = $username\" | radclient {{ coovachilli_radius_server1 }}:{{ coovachilli_coaport }} 40 {{ freeradius_secret }}");
     exit;
 }
 
@@ -161,12 +161,12 @@ if (!$radclient) {
 use IPC::Open3;
 use IO::Select;
 
-my $auth_host    = "{{ coovachilii_radius_server1 }}";
+my $auth_host    = "{{ coovachilli_radius_server1 }}";
 my $auth_port    = "1812";
 my $auth_secret  = "{{ freeradius_secret }}";
 my $auth_timeout = 2;
 my $auth_retry   = 2;
-my $acct_host    = "{{ coovachilii_radius_server1 }}";
+my $acct_host    = "{{ coovachilli_radius_server1 }}";
 my $acct_port    = "1813";
 my $acct_secret  = "{{ freeradius_secret }}";
 my $acct_timeout = 2;
