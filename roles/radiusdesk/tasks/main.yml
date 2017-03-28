@@ -7,7 +7,7 @@
 - name: Checking for Supported RHEL/CentOS Release
   fail:
     msg="{{ ansible_distribution }} {{ ansible_distribution_version }} is not supported by RADIUSDesk Installer"
-  when: ansible_os_family == 'RedHat' and (ansible_distribution_version|int < 6 or ansible_distribution_version|int >= 8)
+  when: ansible_os_family == 'RedHat' and (ansible_distribution_major_version|int < 6 or ansible_distribution_major_version|int > 7)
 
 - name: Adding RadiusDesk Variables (Ubuntu 14+)
   include_vars: "{{ ansible_os_family }}.yml"
