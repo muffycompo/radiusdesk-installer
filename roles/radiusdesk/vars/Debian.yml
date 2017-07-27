@@ -168,7 +168,7 @@ coovachilli_coaport: 3799
 
 # MAO Repository
 mao_apt_ppa_repo: "ppa:muffycompoqm/rd-installer-fr3"
-mao_apt_repo_key: "http://apt.maomuffy.com/ubuntu/apt_keys/rd_installer_mao.asc"
+mao_apt_repo_key: "http://maomuffy.com/apt/ubuntu/apt_keys/rd_installer_mao.asc"
 
 # NodeJS Repository
 node_apt_repo_key: "https://deb.nodesource.com/gpgkey/nodesource.gpg.key"
