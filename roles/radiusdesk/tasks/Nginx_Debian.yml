@@ -31,7 +31,7 @@
   apt_repository:
     repo="{{ php7_apt_ppa_repo }}"
     state=present
-  when: "ansible_distribution_version == '14'"
+  when: "ansible_distribution_release == 'trusty'"
 
 - name: Installing PHP7 packages (Ubuntu 14+)
   apt:
