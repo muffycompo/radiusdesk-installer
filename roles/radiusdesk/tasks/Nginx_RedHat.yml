@@ -103,14 +103,14 @@
   shell: cp -a {{ temp_src_dir | quote }}/rd {{ nginx_webroot | quote }}/
 
 - name: Downloading RadiusDesk Login Source from Subversion (RHEL/CentOS 6+)
-  shell: svn checkout -r {{ rd_svn_revision }} {{ rd_login_svn_repo }} {{ temp_src_dir }}/rd_login
+  shell: svn checkout -r {{ rd_svn_revision }} {{ rd_login_svn_repo }} {{ temp_src_dir }}/login
 
 - name: Copying RadiusDesk Login Source webroot (RHEL/CentOS 6+)
-  shell: cp -a {{ temp_src_dir | quote }}/rd_login {{ nginx_webroot | quote }}/
+  shell: cp -a {{ temp_src_dir | quote }}/login {{ nginx_webroot | quote }}/
 
 - name: Configuring UAM Service for RadiusDesk Login (RHEL/CentOS 6+)
   template:
-    dest="{{ nginx_webroot }}/rd_login/services/uam.php"
+    dest="{{ nginx_webroot }}/login/services/uam.php"
     src="uam.php.j2"
 
 - name: Checking if we already downloaded ExtJS 6.2 sources (Ubuntu 14+)
