@@ -33,7 +33,7 @@
     state=installed
     update_cache=yes
   with_items: "{{ rd_php7_pkgs }}"
-  when: "ansible_distribution_version >= '16'"
+  when: "ansible_distribution_version == '16'"
 
 - name: Installing PHP7.1 packages (Ubuntu 14+)
   apt:
