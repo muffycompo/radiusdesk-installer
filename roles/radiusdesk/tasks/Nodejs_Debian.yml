@@ -19,14 +19,6 @@
     update_cache=yes
   with_items: "{{ nodejs_pkgs }}"
 
-- name: Installing Nodejs Socket.io Service (Ubuntu 16+)
-  file:
-    path=/usr/bin/node
-    src=/usr/bin/nodejs
-    force=yes
-    state=link
-  when: "ansible_distribution_version >= '16'"
-  
 - name: "Installing Nodejs modules (tail,forever,mysql,connect) for RadiusDesk (Ubuntu 14+)"
   npm:
     name={{ item }}
