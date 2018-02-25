@@ -11,8 +11,8 @@
   </head>
   <body>
     <section class="page-header">
-      <h1 class="project-name">RADIUSDesk Installer 1.2.1</h1>
-      <h2 class="project-tagline">RADIUSDesk Installer is an Ansible powered utility that attempts to simplify the process of getting a working installation of RADIUSDesk on a vanilla/minimal installation of RHEL/CentOS 6.7/7.x and Ubuntu 14.04/15.10/16.04/16.10 servers.</h2>
+      <h1 class="project-name">RADIUSDesk Installer 1.2.2</h1>
+      <h2 class="project-tagline">RADIUSDesk Installer is an Ansible powered utility that attempts to simplify the process of getting a working installation of RADIUSDesk on a vanilla/minimal installation of RHEL/CentOS 6.7/7.x and Ubuntu 14.04/16.04/17.10/18.04 servers.</h2>
       <a href="https://github.com/muffycompo/radiusdesk-installer" class="btn">View on GitHub</a>
       <a href="https://github.com/muffycompo/radiusdesk-installer/zipball/master" class="btn">Download .zip</a>
       <a href="https://github.com/muffycompo/radiusdesk-installer/tarball/master" class="btn">Download .tar.gz</a>
@@ -25,7 +25,7 @@
 <h2>
 <a id="introduction" class="anchor" href="#introduction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Introduction</h2>
 
-<p>RADIUSDesk Installer is an <a href="http://www.ansible.com">Ansible</a> powered utility that attempts to simplify the process of getting a working installation of <a href="http://www.radiusdesk.com">RADIUSDesk</a> on a vanilla/minimal installation of RHEL/CentOS 6.x/7.x and Ubuntu 14.04/15.10/16.04/16.10 servers.</p>
+<p>RADIUSDesk Installer is an <a href="http://www.ansible.com">Ansible</a> powered utility that attempts to simplify the process of getting a working installation of <a href="http://www.radiusdesk.com">RADIUSDesk</a> on a vanilla/minimal installation of RHEL/CentOS 6.x/7.x and Ubuntu 14.04/16.04/17.10/18.04 servers.</p>
 
 <h2>
 <a id="prerequisite" class="anchor" href="#prerequisite" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Prerequisite</h2>
@@ -33,7 +33,7 @@
 <h4>
 <a id="1-install-python-27" class="anchor" href="#1-install-python-27" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1] Install Python</h4>
 
-<p>As of the time of this writing, Python 3 is not supported by Ansible so please take note. <a href="http://docs.ansible.com/ansible/intro_installation.html#managed-node-requirements">Managed Node Requirements</a></p>
+<p>As of the time of this writing, Ansible 2.2 has a tech preview support for Python 3, so please take note. <a href="http://docs.ansible.com/ansible/intro_installation.html#managed-node-requirements">Managed Node Requirements</a></p>
 
 <p>To Install Python which should come by default in most Linux distributions, you can use your package manager:</p>
 
@@ -41,7 +41,7 @@
 
 <p><code>yum install -y python</code></p>
 
-<p><strong>Ubuntu 14.04/15.10/16.04/16.10</strong></p>
+<p><strong>Ubuntu 14.04/16.04/17.10/18.04</strong></p>
 
 <p><code>apt-get install -y python</code></p>
 
@@ -60,7 +60,7 @@ yum install -y ansible
 
 <p><strong>Note:</strong> To Manually install EPEL repositories, Visit the <a href="https://fedoraproject.org/wiki/EPEL">EPEL Wiki</a> </p>
 
-<p><strong>Ubuntu 14.04/15.10/16.04/16.10</strong></p>
+<p><strong>Ubuntu 14.04/16.04/17.10/18.04</strong></p>
 
 <pre><code>apt-add-repository ppa:ansible/ansible
 apt-get update
@@ -129,7 +129,7 @@ apt-get install -y ansible
 
 <ul>
 <li><strong>RHEL/CentOS 6.7/7.x</strong></li>
-<li><strong>Ubuntu 14.04/15.10/16.04/16.10</strong><br>
+<li><strong>Ubuntu 14.04/16.04/17.10/18.04</strong><br>
 </ul>
 </li>
 </ol>
