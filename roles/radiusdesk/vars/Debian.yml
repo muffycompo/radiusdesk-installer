@@ -192,3 +192,6 @@ mao_apt_repo_key: "http://atapoly-bauchi.edu.ng/maomuffy/apt/ubuntu/apt_keys/rd-
 # NodeJS Repository
 node_apt_repo_key: "https://deb.nodesource.com/gpgkey/nodesource.gpg.key"
 
+# PHP7 Repository for Ubuntu 14
+php7_apt_ppa_repo: "ppa:ondrej/php"
+
