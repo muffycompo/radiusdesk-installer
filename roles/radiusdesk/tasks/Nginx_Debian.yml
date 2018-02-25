@@ -237,7 +237,13 @@
   service:
     name={{ php7_fpm_service_name }}
     state=started
-  when: "ansible_distribution_version >= '16'"
+  when: "ansible_distribution_version == '16'"
+
+- name: Ensuring PHP71-FPM is Started (Ubuntu 14+)
+  service:
+    name={{ php71_fpm_service_name }}
+    state=started
+  when: "ansible_distribution_version >= '17'"
 
 - name: Configuring RadiusDesk Cron Jobs (Ubuntu 14+)
   template:
