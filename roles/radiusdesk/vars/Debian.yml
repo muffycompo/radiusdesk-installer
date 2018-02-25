@@ -39,6 +39,19 @@ rd_php7_pkgs:
  - mysql-server
  - mysql-client
 
+# RadiusDesk PHP7 Packages (Ubuntu 14+)
+rd_php71_pkgs:
+ - php7.1-fpm
+ - php7.1-mysql
+ - php7.1-cli
+ - php7.1-gd
+ - php7.1-curl
+ - php7.1-intl
+ - php7.1-xml
+ - php7.1-mbstring
+ - mysql-server
+ - mysql-client
+
 # Nginx (Ubuntu 14+)
 nginx_pkg_name: nginx
 nginx_service_name: nginx
