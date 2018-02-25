@@ -1,6 +1,8 @@
 [www]
-{% if ansible_distribution_version >= '16' and ansible_distribution == 'Ubuntu' %}
+{% if ansible_distribution_version == '16' and ansible_distribution == 'Ubuntu' %}
 listen =  {{ php7_fpm_socket }}
+{% elif ansible_distribution_version >= '17' and ansible_distribution == 'Ubuntu' %}
+listen =  {{ php71_fpm_socket }}
 {% else %}
 listen =  {{ php_fpm_socket }}
 {% endif %}

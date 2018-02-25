@@ -78,6 +78,12 @@ php7_fpm_config: "/etc/php/7.0/fpm/pool.d/www.conf"
 php7_fpm_socket: "/var/run/php/php7.0-fpm.sock"
 php7_config_file: "/etc/php/7.0/cli/php.ini"
 
+# PHP7.1-FPM (Ubuntu 14+)
+php71_fpm_service_name: php7.1-fpm
+php71_fpm_config: "/etc/php/7.1/fpm/pool.d/www.conf"
+php71_fpm_socket: "/var/run/php/php7.1-fpm.sock"
+php71_config_file: "/etc/php/7.1/cli/php.ini"
+
 # Web server (Ubuntu 14+)
 web_user: www-data
 web_group: www-data

@@ -55,7 +55,7 @@
     - Start PHP-FPM
   when: "ansible_distribution_version < '16'"
 
-- name: Installing RadiusDesk packages (Ubuntu 16+)
+- name: Installing RadiusDesk packages (Ubuntu 16)
   apt:
     name={{ item }}
     state=installed
@@ -64,6 +64,17 @@
   notify:
     - Start Nginx
     - Start PHP7-FPM
+  when: "ansible_distribution_version == '16'"
+
+- name: Installing RadiusDesk packages (Ubuntu 17+)
+  apt:
+    name={{ item }}
+    state=installed
+    update_cache=yes
+  with_items: "{{ rd_pkgs }}"
+  notify:
+    - Start Nginx
+    - Start PHP71-FPM
   when: "ansible_distribution_version >= '16'"
 
 - name: Configuring PHP5-FPM to use UNIX sockets (Ubuntu 14+)
@@ -76,7 +87,13 @@
   template:
     src="nginx/php_fpm.www.conf.j2"
     dest={{ php7_fpm_config }}
-  when: "ansible_distribution_version >= '16'"
+  when: "ansible_distribution_version == '16'"
+
+- name: Configuring PHP7.1-FPM to use UNIX sockets (Ubuntu 14+)
+  template:
+    src="nginx/php_fpm.www.conf.j2"
+    dest={{ php71_fpm_config }}
+  when: "ansible_distribution_version >= '17'"
 
 - name: Configuring Nginx to use UNIX sockets (Ubuntu 14+)
   template:
@@ -104,6 +121,15 @@
   with_items:
     - "{{ nginx_pkg_name }}"
     - "{{ php7_fpm_service_name }}"
+  when: "ansible_distribution_version == '16'"
+
+- name: Restarting RadiusDesk services for PHP7.1 (Ubuntu 14+)
+  service:
+    name={{ item }}
+    state=restarted
+  with_items:
+    - "{{ nginx_pkg_name }}"
+    - "{{ php71_fpm_service_name }}"
   when: "ansible_distribution_version >= '16'"
 
 - name: Downloading CakePHP Source from Github (Ubuntu 14+)
@@ -187,7 +213,14 @@
     dest="{{ php7_config_file }}"
     line='date.timezone = {{ php_timezone }}'
     regexp='^;date.timezone'
-  when: "ansible_distribution_version >= '16'"
+  when: "ansible_distribution_version == '16'"
+
+- name: Fix PHP7.1 Default Timezone
+  lineinfile: 
+    dest="{{ php71_config_file }}"
+    line='date.timezone = {{ php_timezone }}'
+    regexp='^;date.timezone'
+  when: "ansible_distribution_version >= '17'"
 
 - name: Ensuring Nginx is Started (Ubuntu 14+)
   service:
