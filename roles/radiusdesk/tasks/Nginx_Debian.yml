@@ -33,13 +33,21 @@
     state=present
   when: "ansible_distribution_release == 'trusty'"
 
-- name: Installing PHP7 packages (Ubuntu 14+)
+- name: Installing PHP7 packages (Ubuntu 14)
+  apt:
+    name={{ item }}
+    state=installed
+    update_cache=yes
+  with_items: "{{ rd_php7_trusty_pkgs }}"
+  when: "ansible_distribution_release == 'trusty'"
+
+- name: Installing PHP7 packages (Ubuntu 16+)
   apt:
     name={{ item }}
     state=installed
     update_cache=yes
   with_items: "{{ rd_php7_pkgs }}"
-  when: "ansible_distribution_version <= '16'"
+  when: "ansible_distribution_version > '14'" or "ansible_distribution_version <= '16'"
 
 - name: Installing PHP7.1 packages (Ubuntu 14+)
   apt:
