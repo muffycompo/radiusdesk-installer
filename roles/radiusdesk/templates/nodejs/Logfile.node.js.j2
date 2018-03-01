@@ -28,7 +28,7 @@ io.configure(function (){
 
         var token       = handshakeData.query.token;
         var connection  = mysql.createConnection({
-        {% if enable_aws_rds_support == 'yes' %}
+        {% if enable_aws_rds_support %}
             host     : '{{ aws_rds_host }}',
         {% else %}
             host     : '{{ rd_db_host }}',

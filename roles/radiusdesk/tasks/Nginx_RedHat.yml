@@ -221,7 +221,7 @@
     login_password={{ aws_rds_password }}
     login_host={{ aws_rds_host }}
     login_port={{ aws_rds_port }}
-  when: enable_aws_rds_support == "yes"
+  when: enable_aws_rds_support
 
 - name: Creating RadiusDesk Database User (RHEL/CentOS 6+)
   mysql_user:
@@ -246,15 +246,15 @@
     login_port={{ aws_rds_port }}
     host={{ item }}"
   with_items: "{{ aws_rds_db_hosts }}"
-  when: enable_aws_rds_support == "yes"
+  when: enable_aws_rds_support
 
 - name: Copying RADIUSDesk Database SQL File for AWS RDS (RHEL/CentOS 6+)
   shell: cp -a {{ nginx_webroot }}/cake3/rd_cake/setup/db/rd.sql {{ temp_src_dir | quote }}/rd_aws.sql
-  when: enable_aws_rds_support == "yes"
+  when: enable_aws_rds_support
 
 - name: Updating RADIUSDesk Database SQL File for AWS RDS (RHEL/CentOS 6+)
   shell: sed -i.bk "s/DEFINER=\`root\`@\`localhost\`/DEFINER=CURRENT_USER /g" {{ temp_src_dir | quote }}/rd_aws.sql
-  when: enable_aws_rds_support == "yes"
+  when: enable_aws_rds_support
 
 - name: Importing RadiusDesk Database (RHEL/CentOS 6+)
   mysql_db:
@@ -273,7 +273,7 @@
     login_password={{ rd_db_password }}
     login_host={{ aws_rds_host }}
     login_port={{ aws_rds_port }}
-  when: enable_aws_rds_support == "yes"
+  when: enable_aws_rds_support
 
 - name: Updating RADIUSDesk Cake 2 Database Credentials (RHEL/CentOS 6+)
   template:

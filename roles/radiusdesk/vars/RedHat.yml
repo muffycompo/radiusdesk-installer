@@ -142,7 +142,7 @@ pptpd_local_ip_network: "10.20.30"
 pptpd_client_dir: "/etc/ppp"
 
 # CoovaChilli
-enable_coovachilli_support: no
+enable_coovachilli_support: false
 coovachilli_service_name: chilli
 coovachilli_conf_dir: "/etc/chilli"
 coovachilli_default_conf: ""
@@ -162,7 +162,7 @@ coovachilli_group: "chilli"
 coovachilli_coaport: 3799
 
 # AWS RDS
-enable_aws_rds_support: no
+enable_aws_rds_support: false
 aws_rds_user: "root"
 aws_rds_password: "rdpassword"
 aws_rds_host: "rd-example.rds.amazonaws.com"
