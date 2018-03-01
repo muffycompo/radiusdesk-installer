@@ -1,4 +1,6 @@
 #!/bin/bash
+# Author: Mfawa Alfred Onen <muffycompoqm@gmail.com>
+# Website: http://maomuffy.com
 # Bash Menu Script for RADIUSDesk Installer
 clear
 echo ""

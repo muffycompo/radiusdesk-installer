@@ -28,10 +28,14 @@ io.configure(function (){
 
         var token       = handshakeData.query.token;
         var connection  = mysql.createConnection({
-            host     : 'localhost',
-            user     : 'rd',
-            password : 'rd',
-            database : 'rd'
+        {% if enable_aws_rds_support == 'yes' %}
+            host     : '{{ aws_rds_host }}',
+        {% else %}
+            host     : '{{ rd_db_host }}',
+        {% endif %}
+            user     : '{{ rd_db_user }}',
+            password : '{{ rd_db_password }}',
+            database : '{{ rd_db_name }}'
         });
         connection.connect();
 

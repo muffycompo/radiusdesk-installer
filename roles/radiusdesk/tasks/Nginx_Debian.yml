@@ -206,7 +206,7 @@
     mode=0664
     copy=no
 
-- name: Correcting Webroot ownership and permissions (Ubuntu 14+)
+- name: Updating Webroot ownership and permissions (Ubuntu 14+)
   file:
     path={{ nginx_webroot }}
     owner={{ web_user }}
@@ -306,6 +306,16 @@
     login_password={{ mysql_root_password }}
   with_items: "{{ mysql_db_hosts }}"
 
+- name: Creating RadiusDesk Database on AWS RDS (Ubuntu 14+)
+  mysql_db:
+    name={{ rd_db_name }}
+    state=present
+    login_user={{ aws_rds_user }}
+    login_password={{ aws_rds_password }}
+    login_host={{ aws_rds_host }}
+    login_port={{ aws_rds_port }}
+  when: enable_aws_rds_support == "yes"
+
 - name: Creating RadiusDesk Database (Ubuntu 14+)
   mysql_db:
     name={{ rd_db_name }}
@@ -324,6 +334,28 @@
     host={{ item }}"
   with_items: "{{ mysql_db_hosts }}"
 
+- name: Creating RadiusDesk Database User on AWS RDS (Ubuntu 14+)
+  mysql_user:
+    "name={{ rd_db_user }}
+    password={{ rd_db_password }}
+    priv={{ rd_db_name }}.*:ALL
+    state=present
+    login_user={{ aws_rds_user }}
+    login_password={{ aws_rds_password }}
+    login_host={{ aws_rds_host }}
+    login_port={{ aws_rds_port }}
+    host={{ item }}"
+  with_items: "{{ aws_rds_db_hosts }}"
+  when: enable_aws_rds_support == "yes"
+
+- name: Copying RADIUSDesk Database SQL File for AWS RDS (Ubuntu 14+)
+  shell: cp -a {{ nginx_webroot }}/cake3/rd_cake/setup/db/rd.sql {{ temp_src_dir | quote }}/rd_aws.sql
+  when: enable_aws_rds_support == "yes"
+
+- name: Updating RADIUSDesk Database for AWS RDS (Ubuntu 14+)
+  shell: sed -i.bk "s/DEFINER=\`root\`@\`localhost\`/DEFINER=CURRENT_USER /g" {{ temp_src_dir | quote }}/rd_aws.sql
+  when: enable_aws_rds_support == "yes"
+
 - name: Importing RadiusDesk Database (Ubuntu 14+)
   mysql_db:
     state=import
@@ -331,3 +363,24 @@
     target={{ nginx_webroot }}/cake3/rd_cake/setup/db/rd.sql
     login_user=root
     login_password={{ mysql_root_password }}
+
+- name: Importing RadiusDesk Database to AWS RDS (Ubuntu 14+)
+  mysql_db:
+    state=import
+    name={{ rd_db_name }}
+    target={{ temp_src_dir | quote }}/rd_aws.sql
+    login_user={{ rd_db_user }}
+    login_password={{ rd_db_password }}
+    login_host={{ aws_rds_host }}
+    login_port={{ aws_rds_port }}
+  when: enable_aws_rds_support == "yes"
+
+- name: Updating RADIUSDesk Cake 2 Database Credentials (Ubuntu 14+)
+  template:
+    src="database.php.j2"
+    dest="{{ nginx_webroot }}/cake2/rd_cake/Config/database.php"
+
+- name: Updating RADIUSDesk Cake 3 Database Credentials (Ubuntu 14+)
+  template:
+    src="app.php.j2"
+    dest="{{ nginx_webroot }}/cake3/rd_cake/config/app.php"

@@ -59,4 +59,7 @@
 
 - meta: flush_handlers
 
-- debug: msg="Admin Portal => http://{{ ansible_default_ipv4.address }}/rd"
+- debug:
+  msg: "Admin Portal => http://{{ ansible_default_ipv4.address }}/rd"
+- debug:
+  msg: "Username: root Password: admin"

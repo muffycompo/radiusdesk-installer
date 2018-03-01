@@ -109,6 +109,7 @@ allow_vulnerable_openssl: yes
 rd_db_user: rd
 rd_db_password: rd
 rd_db_name: rd
+rd_db_host: localhost
 
 # MySQL (RHEL/CentOS 6+)
 mysql_old_root_password: ""
@@ -160,3 +161,12 @@ coovachilli_user: "chilli"
 coovachilli_group: "chilli"
 coovachilli_coaport: 3799
 
+# AWS RDS
+enable_aws_rds_support: no
+aws_rds_user: "root"
+aws_rds_password: "rdpassword"
+aws_rds_host: "rd-example.rds.amazonaws.com"
+aws_rds_port: 3306
+aws_rds_db_hosts:
+ - 127.0.0.1
+ - "%"

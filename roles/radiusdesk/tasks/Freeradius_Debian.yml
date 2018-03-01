@@ -73,14 +73,21 @@
     group={{ freeradius_group }}
     mode=0644
     src="radius/dynamic-clients.j2"
+ 
+- name: Updating RadiusDesk Database for Freeradius (Ubuntu 14+)
+  template: 
+    dest="{{ freeradius_conf_dir }}/mods-enabled/sql"
+    owner={{ freeradius_user }}
+    group={{ freeradius_group }}
+    src="radius/sql.j2"
     
-- name: Correcting radclient paths for radscenario.pl Script (Ubuntu 14+)
+- name: Updating radclient paths for radscenario.pl Script (Ubuntu 14+)
   template: 
     dest="{{ nginx_webroot }}/cake2/rd_cake/Setup/Scripts/radscenario.pl"
     mode=0777
     src="radius/radscenario.pl.j2"
 
-- name: Correcting RadiusDesk paths for Freeradius (Ubuntu 14+)
+- name: Updating RadiusDesk paths for Freeradius (Ubuntu 14+)
   template:
     dest="{{ nginx_webroot }}/cake2/rd_cake/Config/RadiusDesk.php"
     group={{ web_group }}
@@ -88,7 +95,7 @@
     src=RadiusDesk.php.j2
     validate='php -l %s'
 
-- name: Correcting MESHDesk paths for Freeradius (Ubuntu 14+)
+- name: Updating MESHDesk paths for Freeradius (Ubuntu 14+)
   template:
     dest="{{ nginx_webroot }}/cake2/rd_cake/Config/MESHdesk.php"
     group={{ web_group }}
@@ -96,7 +103,7 @@
     src=MESHdesk.php.j2
     validate='php -l %s'
 
-- name: Correcting APProfiles paths for Freeradius (Ubuntu 14+)
+- name: Updating APProfiles paths for Freeradius (Ubuntu 14+)
   template:
     dest="{{ nginx_webroot }}/cake2/rd_cake/Config/ApProfiles.php"
     group={{ web_group }}

@@ -11,12 +11,8 @@ $config['commands']['msgcat'] = '/usr/bin/msgcat';
 //Define the connection types and if they are active or not
 $config['conn_type'][0]     = array('name' => __('Direct (Fixed IP)'),  'id' => 'direct',   'active' => true);
 $config['conn_type'][1]     = array('name' => __('OpenVPN'),            'id' => 'openvpn',  'active' => false);
-{% if enable_pptpd_support %}
-$config['conn_type'][2]     = array('name' => __('PPTP'),               'id' => 'pptp',     'active' => true);
-{% else %}
 $config['conn_type'][2]     = array('name' => __('PPTP'),               'id' => 'pptp',     'active' => false);
-{% endif %}
-$config['conn_type'][3]     = array('name' => __('Dynamic Client'),     'id' => 'dynamic',  'active' => true);
+$config['conn_type'][3]     = array('name' => __('Dynamic Client'),     'id' => 'dynamic',  'active' => false);
 
 //Define the location of ccd (client config directory)
 //FIXME This value does not get read by the OpenvpnClients Model - investigate
@@ -94,7 +90,7 @@ $config['user_settings']['dynamic_client_map']['lat']      = 42.3379770178396;
 $config['UserCanRemoveDevice']              = true;
 
 //SMTP configs are defined in the Config/email.php file. Here we specify which one to use application wide
-$config['EmailServer']                      = 'default';
+$config['EmailServer']						= 'default';
 
 
 //== 30/3/16 -> Some server wide configurations ==
@@ -155,14 +151,14 @@ $config['icnSubtract']  = 'xf068@'.$config['webFont'];
 $config['icnWatch']     = 'xf017@'.$config['webFont'];
 $config['icnStar']      = 'xf005@'.$config['webFont'];
 $config['icnGrid']      = 'xf00a@'.$config['webFont'];
-$config['icnFacebook']  = 'xf09a@'.$config['webFont'];
-$config['icnGoogle']    = 'xf1a0@'.$config['webFont'];
-$config['icnTwitter']   = 'xf099@'.$config['webFont'];
-$config['icnWifi']      = 'xf012@'.$config['webFont'];
-$config['icnIP']        = 'xf1c0@'.$config['webFont'];
+$config['icnFacebook']	= 'xf09a@'.$config['webFont'];
+$config['icnGoogle']	= 'xf1a0@'.$config['webFont'];
+$config['icnTwitter']	= 'xf099@'.$config['webFont'];
+$config['icnWifi']		= 'xf012@'.$config['webFont'];
+$config['icnIP']		= 'xf1c0@'.$config['webFont'];
 $config['icnThumbUp']   = 'xf087@'.$config['webFont'];
-$config['icnThumbDown'] = 'xf088@'.$config['webFont'];
-$config['icnCPU']       = 'xf085@'.$config['webFont'];
+$config['icnThumbDown']	= 'xf088@'.$config['webFont'];
+$config['icnCPU']		= 'xf085@'.$config['webFont'];
 $config['icnCamera']    = 'xf030@'.$config['webFont'];
 $config['icnRedirect']  = 'xf074@'.$config['webFont'];
 $config['icnDynamicNas']= 'xf239@'.$config['webFont'];
