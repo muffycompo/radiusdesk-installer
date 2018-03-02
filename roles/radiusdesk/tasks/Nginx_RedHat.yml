@@ -8,7 +8,7 @@
   selinux:
     state=disabled 
 
-- name: Bootstraping Download Directory for RADIUSDesk Sources (Ubuntu 14+)
+- name: Bootstraping Download Directory for RADIUSDesk Sources (RHEL/CentOS 6+)
   file:
     path={{ temp_src_dir }}
     state=directory
@@ -90,10 +90,10 @@
 - name: Copying RadiusDesk CakePHP App Source to Webroot (RHEL/CentOS 6+)
   shell: cp -a {{ temp_src_dir | quote }}/rd_cake {{ nginx_webroot | quote }}/cake2/
 
-- name: Downloading RadiusDesk CakePHP 3 Source from Subversion (Ubuntu 14+)
+- name: Downloading RadiusDesk CakePHP 3 Source from Subversion (RHEL/CentOS 6+)
   shell: svn checkout -r {{ rd_svn_revision }} {{ rd_cake3_svn_repo }} {{ temp_src_dir }}/cake3
 
-- name: Copying RadiusDesk CakePHP 3 Source to Webroot (Ubuntu 14+)
+- name: Copying RadiusDesk CakePHP 3 Source to Webroot (RHEL/CentOS 6+)
   shell: cp -a {{ temp_src_dir | quote }}/cake3 {{ nginx_webroot | quote }}/cake3
 
 - name: Downloading RadiusDesk Viewer Source from Subversion (RHEL/CentOS 6+)
@@ -113,19 +113,19 @@
     dest="{{ nginx_webroot }}/login/services/uam.php"
     src="uam.php.j2"
 
-- name: Checking if we already downloaded ExtJS 6.2 sources (Ubuntu 14+)
+- name: Checking if we already downloaded ExtJS 6.2 sources (RHEL/CentOS 6+)
   stat:
     path="{{ temp_src_dir }}/ext-6-2-sencha_cmd.tar.gz"
   register: extjs_src
 
-- name: Downloading ExtJS 6.2 sources from Subversion (Ubuntu 14+)
+- name: Downloading ExtJS 6.2 sources from Subversion (RHEL/CentOS 6+)
   get_url:
     url={{ extjs_62_src_url }}
     dest="{{ temp_src_dir }}/ext-6-2-sencha_cmd.tar.gz"
     validate_certs=no
   when: "extjs_src.stat.exists == False or extjs_src.stat.md5 != '{{ extjs_62_src_md5_sum }}'"
 
-- name: Extracting ExtJS 6.2 archive for RadiusDesk Viewer (Ubuntu 14+)
+- name: Extracting ExtJS 6.2 archive for RadiusDesk Viewer (RHEL/CentOS 6+)
   unarchive:
     src="{{ temp_src_dir }}/ext-6-2-sencha_cmd.tar.gz"
     dest={{ nginx_webroot }}/rd/
