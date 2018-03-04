@@ -89,7 +89,7 @@
   notify:
     - Start Nginx
     - Start PHP71-FPM
-  when: "ansible_distribution_version >= '16'"
+  when: "ansible_distribution_version >= '17'"
 
 - name: Configuring PHP5-FPM to use UNIX sockets (Ubuntu 14+)
   template:
