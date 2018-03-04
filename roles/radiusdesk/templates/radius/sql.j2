@@ -88,7 +88,7 @@ sql {
 
 	# Connection info:
 	#
-	{% if enable_aws_rds_support == 'yes' %}
+	{% if enable_aws_rds_support %}
     server = "{{ aws_rds_host }}"
     port = {{ aws_rds_port }}
     {% else %}
