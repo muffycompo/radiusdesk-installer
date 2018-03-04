@@ -1,12 +1,12 @@
 ---
 - name: Checking for Supported Ubuntu Release
   fail:
-    msg="{{ ansible_distribution }} {{ ansible_distribution_version }} is not supported by RADIUSDesk Installer"
-  when: ansible_distribution == 'Ubuntu' and (ansible_distribution_version|int < 14 or ansible_distribution_version|int >= 19)
+    msg="{{ ansible_distribution }} {{ ansible_distribution_major_version }} is not supported by RADIUSDesk Installer"
+  when: ansible_distribution == 'Ubuntu' and (ansible_distribution_major_version|int < 14 or ansible_distribution_major_version|int >= 19)
 
 - name: Checking for Supported RHEL/CentOS Release
   fail:
-    msg="{{ ansible_distribution }} {{ ansible_distribution_version }} is not supported by RADIUSDesk Installer"
+    msg="{{ ansible_distribution }} {{ ansible_distribution_major_version }} is not supported by RADIUSDesk Installer"
   when: ansible_os_family == 'RedHat' and (ansible_distribution_major_version|int < 6 or ansible_distribution_major_version|int > 7)
 
 - name: Adding RadiusDesk Variables (Ubuntu 14+)
@@ -15,47 +15,47 @@
 
 - name: Adding RadiusDesk Variables (RHEL/CentOS 6+)
   include_vars: "{{ ansible_os_family }}.yml"
-  when: ansible_os_family == 'RedHat' and ansible_distribution_version >= '6'
+  when: ansible_os_family == 'RedHat' and ansible_distribution_major_version >= '6'
 
 - name: RadiusDesk Nginx Setup (Ubuntu 14+)
   include: Nginx_Debian.yml
-  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version >= '14'
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_major_version >= '14'
 
 - name: RadiusDesk Nginx Setup (RHEL/CentOS 6+)
   include: "Nginx_RedHat.yml"
-  when: ansible_os_family == 'RedHat' and ansible_distribution_version >= '6'
+  when: ansible_os_family == 'RedHat' and ansible_distribution_major_version >= '6'
 
 - name: RadiusDesk Freeradius Setup (Ubuntu 14+)
   include: "Freeradius_Debian.yml"
-  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version >= '14'
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_major_version >= '14'
 
 - name: RadiusDesk Freeradius Setup (RHEL/CentOS 6+)
   include: "Freeradius_RedHat.yml"
-  when: ansible_os_family == 'RedHat' and ansible_distribution_version >= '6'
+  when: ansible_os_family == 'RedHat' and ansible_distribution_major_version >= '6'
 
 - name: RadiusDesk Nodejs Setup (Ubuntu 14+)
   include: "Nodejs_Debian.yml"
-  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version >= '14'
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_major_version >= '14'
 
 - name: RadiusDesk Nodejs Setup (RHEL/CentOS 6+)
   include: "Nodejs_RedHat.yml"
-  when: ansible_os_family == 'RedHat' and ansible_distribution_version >= '6'
+  when: ansible_os_family == 'RedHat' and ansible_distribution_major_version >= '6'
 
 - name: RadiusDesk PPTPD Setup (Ubuntu 14+)
   include: "Pptpd_Debian.yml"
-  when: enable_pptpd_support and ansible_distribution == 'Ubuntu' and ansible_distribution_version >= '14'
+  when: enable_pptpd_support and ansible_distribution == 'Ubuntu' and ansible_distribution_major_version >= '14'
 
 - name: RadiusDesk PPTPD Setup (RHEL/CentOS 6+)
   include: "Pptpd_RedHat.yml"
-  when: enable_pptpd_support and ansible_os_family == 'RedHat' and ansible_distribution_version >= '6'
+  when: enable_pptpd_support and ansible_os_family == 'RedHat' and ansible_distribution_major_version >= '6'
 
 - name: RadiusDesk CoovaChilli Setup (Ubuntu 14+)
   include: "Coovachilli_Debian.yml"
-  when: enable_coovachilli_support and ansible_distribution == 'Ubuntu' and ansible_distribution_version >= '14'
+  when: enable_coovachilli_support and ansible_distribution == 'Ubuntu' and ansible_distribution_major_version >= '14'
 
 - name: RadiusDesk CoovaChilli Setup (RHEL/CentOS 6+)
   include: "Coovachilli_RedHat.yml"
-  when: enable_coovachilli_support and ansible_os_family == 'RedHat' and ansible_distribution_version >= '6'
+  when: enable_coovachilli_support and ansible_os_family == 'RedHat' and ansible_distribution_major_version >= '6'
 
 - meta: flush_handlers
 

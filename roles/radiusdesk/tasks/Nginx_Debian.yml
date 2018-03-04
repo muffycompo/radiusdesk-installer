@@ -25,7 +25,7 @@
     state=installed
     update_cache=yes
   with_items: "{{ rd_php5_pkgs }}"
-  when: "ansible_distribution_version < '13'"
+  when: "ansible_distribution_major_version < '13'"
 
 - name: Adding Adre PHP7 PPA (Ubuntu 14+)
   apt_repository:
@@ -47,7 +47,7 @@
     state=installed
     update_cache=yes
   with_items: "{{ rd_php7_pkgs }}"
-  when: ansible_distribution_version >= "16" and ansible_distribution_version < "17"
+  when: ansible_distribution_major_version >= "16" and ansible_distribution_major_version < "17"
 
 - name: Installing PHP7.1 packages (Ubuntu 14+)
   apt:
@@ -55,7 +55,7 @@
     state=installed
     update_cache=yes
   with_items: "{{ rd_php71_pkgs }}"
-  when: "ansible_distribution_version >= '17'"
+  when: "ansible_distribution_major_version >= '17'"
 
 - name: Installing RadiusDesk packages (Ubuntu 14+)
   apt:
@@ -67,7 +67,7 @@
   notify:
     - Start Nginx
     - Start PHP-FPM
-  when: "ansible_distribution_version < '13'"
+  when: "ansible_distribution_major_version < '13'"
 
 - name: Installing RadiusDesk packages (Ubuntu 16)
   apt:
@@ -78,7 +78,7 @@
   notify:
     - Start Nginx
     - Start PHP7-FPM
-  when: "ansible_distribution_version <= '16'"
+  when: "ansible_distribution_major_version <= '16'"
 
 - name: Installing RadiusDesk packages (Ubuntu 17+)
   apt:
@@ -89,25 +89,25 @@
   notify:
     - Start Nginx
     - Start PHP71-FPM
-  when: "ansible_distribution_version >= '17'"
+  when: "ansible_distribution_major_version >= '17'"
 
 - name: Configuring PHP5-FPM to use UNIX sockets (Ubuntu 14+)
   template:
     src="nginx/php_fpm.www.conf.j2"
     dest={{ php_fpm_config }}
-  when: "ansible_distribution_version < '13'"
+  when: "ansible_distribution_major_version < '13'"
 
 - name: Configuring PHP7-FPM to use UNIX sockets (Ubuntu 14+)
   template:
     src="nginx/php_fpm.www.conf.j2"
     dest={{ php7_fpm_config }}
-  when: "ansible_distribution_version <= '16'"
+  when: "ansible_distribution_major_version <= '16'"
 
 - name: Configuring PHP7.1-FPM to use UNIX sockets (Ubuntu 14+)
   template:
     src="nginx/php_fpm.www.conf.j2"
     dest={{ php71_fpm_config }}
-  when: "ansible_distribution_version >= '17'"
+  when: "ansible_distribution_major_version >= '17'"
 
 - name: Configuring Nginx to use UNIX sockets (Ubuntu 14+)
   template:
@@ -126,7 +126,7 @@
   with_items:
     - "{{ nginx_pkg_name }}"
     - "{{ php_fpm_service_name }}"
-  when: "ansible_distribution_version < '13'"
+  when: "ansible_distribution_major_version < '13'"
 
 - name: Restarting RadiusDesk services for PHP7 (Ubuntu 14+)
   service:
@@ -135,7 +135,7 @@
   with_items:
     - "{{ nginx_pkg_name }}"
     - "{{ php7_fpm_service_name }}"
-  when: "ansible_distribution_version <= '16'"
+  when: "ansible_distribution_major_version <= '16'"
 
 - name: Restarting RadiusDesk services for PHP7.1 (Ubuntu 14+)
   service:
@@ -144,7 +144,7 @@
   with_items:
     - "{{ nginx_pkg_name }}"
     - "{{ php71_fpm_service_name }}"
-  when: "ansible_distribution_version >= '17'"
+  when: "ansible_distribution_major_version >= '17'"
 
 - name: Downloading CakePHP Source from Github (Ubuntu 14+)
   git: 
@@ -220,21 +220,21 @@
     dest="{{ php_config_file }}"
     line='date.timezone = {{ php_timezone }}'
     regexp='^;date.timezone'
-  when: "ansible_distribution_version < '13'"
+  when: "ansible_distribution_major_version < '13'"
 
 - name: Fix PHP7 Default Timezone
   lineinfile: 
     dest="{{ php7_config_file }}"
     line='date.timezone = {{ php_timezone }}'
     regexp='^;date.timezone'
-  when: "ansible_distribution_version <= '16'"
+  when: "ansible_distribution_major_version <= '16'"
 
 - name: Fix PHP7.1 Default Timezone
   lineinfile: 
     dest="{{ php71_config_file }}"
     line='date.timezone = {{ php_timezone }}'
     regexp='^;date.timezone'
-  when: "ansible_distribution_version >= '17'"
+  when: "ansible_distribution_major_version >= '17'"
 
 - name: Ensuring Nginx is Started (Ubuntu 14+)
   service:
@@ -245,19 +245,19 @@
   service:
     name={{ php_fpm_service_name }}
     state=started
-  when: "ansible_distribution_version < '13'"
+  when: "ansible_distribution_major_version < '13'"
 
 - name: Ensuring PHP7-FPM is Started (Ubuntu 14+)
   service:
     name={{ php7_fpm_service_name }}
     state=started
-  when: "ansible_distribution_version <= '16'"
+  when: "ansible_distribution_major_version <= '16'"
 
 - name: Ensuring PHP71-FPM is Started (Ubuntu 14+)
   service:
     name={{ php71_fpm_service_name }}
     state=started
-  when: "ansible_distribution_version >= '17'"
+  when: "ansible_distribution_major_version >= '17'"
 
 - name: Configuring RadiusDesk Cron Jobs (Ubuntu 14+)
   template:
@@ -268,7 +268,7 @@
   template:
     src="disable_strict_mode.cnf.j2"
     dest="/etc/mysql/conf.d/disable_strict_mode.cnf"
-  when: "ansible_distribution_version >= '16'" 
+  when: "ansible_distribution_major_version >= '16'" 
 
 - name: Ensuring MySQL is Started (Ubuntu 14+)
   service:
