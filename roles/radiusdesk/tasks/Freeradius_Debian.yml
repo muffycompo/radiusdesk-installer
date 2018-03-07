@@ -111,7 +111,7 @@
     src=ApProfiles.php.j2
     validate='php -l %s'
 
-- name: Updating RadiusDesk Cake 3 paths for Freeradius (RHEL/CentOS 6+)
+- name: Updating RadiusDesk Cake 3 paths for Freeradius (Ubuntu 14+)
   template:
     dest="{{ nginx_webroot }}/cake3/rd_cake/config/RadiusDesk.php"
     group={{ web_group }}
@@ -119,7 +119,7 @@
     src=RadiusDesk.php.j2
     validate='php -l %s'
 
-- name: Updating MESHDesk Cake 3 paths for Freeradius (RHEL/CentOS 6+)
+- name: Updating MESHDesk Cake 3 paths for Freeradius (Ubuntu 14+)
   template:
     dest="{{ nginx_webroot }}/cake3/rd_cake/config/MESHdesk.php"
     group={{ web_group }}
@@ -127,7 +127,7 @@
     src=MESHdesk.php.j2
     validate='php -l %s'
 
-- name: Updating APProfiles Cake 3 paths for Freeradius (RHEL/CentOS 6+)
+- name: Updating APProfiles Cake 3 paths for Freeradius (Ubuntu 14+)
   template:
     dest="{{ nginx_webroot }}/cake3/rd_cake/config/ApProfiles.php"
     group={{ web_group }}
