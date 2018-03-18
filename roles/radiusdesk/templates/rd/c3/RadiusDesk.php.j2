@@ -1,12 +1,14 @@
 <?php
+
+$config = array();
+
 //The groups that is defined 
 $config['group']['admin']   = 'Administrators';     //Has all the rights
 $config['group']['ap']      = 'Access Providers';   //Has selected right
-$config['group']['user']    = 'Permanent Users';              //Has very limited rights
+$config['group']['user']    = 'Permanent Users';    //Has very limited rights
 
-$config['language']['default']    = '4_4';     //This is the id 4 of Languages and id 4 of countries (GB_en)
-
-$config['commands']['msgcat'] = '/usr/bin/msgcat';
+$config['language']['default']      = '4_4';     //This is the id 4 of Languages and id 4 of countries (GB_en)
+$config['commands']['msgcat']       = '/usr/bin/msgcat';
 
 //Define the connection types and if they are active or not
 $config['conn_type'][0]     = array('name' => __('Direct (Fixed IP)'),  'id' => 'direct',   'active' => true);
@@ -52,54 +54,45 @@ $config['nas_types'][3]     = array('name' => 'Mikrotik',               'id' => 
 $config['nas_types'][4]     = array('name' => 'Mikrotik-Heartbeat',     'id' => 'Mikrotik-Heartbeat',       'active' => true);
 $config['nas_types'][5]     = array('name' => 'Telkom',                 'id' => 'Telkom',                   'active' => true);
 
-//Define Voucher format types
-$config['voucher_formats'][0]     = array('name' => 'Generic A4',               'id' => 'a4',               'active' => true);
-$config['voucher_formats'][1]     = array('name' => 'Generic A4 Page/Voucher',  'id' => 'a4_page',          'active' => true);
-$config['voucher_formats'][2]     = array('name' => 'Avery 5160',               'id' => '5160',             'active' => true);
-$config['voucher_formats'][3]     = array('name' => 'Avery 5161',               'id' => '5161',             'active' => true);
-$config['voucher_formats'][4]     = array('name' => 'Avery 5162',               'id' => '5162',             'active' => true);
-$config['voucher_formats'][5]     = array('name' => 'Avery 5163',               'id' => '5163',             'active' => true);
-$config['voucher_formats'][6]     = array('name' => 'Avery 5164',               'id' => '5164',             'active' => false); //gives trouble
-$config['voucher_formats'][7]     = array('name' => 'Avery 8600',               'id' => '8600',             'active' => true); 
-$config['voucher_formats'][8]     = array('name' => 'Avery L7160',              'id' => 'L7160',            'active' => true); 
-$config['voucher_formats'][9]     = array('name' => 'Avery L7161',              'id' => 'L7161',            'active' => true); 
-$config['voucher_formats'][10]    = array('name' => 'Avery L7163',              'id' => 'L7163',            'active' => true); 
 
 
-//FIXME To incorporate
 $config['paths']['wallpaper_location']  = "/rd/resources/images/wallpapers/";
+$config['paths']['dynamic_photos']      = "/cake3/rd_cake/img/dynamic_photos/";   
+$config['paths']['dynamic_detail_icon'] = "/cake3/rd_cake/img/dynamic_details/";
+$config['paths']['real_photo_path']     = "/cake3/rd_cake/webroot/img/dynamic_photos/";
+$config['paths']['absolute_photo_path'] = "/usr/share/nginx/html/cake3/rd_cake/webroot/img/dynamic_photos/";
 
-$config['paths']['dynamic_photos']      = "/cake2/rd_cake/webroot/img/dynamic_photos/";   
-$config['paths']['dynamic_detail_icon'] = "/cake2/rd_cake/webroot/img/dynamic_details/";
+$config['paths']['ap_logo_path']        = "/cake3/rd_cake/img/access_providers/";
+$config['paths']['real_ap_logo_path']   = "/cake3/rd_cake/webroot/img/access_providers/";
+
 
 //Define default settings for the users:
-$config['user_settings']['wallpaper']       = "9.jpg";
-$config['user_settings']['map']['type']     = "ROADMAP";
-$config['user_settings']['map']['zoom']     = 18;
-$config['user_settings']['map']['lng']      = -71.0955740216735;
-$config['user_settings']['map']['lat']      = 42.3379770178396;
+$config['user_settings']['wallpaper']                       = "9.jpg";
+$config['user_settings']['map']['type']                     = "ROADMAP";
+$config['user_settings']['map']['zoom']                     = 18;
+$config['user_settings']['map']['lng']                      = -71.0955740216735;
+$config['user_settings']['map']['lat']                      = 42.3379770178396;
 
 //Define default settings for users's Dynamic Clients map
-$config['user_settings']['dynamic_client_map']['type']     = "ROADMAP";
-$config['user_settings']['dynamic_client_map']['zoom']     = 18;
-$config['user_settings']['dynamic_client_map']['lng']      = -71.0955740216735;
-$config['user_settings']['dynamic_client_map']['lat']      = 42.3379770178396;
-
+$config['user_settings']['dynamic_client_map']['type']      = "ROADMAP";
+$config['user_settings']['dynamic_client_map']['zoom']      = 18;
+$config['user_settings']['dynamic_client_map']['lng']       = -71.0955740216735;
+$config['user_settings']['dynamic_client_map']['lat']       = 42.3379770178396;
 
 //Set to true to allow  the user to remove their device out of the realm it has been assigned to
-$config['UserCanRemoveDevice']              = true;
+$config['UserCanRemoveDevice']                              = true;
 
-//SMTP configs are defined in the Config/email.php file. Here we specify which one to use application wide
-$config['EmailServer']						= 'default';
-
+//SMTP configs are defined in the Config/app.php file. Here we specify which one to use application wide
+$config['EmailServer']                                      = 'default'; //e.g. 'gmail'
 
 //== 30/3/16 -> Some server wide configurations ==
-$config['server_settings']['user_stats_cut_off_days']   = 90; //3 months (make zero to have no cut off)
-$config['server_settings']['radacct_cut_off_days']      = 90; //3 months (make zero to have no cut off)
+$config['server_settings']['user_stats_cut_off_days']       = 90; //3 months (make zero to have no cut off)
+$config['server_settings']['radacct_cut_off_days']          = 90; //3 months (make zero to have no cut off)
  
 //== End server wide configurations ==
 
 $config['webFont']      = 'FontAwesome';
+
 $config['icnLock']      = 'xf023@'.$config['webFont'];
 $config['icnYes']       = 'xf00c@'.$config['webFont'];
 $config['icnMenu']      = 'xf0c9@'.$config['webFont'];
@@ -109,15 +102,15 @@ $config['icnSpanner']   = 'xf0ad@'.$config['webFont'];
 $config['icnHome']      = 'xf015@'.$config['webFont'];
 $config['icnDynamic']   = 'xf0d0@'.$config['webFont'];
 $config['icnVoucher']   = 'xf145@'.$config['webFont'];
-$config['icnReload']    = 'xf021@'.$config['webFont'];//
-$config['icnAdd']       = 'xf067@'.$config['webFont'];//
-$config['icnEdit']      = 'xf040@'.$config['webFont'];//
-$config['icnDelete']    = 'xf1f8@'.$config['webFont'];//
+$config['icnReload']    = 'xf021@'.$config['webFont'];
+$config['icnAdd']       = 'xf067@'.$config['webFont'];
+$config['icnEdit']      = 'xf040@'.$config['webFont'];
+$config['icnDelete']    = 'xf1f8@'.$config['webFont'];
 $config['icnPdf']       = 'xf1c1@'.$config['webFont'];
 $config['icnCsv']       = 'xf1c3@'.$config['webFont'];
 $config['icnRadius']    = 'xf10c@'.$config['webFont'];
 $config['icnLight']     = 'xf204@'.$config['webFont'];
-$config['icnNote']      = 'xf08d@'.$config['webFont'];//
+$config['icnNote']      = 'xf08d@'.$config['webFont'];
 $config['icnKey']       = 'xf084@'.$config['webFont'];
 $config['icnRealm']     = 'xf17d@'.$config['webFont'];
 $config['icnNas']       = 'xf1cb@'.$config['webFont'];
@@ -151,43 +144,63 @@ $config['icnSubtract']  = 'xf068@'.$config['webFont'];
 $config['icnWatch']     = 'xf017@'.$config['webFont'];
 $config['icnStar']      = 'xf005@'.$config['webFont'];
 $config['icnGrid']      = 'xf00a@'.$config['webFont'];
-$config['icnFacebook']	= 'xf09a@'.$config['webFont'];
-$config['icnGoogle']	= 'xf1a0@'.$config['webFont'];
-$config['icnTwitter']	= 'xf099@'.$config['webFont'];
-$config['icnWifi']		= 'xf012@'.$config['webFont'];
-$config['icnIP']		= 'xf1c0@'.$config['webFont'];
+$config['icnFacebook']  = 'xf09a@'.$config['webFont'];
+$config['icnGoogle']    = 'xf1a0@'.$config['webFont'];
+$config['icnTwitter']   = 'xf099@'.$config['webFont'];
+$config['icnWifi']      = 'xf012@'.$config['webFont'];
+$config['icnIP']        = 'xf1c0@'.$config['webFont'];
 $config['icnThumbUp']   = 'xf087@'.$config['webFont'];
-$config['icnThumbDown']	= 'xf088@'.$config['webFont'];
-$config['icnCPU']		= 'xf085@'.$config['webFont'];
+$config['icnThumbDown'] = 'xf088@'.$config['webFont'];
+$config['icnCPU']       = 'xf085@'.$config['webFont'];
 $config['icnCamera']    = 'xf030@'.$config['webFont'];
 $config['icnRedirect']  = 'xf074@'.$config['webFont'];
 $config['icnDynamicNas']= 'xf239@'.$config['webFont'];
 $config['icnCloud']     = 'xf0c2@'.$config['webFont'];
 $config['icnVPN']       = 'xf10e@'.$config['webFont'];
-
 $config['icnAdmin']     = 'xf19d@'.$config['webFont'];
 $config['icnRadius']    = 'xf140@'.$config['webFont'];
 $config['icnBan']       = 'xf05e@'.$config['webFont'];
 $config['icnData']      = 'xf1c0@'.$config['webFont'];
 $config['icnGears']     = 'xf085@'.$config['webFont'];
 $config['icnWizard']    = 'xf0d0@'.$config['webFont'];
+$config['icnShield']    = 'xf132@'.$config['webFont'];
+$config['icnList']      = 'xf03a@'.$config['webFont'];
+$config['icnScale']     = 'xf24e@'.$config['webFont'];
+$config['icnFilter']    = 'xf0b0@'.$config['webFont'];
+$config['icnDropbox']   = 'xf16b@'.$config['webFont'];
+$config['icnBan']       = 'xf05e@'.$config['webFont'];
+$config['icnCheckC']    = 'xf058@'.$config['webFont'];
+$config['icnGroup']     = 'xf0c0@'.$config['webFont'];
 
-//=== Dynamic RADIUS Clients 23/1/17 ===
-/*--- This has to be the same value as the ons specified in--
-sudo vi /etc/freeradius/sites-enabled/dynamic-clients
-       FreeRADIUS-Client-Secret = "testing123"
-       
-TIP: Also remember to change the values in:
-ApProfiles.php
-MESHdesk.php 
-*/
-$config['DynamicClients']['shared_secret'] = '{{ freeradius_secret }}';
 
 //=== EXPERIMENTAL STUFF =====
-//Show experimental menus
+//--Show experimental menus---
 $config['experimental']['active']   = false;
+$config['extensions']['active']     = false;
 
-$config['dnsfilter']['dns1'] = '8.8.8.8';
-$config['dnsfilter']['dns2'] = '4.4.4.4';
+//=== White Label ====
+$config['whitelabel']['active']     = false;
+
+$config['whitelabel']['hName']      = 'RADIUSdesk';
+$config['whitelabel']['hBg']        = '#FFFFFF';
+$config['whitelabel']['hFg']        = '#4b4c4c';
+                                    
+$config['whitelabel']['imgActive']  = true;
+$config['whitelabel']['imgFile']    = 'logo.png';
+
+$config['whitelabel']['fName']      = 'RADIUSdesk';
+
+//=== Language List =====
+$config['Admin']['i18n'][0]     = array(    
+    'id'        => '4_4',
+    'country'   => 'United Kingdom',
+    'language'  => 'English',
+    'text'      =>  'United Kingdom -> English',
+    'rtl'       => false,
+    'icon_file' =>  '/cake3/rd_cake/img/flags/GB.png',  
+    'active'    => true
+);
+
+return $config;
 
 ?>

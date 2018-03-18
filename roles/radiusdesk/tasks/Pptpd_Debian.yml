@@ -9,12 +9,20 @@
     dest="/etc/pptpd.conf"
     src="pptpd/pptpd.conf.j2"
 
-- name: Configuring RadiusDesk to Use PPTPD Server (Ubuntu 14+)
+- name: Configuring RadiusDesk Cake2 to Use PPTPD Server (Ubuntu 14+)
   template:
     dest="{{ nginx_webroot }}/cake2/rd_cake/Config/RadiusDesk.php"
     group={{ web_group }}
     owner={{ web_user }}
-    src=RadiusDesk.php.j2
+    src=rd/c2/RadiusDesk.php.j2
+    validate='php -l %s'
+
+- name: Configuring RadiusDesk Cake3 to Use PPTPD Server (Ubuntu 14+)
+  template:
+    dest="{{ nginx_webroot }}/cake3/rd_cake/config/RadiusDesk.php"
+    group={{ web_group }}
+    owner={{ web_user }}
+    src=rd/c3/RadiusDesk.php.j2
     validate='php -l %s'
 
 - name: Ensuring PPTPD Client is writeable by Web Server User (Ubuntu 14+)

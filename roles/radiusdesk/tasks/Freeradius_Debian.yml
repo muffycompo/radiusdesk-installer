@@ -92,7 +92,7 @@
     dest="{{ nginx_webroot }}/cake2/rd_cake/Config/RadiusDesk.php"
     group={{ web_group }}
     owner={{ web_user }}
-    src=RadiusDesk.php.j2
+    src=rd/c2/RadiusDesk.php.j2
     validate='php -l %s'
 
 - name: Updating MESHDesk Cake 2 paths for Freeradius (Ubuntu 14+)
@@ -100,7 +100,7 @@
     dest="{{ nginx_webroot }}/cake2/rd_cake/Config/MESHdesk.php"
     group={{ web_group }}
     owner={{ web_user }}
-    src=MESHdesk.php.j2
+    src=rd/c2/MESHdesk.php.j2
     validate='php -l %s'
 
 - name: Updating APProfiles Cake 2 paths for Freeradius (Ubuntu 14+)
@@ -108,7 +108,7 @@
     dest="{{ nginx_webroot }}/cake2/rd_cake/Config/ApProfiles.php"
     group={{ web_group }}
     owner={{ web_user }}
-    src=ApProfiles.php.j2
+    src=rd/c2/ApProfiles.php.j2
     validate='php -l %s'
 
 - name: Updating RadiusDesk Cake 3 paths for Freeradius (Ubuntu 14+)
@@ -116,7 +116,7 @@
     dest="{{ nginx_webroot }}/cake3/rd_cake/config/RadiusDesk.php"
     group={{ web_group }}
     owner={{ web_user }}
-    src=RadiusDesk.php.j2
+    src=rd/c3/RadiusDesk.php.j2
     validate='php -l %s'
 
 - name: Updating MESHDesk Cake 3 paths for Freeradius (Ubuntu 14+)
@@ -124,7 +124,7 @@
     dest="{{ nginx_webroot }}/cake3/rd_cake/config/MESHdesk.php"
     group={{ web_group }}
     owner={{ web_user }}
-    src=MESHdesk.php.j2
+    src=rd/c3/MESHdesk.php.j2
     validate='php -l %s'
 
 - name: Updating APProfiles Cake 3 paths for Freeradius (Ubuntu 14+)
@@ -132,7 +132,7 @@
     dest="{{ nginx_webroot }}/cake3/rd_cake/config/ApProfiles.php"
     group={{ web_group }}
     owner={{ web_user }}
-    src=ApProfiles.php.j2
+    src=rd/c3/ApProfiles.php.j2
     validate='php -l %s'
 
 - name: Configuring radmin_wrapper.pl Script for RadiusDesk (Ubuntu 14+)

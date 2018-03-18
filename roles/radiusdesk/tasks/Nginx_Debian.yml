@@ -183,7 +183,7 @@
 - name: Configuring UAM Service for RadiusDesk Login (Ubuntu 14+)
   template:
     dest="{{ nginx_webroot }}/login/services/uam.php"
-    src="uam.php.j2"
+    src="rd/uam.php.j2"
 
 - name: Checking if we already downloaded ExtJS 6.2 sources (Ubuntu 14+)
   stat:
@@ -377,10 +377,10 @@
 
 - name: Updating RADIUSDesk Cake 2 Database Credentials (Ubuntu 14+)
   template:
-    src="database.php.j2"
+    src="rd/c2/database.php.j2"
     dest="{{ nginx_webroot }}/cake2/rd_cake/Config/database.php"
 
 - name: Updating RADIUSDesk Cake 3 Database Credentials (Ubuntu 14+)
   template:
-    src="app.php.j2"
+    src="rd/c3/app.php.j2"
     dest="{{ nginx_webroot }}/cake3/rd_cake/config/app.php"

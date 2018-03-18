@@ -44,7 +44,7 @@
     dest="{{ nginx_webroot }}/rd_login/services/uam.php"
     owner={{ web_user }}
     group={{ web_group }}
-    src="uam.php.j2"
+    src="rd/uam.php.j2"
 
 - name: Configuring CoovaChilli Start-Up IPTables rules (Ubuntu 14+)
   template:
