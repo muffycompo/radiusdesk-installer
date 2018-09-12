@@ -23,9 +23,9 @@
     state=started
     enabled=yes
 
-- name: Start PHP71-FPM
+- name: Start PHP72-FPM
   service:
-    name={{ php71_fpm_service_name }}
+    name={{ php72_fpm_service_name }}
     state=started
     enabled=yes
 
@@ -41,9 +41,9 @@
     state=restarted
     enabled=yes
 
-- name: Restart PHP71-FPM
+- name: Restart PHP72-FPM
   service:
-    name={{ php71_fpm_service_name }}
+    name={{ php72_fpm_service_name }}
     state=restarted
     enabled=yes
 

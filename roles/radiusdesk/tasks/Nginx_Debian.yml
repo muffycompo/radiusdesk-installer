@@ -49,12 +49,12 @@
   with_items: "{{ rd_php7_pkgs }}"
   when: ansible_distribution_major_version >= "16" and ansible_distribution_major_version < "17"
 
-- name: Installing PHP7.1 packages (Ubuntu 14+)
+- name: Installing PHP7.2 packages (Ubuntu 14+)
   apt:
     name={{ item }}
     state=installed
     update_cache=yes
-  with_items: "{{ rd_php71_pkgs }}"
+  with_items: "{{ rd_php72_pkgs }}"
   when: "ansible_distribution_major_version >= '17'"
 
 - name: Installing RadiusDesk packages (Ubuntu 14+)
@@ -88,7 +88,7 @@
   with_items: "{{ rd_pkgs }}"
   notify:
     - Start Nginx
-    - Start PHP71-FPM
+    - Start PHP72-FPM
   when: "ansible_distribution_major_version >= '17'"
 
 - name: Configuring PHP5-FPM to use UNIX sockets (Ubuntu 14+)
@@ -103,10 +103,10 @@
     dest={{ php7_fpm_config }}
   when: "ansible_distribution_major_version <= '16'"
 
-- name: Configuring PHP7.1-FPM to use UNIX sockets (Ubuntu 14+)
+- name: Configuring PHP7.2-FPM to use UNIX sockets (Ubuntu 14+)
   template:
     src="nginx/php_fpm.www.conf.j2"
-    dest={{ php71_fpm_config }}
+    dest={{ php72_fpm_config }}
   when: "ansible_distribution_major_version >= '17'"
 
 - name: Configuring Nginx to use UNIX sockets (Ubuntu 14+)
@@ -137,13 +137,13 @@
     - "{{ php7_fpm_service_name }}"
   when: "ansible_distribution_major_version <= '16'"
 
-- name: Restarting RadiusDesk services for PHP7.1 (Ubuntu 14+)
+- name: Restarting RadiusDesk services for PHP7.2 (Ubuntu 14+)
   service:
     name={{ item }}
     state=restarted
   with_items:
     - "{{ nginx_pkg_name }}"
-    - "{{ php71_fpm_service_name }}"
+    - "{{ php72_fpm_service_name }}"
   when: "ansible_distribution_major_version >= '17'"
 
 - name: Downloading CakePHP Source from Github (Ubuntu 14+)
@@ -229,9 +229,9 @@
     regexp='^;date.timezone'
   when: "ansible_distribution_major_version <= '16'"
 
-- name: Fix PHP7.1 Default Timezone
+- name: Fix PHP7.2 Default Timezone
   lineinfile: 
-    dest="{{ php71_config_file }}"
+    dest="{{ php72_config_file }}"
     line='date.timezone = {{ php_timezone }}'
     regexp='^;date.timezone'
   when: "ansible_distribution_major_version >= '17'"
@@ -253,9 +253,9 @@
     state=started
   when: "ansible_distribution_major_version <= '16'"
 
-- name: Ensuring PHP71-FPM is Started (Ubuntu 14+)
+- name: Ensuring PHP72-FPM is Started (Ubuntu 14+)
   service:
-    name={{ php71_fpm_service_name }}
+    name={{ php72_fpm_service_name }}
     state=started
   when: "ansible_distribution_major_version >= '17'"
 
